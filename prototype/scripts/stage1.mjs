@@ -19,7 +19,9 @@ for (const n of counts) {
     if (!filter.test(name)) continue;
     const out = `results/data/stage1/${name}.json`;
     if (existsSync(out) && !process.env.FORCE) { console.log('skip (exists)', name); continue; }
-    const r = await runPage('chrome', `?bench=stage1&${v.q}&n=${n}&dur=${dur}`, { throttleRate, timeoutMs: (dur + 60) * 1000 });
+    let r;
+    try { r = await runPage('chrome', `?bench=stage1&${v.q}&n=${n}&dur=${dur}`, { throttleRate, timeoutMs: (dur + 60) * 1000 }); }
+    catch (e) { console.log('FAILED', name, String(e).slice(0, 200)); continue; }
     save(out, r);
     const s = r.result.sim;
     console.log(name, `sim med ${s.simMs.median.toFixed(3)} p99 ${s.simMs.p99.toFixed(3)} max ${s.simMs.max.toFixed(2)} | host med ${s.hostMs.median.toFixed(3)} p99 ${s.hostMs.p99.toFixed(3)} | late p99 ${s.lateMs.p99.toFixed(2)} | pairs ${s.pairsHitPerStep.toFixed(0)}/${s.pairsTestedPerStep.toFixed(0)} | chk ${s.checksum?.toFixed(1)} | frame p99 ${r.result.frameMs.p99.toFixed(2)} >20ms ${r.result.framesOver20ms} | delivery med ${r.result.deliveryMs.median.toFixed(3)} p99 ${r.result.deliveryMs.p99.toFixed(3)} | skipped ${s.skipped} hidden ${r.result.hidden} iso ${r.result.isolated}`, r.errors.filter((e) => !/404/.test(e)).join(';'));

@@ -13,6 +13,7 @@ export async function launch(browser = 'chrome', { args = [], width = 1920, heig
   return puppeteer.launch({
     executablePath: BROWSERS[browser],
     headless,
+    protocolTimeout: 900000,
     defaultViewport: null,
     args: [
       `--window-size=${width},${height + 90}`, '--window-position=0,0',
@@ -45,8 +46,13 @@ export async function runPage(browserName, query, { throttleRate = 1, timeoutMs 
     if (before) await before(page, browser);
     await page.goto(BASE + query, { waitUntil: 'load' });
     await page.bringToFront();
-    const handle = await page.waitForFunction(expr, { timeout: timeoutMs, polling: 500 });
-    const result = await handle.jsonValue();
+    // Poll from this side: one long in-page wait would hit the DevTools protocol timeout on 5-minute runs.
+    const deadline = Date.now() + timeoutMs;
+    let result = null;
+    while (!(result = await page.evaluate(expr))) {
+      if (Date.now() > deadline) throw new Error('timed out waiting for ' + expr.slice(0, 40));
+      await new Promise((r) => setTimeout(r, 1000));
+    }
     const version = await browser.version();
     return { result, version, errors, url: BASE + query, throttleRate, measuredAt: new Date().toISOString() };
   } finally {
