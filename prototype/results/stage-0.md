@@ -20,7 +20,7 @@ Verdict: **unclear** (the skeleton works locally on the dev machine in Chrome; t
 | GPU time from `timestamp-query` | dev machine, Chrome 156 | available; a clear-only pass reads 0.00 ms (Chrome quantizes timestamps to 0.1 ms) |
 | "Not supported" page with WebGPU turned off | dev machine, Chrome 156 with `--disable-features=WebGPU --disable-gpu` | shown, reason "No GPU adapter is available." |
 | Loads from GitHub Pages | – | **unmeasured**: the branch could not be pushed (see "Blocked" below) |
-| Edge | dev machine | see Stage 4 |
+| Edge | dev machine, Edge 157.0.4341.60, local `vite preview` build | loads and renders, overlay shows numbers, adapter `nvidia ampere` (measured in Stage 4, `results/data/stage4-edge.json`) |
 | Safari | – | **unmeasured**: the dev machine runs Windows 11 and has no Safari |
 | Firefox | – | **unmeasured**: Firefox is not installed on the dev machine |
 | Gamepad input reaches the worker | – | **unmeasured**: no gamepad on the dev machine; the code path is the same as keyboard input after `navigator.getGamepads()` |
