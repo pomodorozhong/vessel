@@ -1,5 +1,6 @@
 node_modules
 dist
 sim/target
+chunks/target
 src/wasm
 .chrome-profile*
