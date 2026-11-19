@@ -1,0 +1,831 @@
+{
+ "browser": "chrome",
+ "version": "Chrome/156.0.8078.73",
+ "url": "http://localhost:4176/vessel/stage6.html",
+ "measuredAt": "2026-11-19T10:20:24.037Z",
+ "errors": [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "machine": "dev machine: i7-13700, RTX 3060, 64 GB, Windows 11; production vite build, headed, no CPU throttling",
+ "replayReps": {
+  "hour": 200,
+  "day": 200,
+  "week": 20
+ },
+ "result": {
+  "timerResolutionMs": 0.004999876022338867,
+  "crossOriginIsolated": true,
+  "reps": 200,
+  "grid": [
+   {
+    "age": "hour",
+    "ticks": 108000,
+    "events": 0,
+    "catchUp": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 108000,
+     "events": 0,
+     "reps": 200,
+     "mode": "catchup",
+     "chunkBytes": 656,
+     "eventBytes": 0,
+     "roundTripMs": {
+      "n": 200,
+      "min": 0.034999847412109375,
+      "median": 0.04500007629394531,
+      "p99": 0.15999984741210938,
+      "max": 0.25999999046325684
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 0,
+      "median": 0,
+      "p99": 0.009999990463256836,
+      "max": 0.019999980926513672
+     },
+     "workerAmortizedMs": {
+      "n": 200,
+      "min": 0.00024999380111694335,
+      "median": 0.0004999995231628418,
+      "p99": 0.0017500042915344239,
+      "max": 0.011000001430511474
+     }
+    },
+    "replay": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 108000,
+     "events": 0,
+     "reps": 200,
+     "warmup": 2,
+     "replay": true,
+     "mode": "replay",
+     "chunkBytes": 656,
+     "eventBytes": 0,
+     "roundTripMs": {
+      "n": 200,
+      "min": 4.849999904632568,
+      "median": 5.434999942779541,
+      "p99": 6.370000123977661,
+      "max": 7.184999942779541
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 4.775000095367432,
+      "median": 5.359999895095825,
+      "p99": 6.25,
+      "max": 7.075000047683716
+     },
+     "workerAmortizedMs": null,
+     "agreesWithCatchUp": true
+    }
+   },
+   {
+    "age": "hour",
+    "ticks": 108000,
+    "events": 10,
+    "catchUp": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 108000,
+     "events": 10,
+     "reps": 200,
+     "mode": "catchup",
+     "chunkBytes": 656,
+     "eventBytes": 160,
+     "roundTripMs": {
+      "n": 200,
+      "min": 0.05500006675720215,
+      "median": 0.06500005722045898,
+      "p99": 0.16499996185302734,
+      "max": 0.37000012397766113
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 0,
+      "median": 0,
+      "p99": 0.009999990463256836,
+      "max": 0.015000104904174805
+     },
+     "workerAmortizedMs": {
+      "n": 200,
+      "min": 0.001249992847442627,
+      "median": 0.0017500042915344239,
+      "p99": 0.0034999966621398924,
+      "max": 0.007249999046325684
+     }
+    },
+    "replay": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 108000,
+     "events": 10,
+     "reps": 200,
+     "warmup": 2,
+     "replay": true,
+     "mode": "replay",
+     "chunkBytes": 656,
+     "eventBytes": 160,
+     "roundTripMs": {
+      "n": 200,
+      "min": 5.634999990463257,
+      "median": 6.134999990463257,
+      "p99": 6.764999866485596,
+      "max": 8.424999952316284
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 5.569999933242798,
+      "median": 6.049999952316284,
+      "p99": 6.645000219345093,
+      "max": 8.304999828338623
+     },
+     "workerAmortizedMs": null,
+     "agreesWithCatchUp": true
+    }
+   },
+   {
+    "age": "hour",
+    "ticks": 108000,
+    "events": 1000,
+    "catchUp": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 108000,
+     "events": 1000,
+     "reps": 200,
+     "mode": "catchup",
+     "chunkBytes": 656,
+     "eventBytes": 16000,
+     "roundTripMs": {
+      "n": 200,
+      "min": 2.7300000190734863,
+      "median": 3.0299999713897705,
+      "p99": 3.700000047683716,
+      "max": 4.045000076293945
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 0.125,
+      "median": 0.1400001049041748,
+      "p99": 0.1700000762939453,
+      "max": 0.19000005722045898
+     },
+     "workerAmortizedMs": {
+      "n": 200,
+      "min": 0.12699999809265136,
+      "median": 0.14149999618530273,
+      "p99": 0.17149999141693115,
+      "max": 0.19049999713897706
+     }
+    },
+    "replay": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 108000,
+     "events": 1000,
+     "reps": 200,
+     "warmup": 2,
+     "replay": true,
+     "mode": "replay",
+     "chunkBytes": 656,
+     "eventBytes": 16000,
+     "roundTripMs": {
+      "n": 200,
+      "min": 5.8349997997283936,
+      "median": 6.389999866485596,
+      "p99": 7.804999828338623,
+      "max": 8.025000095367432
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 5.769999980926514,
+      "median": 6.320000171661377,
+      "p99": 7.690000057220459,
+      "max": 7.914999961853027
+     },
+     "workerAmortizedMs": null,
+     "agreesWithCatchUp": true
+    }
+   },
+   {
+    "age": "day",
+    "ticks": 2592000,
+    "events": 0,
+    "catchUp": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 2592000,
+     "events": 0,
+     "reps": 200,
+     "mode": "catchup",
+     "chunkBytes": 656,
+     "eventBytes": 0,
+     "roundTripMs": {
+      "n": 200,
+      "min": 0.02499985694885254,
+      "median": 0.03500008583068848,
+      "p99": 0.08000016212463379,
+      "max": 0.39999985694885254
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 0,
+      "median": 0,
+      "p99": 0.005000114440917969,
+      "max": 0.005000114440917969
+     },
+     "workerAmortizedMs": {
+      "n": 200,
+      "min": 0,
+      "median": 0.0004999995231628418,
+      "p99": 0.0007500052452087402,
+      "max": 0.0007500052452087402
+     }
+    },
+    "replay": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 2592000,
+     "events": 0,
+     "reps": 200,
+     "warmup": 2,
+     "replay": true,
+     "mode": "replay",
+     "chunkBytes": 656,
+     "eventBytes": 0,
+     "roundTripMs": {
+      "n": 200,
+      "min": 103.85500001907349,
+      "median": 108.46000003814697,
+      "p99": 115.57999992370605,
+      "max": 116.55499982833862
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 103.75499987602234,
+      "median": 108.35500001907349,
+      "p99": 115.46500015258789,
+      "max": 116.4300000667572
+     },
+     "workerAmortizedMs": null,
+     "agreesWithCatchUp": true
+    }
+   },
+   {
+    "age": "day",
+    "ticks": 2592000,
+    "events": 10,
+    "catchUp": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 2592000,
+     "events": 10,
+     "reps": 200,
+     "mode": "catchup",
+     "chunkBytes": 656,
+     "eventBytes": 160,
+     "roundTripMs": {
+      "n": 200,
+      "min": 0.04499983787536621,
+      "median": 0.059999942779541016,
+      "p99": 0.2650001049041748,
+      "max": 0.4499998092651367
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 0,
+      "median": 0,
+      "p99": 0.005000114440917969,
+      "max": 0.009999990463256836
+     },
+     "workerAmortizedMs": {
+      "n": 200,
+      "min": 0.0009999990463256836,
+      "median": 0.0014999985694885253,
+      "p99": 0.0027500033378601075,
+      "max": 0.007249999046325684
+     }
+    },
+    "replay": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 2592000,
+     "events": 10,
+     "reps": 200,
+     "warmup": 2,
+     "replay": true,
+     "mode": "replay",
+     "chunkBytes": 656,
+     "eventBytes": 160,
+     "roundTripMs": {
+      "n": 200,
+      "min": 110.93500018119812,
+      "median": 117.28999996185303,
+      "p99": 122.70000004768372,
+      "max": 123.29500007629395
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 110.81500005722046,
+      "median": 117.1399998664856,
+      "p99": 122.5550000667572,
+      "max": 123.17499995231628
+     },
+     "workerAmortizedMs": null,
+     "agreesWithCatchUp": true
+    }
+   },
+   {
+    "age": "day",
+    "ticks": 2592000,
+    "events": 1000,
+    "catchUp": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 2592000,
+     "events": 1000,
+     "reps": 200,
+     "mode": "catchup",
+     "chunkBytes": 656,
+     "eventBytes": 16000,
+     "roundTripMs": {
+      "n": 200,
+      "min": 2.734999895095825,
+      "median": 2.9649999141693115,
+      "p99": 3.5249998569488525,
+      "max": 3.8899998664855957
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 0.125,
+      "median": 0.1400001049041748,
+      "p99": 0.20000004768371582,
+      "max": 0.23000001907348633
+     },
+     "workerAmortizedMs": {
+      "n": 200,
+      "min": 0.128000009059906,
+      "median": 0.13899999856948853,
+      "p99": 0.16575000286102295,
+      "max": 0.18250000476837158
+     }
+    },
+    "replay": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 2592000,
+     "events": 1000,
+     "reps": 200,
+     "warmup": 2,
+     "replay": true,
+     "mode": "replay",
+     "chunkBytes": 656,
+     "eventBytes": 16000,
+     "roundTripMs": {
+      "n": 200,
+      "min": 137.72000002861023,
+      "median": 144.21000003814697,
+      "p99": 152.94500017166138,
+      "max": 154.06000018119812
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 137.6050000190735,
+      "median": 144.07999992370605,
+      "p99": 152.8199999332428,
+      "max": 153.92499995231628
+     },
+     "workerAmortizedMs": null,
+     "agreesWithCatchUp": true
+    }
+   },
+   {
+    "age": "week",
+    "ticks": 18144000,
+    "events": 0,
+    "catchUp": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 18144000,
+     "events": 0,
+     "reps": 200,
+     "mode": "catchup",
+     "chunkBytes": 656,
+     "eventBytes": 0,
+     "roundTripMs": {
+      "n": 200,
+      "min": 0.02499985694885254,
+      "median": 0.03500008583068848,
+      "p99": 0.27500009536743164,
+      "max": 1.7899999618530273
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 0,
+      "median": 0,
+      "p99": 0.005000114440917969,
+      "max": 0.005000114440917969
+     },
+     "workerAmortizedMs": {
+      "n": 200,
+      "min": 0.00024999380111694335,
+      "median": 0.0004999995231628418,
+      "p99": 0.0007500052452087402,
+      "max": 0.0009999990463256836
+     }
+    },
+    "replay": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 18144000,
+     "events": 0,
+     "reps": 20,
+     "warmup": 2,
+     "replay": true,
+     "mode": "replay",
+     "chunkBytes": 656,
+     "eventBytes": 0,
+     "roundTripMs": {
+      "n": 20,
+      "min": 742.8899998664856,
+      "median": 759.1549999713898,
+      "p99": 807.5699999332428,
+      "max": 807.5699999332428
+     },
+     "workerComputeMs": {
+      "n": 20,
+      "min": 742.7649998664856,
+      "median": 759.0349998474121,
+      "p99": 807.4249999523163,
+      "max": 807.4249999523163
+     },
+     "workerAmortizedMs": null,
+     "agreesWithCatchUp": true
+    }
+   },
+   {
+    "age": "week",
+    "ticks": 18144000,
+    "events": 10,
+    "catchUp": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 18144000,
+     "events": 10,
+     "reps": 200,
+     "mode": "catchup",
+     "chunkBytes": 656,
+     "eventBytes": 160,
+     "roundTripMs": {
+      "n": 200,
+      "min": 0.04999995231628418,
+      "median": 0.06000018119812012,
+      "p99": 0.15000009536743164,
+      "max": 0.36999988555908203
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 0,
+      "median": 0,
+      "p99": 0.005000114440917969,
+      "max": 0.009999990463256836
+     },
+     "workerAmortizedMs": {
+      "n": 200,
+      "min": 0.0009999990463256836,
+      "median": 0.0014999985694885253,
+      "p99": 0.0032499909400939943,
+      "max": 0.01625000238418579
+     }
+    },
+    "replay": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 18144000,
+     "events": 10,
+     "reps": 20,
+     "warmup": 2,
+     "replay": true,
+     "mode": "replay",
+     "chunkBytes": 656,
+     "eventBytes": 160,
+     "roundTripMs": {
+      "n": 20,
+      "min": 767.2799999713898,
+      "median": 794.585000038147,
+      "p99": 882.875,
+      "max": 882.875
+     },
+     "workerComputeMs": {
+      "n": 20,
+      "min": 767.1600000858307,
+      "median": 794.3899998664856,
+      "p99": 882.6950001716614,
+      "max": 882.6950001716614
+     },
+     "workerAmortizedMs": null,
+     "agreesWithCatchUp": true
+    }
+   },
+   {
+    "age": "week",
+    "ticks": 18144000,
+    "events": 1000,
+    "catchUp": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 18144000,
+     "events": 1000,
+     "reps": 200,
+     "mode": "catchup",
+     "chunkBytes": 656,
+     "eventBytes": 16000,
+     "roundTripMs": {
+      "n": 200,
+      "min": 2.2299997806549072,
+      "median": 2.455000162124634,
+      "p99": 4.2799999713897705,
+      "max": 4.585000038146973
+     },
+     "workerComputeMs": {
+      "n": 200,
+      "min": 0.10499978065490723,
+      "median": 0.11500000953674316,
+      "p99": 0.21000003814697266,
+      "max": 0.2799999713897705
+     },
+     "workerAmortizedMs": {
+      "n": 200,
+      "min": 0.10374999046325684,
+      "median": 0.11400001049041748,
+      "p99": 0.20175000429153442,
+      "max": 0.21425000429153443
+     }
+    },
+    "replay": {
+     "plots": 64,
+     "furnaces": 8,
+     "age": 18144000,
+     "events": 1000,
+     "reps": 20,
+     "warmup": 2,
+     "replay": true,
+     "mode": "replay",
+     "chunkBytes": 656,
+     "eventBytes": 16000,
+     "roundTripMs": {
+      "n": 20,
+      "min": 949.375,
+      "median": 992.4049999713898,
+      "p99": 1191.6650002002716,
+      "max": 1191.6650002002716
+     },
+     "workerComputeMs": {
+      "n": 20,
+      "min": 949.2749998569489,
+      "median": 992.2599999904633,
+      "p99": 1191.5249998569489,
+      "max": 1191.5249998569489
+     },
+     "workerAmortizedMs": null,
+     "agreesWithCatchUp": true
+    }
+   }
+  ],
+  "limits": [
+   {
+    "label": "week, 64 plots + 8 furnaces, 10000 events",
+    "plots": 64,
+    "furnaces": 8,
+    "age": 18144000,
+    "events": 10000,
+    "reps": 50,
+    "inner": 3,
+    "mode": "catchup",
+    "chunkBytes": 656,
+    "eventBytes": 160000,
+    "roundTripMs": {
+     "n": 50,
+     "min": 4.4100000858306885,
+     "median": 4.819999933242798,
+     "p99": 8.400000095367432,
+     "max": 8.400000095367432
+    },
+    "workerComputeMs": {
+     "n": 50,
+     "min": 1.0950000286102295,
+     "median": 1.1749999523162842,
+     "p99": 2.18500018119812,
+     "max": 2.18500018119812
+    },
+    "workerAmortizedMs": {
+     "n": 50,
+     "min": 1.0833333333333333,
+     "median": 1.1833333174387615,
+     "p99": 2.0433332920074463,
+     "max": 2.0433332920074463
+    }
+   },
+   {
+    "label": "week, 64 plots + 8 furnaces, 100000 events",
+    "plots": 64,
+    "furnaces": 8,
+    "age": 18144000,
+    "events": 100000,
+    "reps": 50,
+    "inner": 3,
+    "mode": "catchup",
+    "chunkBytes": 656,
+    "eventBytes": 1600000,
+    "roundTripMs": {
+     "n": 50,
+     "min": 56.72500014305115,
+     "median": 61.61500000953674,
+     "p99": 80.23000001907349,
+     "max": 80.23000001907349
+    },
+    "workerComputeMs": {
+     "n": 50,
+     "min": 13.889999866485596,
+     "median": 15.514999866485596,
+     "p99": 22.125,
+     "max": 22.125
+    },
+    "workerAmortizedMs": {
+     "n": 50,
+     "min": 13.866666634877523,
+     "median": 14.919999996821085,
+     "p99": 19.883333285649616,
+     "max": 19.883333285649616
+    }
+   },
+   {
+    "label": "week, 64 plots + 8 furnaces, 1000000 events",
+    "plots": 64,
+    "furnaces": 8,
+    "age": 18144000,
+    "events": 1000000,
+    "reps": 50,
+    "inner": 3,
+    "mode": "catchup",
+    "chunkBytes": 656,
+    "eventBytes": 16000000,
+    "roundTripMs": {
+     "n": 50,
+     "min": 518.7999999523163,
+     "median": 572.1500000953674,
+     "p99": 651.670000076294,
+     "max": 651.670000076294
+    },
+    "workerComputeMs": {
+     "n": 50,
+     "min": 129.2649998664856,
+     "median": 141.80999994277954,
+     "p99": 165.6050000190735,
+     "max": 165.6050000190735
+    },
+    "workerAmortizedMs": {
+     "n": 50,
+     "min": 128.3349999586741,
+     "median": 142.65333326657614,
+     "p99": 165.74166663487753,
+     "max": 165.74166663487753
+    }
+   },
+   {
+    "label": "week, 1024 plots + 128 furnaces, 1000 events",
+    "plots": 1024,
+    "furnaces": 128,
+    "age": 18144000,
+    "events": 1000,
+    "reps": 50,
+    "inner": 3,
+    "mode": "catchup",
+    "chunkBytes": 10256,
+    "eventBytes": 16000,
+    "roundTripMs": {
+     "n": 50,
+     "min": 4.924999952316284,
+     "median": 5.430000066757202,
+     "p99": 11.085000038146973,
+     "max": 11.085000038146973
+    },
+    "workerComputeMs": {
+     "n": 50,
+     "min": 1.2049999237060547,
+     "median": 1.3250000476837158,
+     "p99": 2.255000114440918,
+     "max": 2.255000114440918
+    },
+    "workerAmortizedMs": {
+     "n": 50,
+     "min": 1.2266666889190674,
+     "median": 1.346666653951009,
+     "p99": 3.069999933242798,
+     "max": 3.069999933242798
+    }
+   },
+   {
+    "label": "week, 16384 plots + 2048 furnaces, 1000 events",
+    "plots": 16384,
+    "furnaces": 2048,
+    "age": 18144000,
+    "events": 1000,
+    "reps": 50,
+    "inner": 3,
+    "mode": "catchup",
+    "chunkBytes": 163856,
+    "eventBytes": 16000,
+    "roundTripMs": {
+     "n": 50,
+     "min": 81.20499992370605,
+     "median": 85.77500009536743,
+     "p99": 117.67000007629395,
+     "max": 117.67000007629395
+    },
+    "workerComputeMs": {
+     "n": 50,
+     "min": 19.490000009536743,
+     "median": 21.15499997138977,
+     "p99": 38.639999866485596,
+     "max": 38.639999866485596
+    },
+    "workerAmortizedMs": {
+     "n": 50,
+     "min": 20.308333317438763,
+     "median": 21.391666650772095,
+     "p99": 31.55666669209798,
+     "max": 31.55666669209798
+    }
+   },
+   {
+    "label": "1 game year (946,080,000 ticks), 64+8, 1000 events",
+    "plots": 64,
+    "furnaces": 8,
+    "age": 946080000,
+    "events": 1000,
+    "reps": 50,
+    "inner": 3,
+    "mode": "catchup",
+    "chunkBytes": 656,
+    "eventBytes": 16000,
+    "roundTripMs": {
+     "n": 50,
+     "min": 0.33500003814697266,
+     "median": 0.36500000953674316,
+     "p99": 0.6200001239776611,
+     "max": 0.6200001239776611
+    },
+    "workerComputeMs": {
+     "n": 50,
+     "min": 0.07000017166137695,
+     "median": 0.08000016212463379,
+     "p99": 0.13499999046325684,
+     "max": 0.13499999046325684
+    },
+    "workerAmortizedMs": {
+     "n": 50,
+     "min": 0.07499996821085612,
+     "median": 0.08333333333333333,
+     "p99": 0.14166673024495444,
+     "max": 0.14166673024495444
+    }
+   },
+   {
+    "label": "100 game years (94,608,000,000 ticks), 64+8, 1000 events",
+    "plots": 64,
+    "furnaces": 8,
+    "age": 94608000000,
+    "events": 1000,
+    "reps": 50,
+    "inner": 3,
+    "mode": "catchup",
+    "chunkBytes": 656,
+    "eventBytes": 16000,
+    "roundTripMs": {
+     "n": 50,
+     "min": 0.3249998092651367,
+     "median": 0.3399999141693115,
+     "p99": 0.39499998092651367,
+     "max": 0.39499998092651367
+    },
+    "workerComputeMs": {
+     "n": 50,
+     "min": 0.06999993324279785,
+     "median": 0.07999992370605469,
+     "p99": 0.10499978065490723,
+     "max": 0.10499978065490723
+    },
+    "workerAmortizedMs": {
+     "n": 50,
+     "min": 0.07333334287007649,
+     "median": 0.07666667302449544,
+     "p99": 0.08999999364217122,
+     "max": 0.08999999364217122
+    }
+   }
+  ]
+ }
+}

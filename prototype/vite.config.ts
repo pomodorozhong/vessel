@@ -15,8 +15,9 @@ export default defineConfig({
     assetsInlineLimit: 0,
     rollupOptions: {
       input: {
-        main: 'index.html',
-        three: 'three.html',
+        main: 'index.html',     // Stages 0 to 4
+        three: 'three.html',    // Stage 3: Three.js comparison
+        stage6: 'stage6.html',  // Stage 6: chunk catch-up and saves
       },
     },
   },
