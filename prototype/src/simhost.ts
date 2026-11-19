@@ -6,20 +6,22 @@ import { SimTs } from './sim-ts';
 export interface Backend {
   step(moveX: number, moveY: number, buttons: number): void;
   snapshot(): Uint8Array; // view of the current snapshot (header + entries); valid until the next step
+  blocked(): Uint8Array; // copy of the obstacle grid (256 x 256 cells)
   stats?(): { pairsTested: number; pairsHit: number; flowRebuilds: number; checksum: number };
 }
 
-export async function createBackend(kind: string, module: WebAssembly.Module | null, n: number, seed: number): Promise<Backend> {
+export async function createBackend(kind: string, module: WebAssembly.Module | null, n: number, seed: number, spawn = 0): Promise<Backend> {
   if (kind === 'ts') {
-    const s = new SimTs(n, seed);
-    return { step: (x, y, b) => s.step(x, y, b), snapshot: () => s.snapshot(), stats: () => ({ pairsTested: s.pairsTested, pairsHit: s.pairsHit, flowRebuilds: s.flowRebuilds, checksum: s.checksum() }) };
+    const s = new SimTs(n, seed, spawn);
+    return { blocked: () => s.blocked.slice(), step: (x, y, b) => s.step(x, y, b), snapshot: () => s.snapshot(), stats: () => ({ pairsTested: s.pairsTested, pairsHit: s.pairsHit, flowRebuilds: s.flowRebuilds, checksum: s.checksum() }) };
   }
   const instance = await WebAssembly.instantiate(module!, { env: { now: () => performance.now() } });
   const ex = instance.exports as any;
-  ex.init(n, seed);
+  ex.init(n, seed, spawn);
   const memory = ex.memory as WebAssembly.Memory;
   let view = new Uint8Array(memory.buffer, ex.snapshot_ptr(), ex.snapshot_len());
   return {
+    blocked: () => new Uint8Array(memory.buffer, ex.blocked_ptr(), 65536).slice(),
     step: (x, y, b) => ex.step(x, y, b),
     // The view is reused; it is only rebuilt if WASM memory grew (it never does after init).
     snapshot: () => (view.buffer === memory.buffer ? view : (view = new Uint8Array(memory.buffer, ex.snapshot_ptr(), ex.snapshot_len()))),

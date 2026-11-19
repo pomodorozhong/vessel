@@ -4,7 +4,7 @@
 //!
 //! `prototype/src/sim-ts.ts` is the same algorithm in typed-array TypeScript. Keep them in step.
 
-pub const HEADER_BYTES: usize = 64;
+pub const HEADER_BYTES: usize = 80;
 pub const ENTRY_BYTES: usize = 32;
 
 pub const GRID: usize = 256; // cells per side; a cell is 1 world unit
@@ -133,7 +133,7 @@ pub fn kind_speed(kind: u32) -> f32 {
 }
 
 impl Sim {
-    pub fn new(n: usize, seed: u32) -> Sim {
+    pub fn new(n: usize, seed: u32, spawn_radius: f32) -> Sim {
         let mut rng = Rng(seed.wrapping_mul(2_654_435_761).max(1));
         // Obstacles: a border wall, single "trees" and short wall segments. The centre stays clear.
         let mut blocked = vec![0u8; CELLS];
@@ -181,8 +181,13 @@ impl Sim {
         a.id[0] = 0;
         for i in 1..n {
             loop {
-                let x = 1.0 + rng.unit() * (GRID as f32 - 2.0);
-                let y = 1.0 + rng.unit() * (GRID as f32 - 2.0);
+                let mut x = 1.0 + rng.unit() * (GRID as f32 - 2.0);
+                let mut y = 1.0 + rng.unit() * (GRID as f32 - 2.0);
+                if spawn_radius > 0.0 {
+                    // Dense start for render tests: spawn inside a square around the player.
+                    x = centre as f32 + (x / GRID as f32 - 0.5) * 2.0 * spawn_radius;
+                    y = centre as f32 + (y / GRID as f32 - 0.5) * 2.0 * spawn_radius;
+                }
                 if blocked[cell_index(x, y) as usize] == 0 {
                     a.x[i] = x;
                     a.y[i] = y;
@@ -626,6 +631,8 @@ impl Sim {
         f(h, 9, (t2 - t1) as f32);
         f(h, 10, plx);
         f(h, 11, ply);
+        f(h, 16, self.a.px[self.player_slot]);
+        f(h, 17, self.a.py[self.player_slot]);
     }
 
     pub fn snapshot(&self) -> &[u8] {
@@ -652,8 +659,8 @@ fn sim() -> &'static mut Sim {
 }
 
 #[no_mangle]
-pub extern "C" fn init(n: u32, seed: u32) {
-    unsafe { SIM = Some(Sim::new(n as usize, seed)) };
+pub extern "C" fn init(n: u32, seed: u32, spawn_radius: f32) {
+    unsafe { SIM = Some(Sim::new(n as usize, seed, spawn_radius)) };
 }
 
 /// Steps the whole sim once. One coarse call per step, never one per entity.

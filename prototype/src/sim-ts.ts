@@ -1,7 +1,6 @@
 // The Stage 1 sim in careful typed-array TypeScript: the same algorithm as prototype/sim/src/lib.rs,
 // line for line where the languages allow, with no allocation in step(). Keep the two in step.
 import { ENTRY_BYTES, HEADER_BYTES } from './protocol';
-import type { Backend } from './simhost';
 
 const GRID = 256;
 const CELLS = GRID * GRID;
@@ -51,7 +50,7 @@ function hash(a: number, b: number): number {
   return (h ^ (h >>> 13)) >>> 0;
 }
 
-export class SimTs implements Backend {
+export class SimTs {
   private n: number;
   private tick = 0;
   private a: Table;
@@ -78,7 +77,7 @@ export class SimTs implements Backend {
   pairsHit = 0;
   flowRebuilds = 0;
 
-  constructor(n: number, seed: number) {
+  constructor(n: number, seed: number, spawnRadius = 0) {
     this.n = n;
     let rs = Math.max(1, Math.imul(seed, 2654435761) >>> 0);
     const next = () => { rs ^= rs << 13; rs >>>= 0; rs ^= rs >>> 17; rs ^= rs << 5; rs >>>= 0; return rs; };
@@ -110,8 +109,12 @@ export class SimTs implements Backend {
     a.x[0] = centre + 0.5; a.y[0] = centre + 0.5; a.radius[0] = PLAYER_RADIUS; a.kind[0] = PLAYER_KIND; a.id[0] = 0;
     for (let i = 1; i < n; i++) {
       for (;;) {
-        const x = Math.fround(1 + Math.fround(unit() * (GRID - 2)));
-        const y = Math.fround(1 + Math.fround(unit() * (GRID - 2)));
+        let x = Math.fround(1 + Math.fround(unit() * (GRID - 2)));
+        let y = Math.fround(1 + Math.fround(unit() * (GRID - 2)));
+        if (spawnRadius > 0) {
+          x = Math.fround(centre + (x / GRID - 0.5) * 2 * spawnRadius);
+          y = Math.fround(centre + (y / GRID - 0.5) * 2 * spawnRadius);
+        }
         if (blocked[cellIndex(x, y)] === 0) { a.x[i] = x; a.y[i] = y; break; }
       }
       const kind = i % KINDS;
@@ -364,6 +367,7 @@ export class SimTs implements Backend {
     u[0] = start; u[1] = this.tick; u[2] = this.n;
     f[4] = t5 - t0; f[5] = t3 - t2; f[6] = t4 - t3; f[7] = t1 - t0; f[8] = t5 - t4; f[9] = t2 - t1;
     f[10] = this.a.x[this.playerSlot]; f[11] = this.a.y[this.playerSlot];
+    f[16] = this.a.px[this.playerSlot]; f[17] = this.a.py[this.playerSlot];
   }
 
   snapshot(): Uint8Array { return this.snapBytes; }

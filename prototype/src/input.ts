@@ -1,16 +1,17 @@
 import type { InputState } from './protocol';
-import { wallNow } from './protocol';
 
 // Keyboard, mouse and gamepad are merged into one input state, read once per frame.
 const keys = new Set<string>();
 let mouseButtons = 0;
 let seq = 0;
-let lastSent = '';
+let lastX = 0, lastY = 0, lastButtons = 0;
+let eventTime = 0; // when the oldest input event not yet sent happened (performance.now timeline)
+const mark = (e: Event) => { if (!eventTime) eventTime = e.timeStamp; };
 export const gamepadInfo = { id: '', mapping: '', connected: false };
 
 export function installInput(canvas: HTMLCanvasElement) {
-  addEventListener('keydown', (e) => { keys.add(e.code); });
-  addEventListener('keyup', (e) => { keys.delete(e.code); });
+  addEventListener('keydown', (e) => { if (!e.repeat) mark(e); keys.add(e.code); });
+  addEventListener('keyup', (e) => { mark(e); keys.delete(e.code); });
   addEventListener('blur', () => { keys.clear(); mouseButtons = 0; });
   canvas.addEventListener('mousedown', (e) => { mouseButtons |= 1 << e.button; });
   addEventListener('mouseup', (e) => { mouseButtons &= ~(1 << e.button); });
@@ -45,8 +46,10 @@ export function pollInput(): InputState | null {
   }
   const len = Math.hypot(x, y);
   if (len > 1) { x /= len; y /= len; }
-  const key = `${x.toFixed(3)},${y.toFixed(3)},${buttons}`;
-  if (key === lastSent) return null;
-  lastSent = key;
-  return { seq: ++seq, moveX: x, moveY: y, buttons, t: wallNow() };
+  if (x === lastX && y === lastY && buttons === lastButtons) { eventTime = 0; return null; }
+  lastX = x; lastY = y; lastButtons = buttons;
+  // t is the time of the event that caused the change (for gamepads: the poll time, the API has no event time).
+  const t = eventTime || performance.now();
+  eventTime = 0;
+  return { seq: ++seq, moveX: x, moveY: y, buttons, t };
 }

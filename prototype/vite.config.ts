@@ -10,7 +10,16 @@ const isolate = process.env.VESSEL_ISOLATE === '0' ? {} : {
 
 export default defineConfig({
   base: '/vessel/',
-  build: { target: 'es2022', assetsInlineLimit: 0 },
+  build: {
+    target: 'es2022',
+    assetsInlineLimit: 0,
+    rollupOptions: {
+      input: {
+        main: 'index.html',
+        three: 'three.html',
+      },
+    },
+  },
   worker: { format: 'es' },
   server: { headers: isolate },
   preview: { headers: isolate },
