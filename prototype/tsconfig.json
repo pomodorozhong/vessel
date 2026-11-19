@@ -10,5 +10,5 @@
     "skipLibCheck": true,
     "noEmit": true
   },
-  "include": ["src", "stage6"]
+  "include": ["src", "stage5/*.ts", "stage6"]
 }

@@ -17,10 +17,12 @@ export default defineConfig({
       input: {
         main: 'index.html',     // Stages 0 to 4
         three: 'three.html',    // Stage 3: Three.js comparison
+        stage5: 'stage5.html',  // Stage 5: startup and hosting
         stage6: 'stage6.html',  // Stage 6: chunk catch-up and saves
       },
     },
   },
+  define: { __BUILD_TAG__: JSON.stringify(process.env.VESSEL_BUILD_TAG ?? 'dev') }, // Stage 5: differs per build so chunk hashes differ
   worker: { format: 'es' },
   server: { headers: isolate },
   preview: { headers: isolate },

@@ -1,0 +1,22 @@
+[package]
+name = "bc7tool"
+version = "0.0.0"
+edition = "2021"
+
+# Build-time only. mipple is a pure-Rust BC7 encoder with rate-distortion optimization (RDO, lambda > 0).
+# Library only: its CLI and wgpu GPU encoder are switched off.
+[dependencies]
+mipple = { version = "=0.9.102", default-features = false }
+
+# mipple at opt-level 1, 2 and 3 did not finish compiling in 30+ minutes on this machine (LLVM optimization of the
+# crate; at opt-level 0 it builds in about 3 minutes). So mipple is built unoptimized: the output bytes and PSNR are
+# the same, only encode time is slower (a 2048x2048 RDO encode takes minutes). It needs a big stack: the build script
+# sets RUST_MIN_STACK.
+[profile.release]
+opt-level = 2
+codegen-units = 16
+debug = false
+incremental = false
+
+[profile.release.package.mipple]
+opt-level = 0
