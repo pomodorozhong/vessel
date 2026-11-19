@@ -153,3 +153,25 @@ Stage 0 comes first, since every other stage builds on it. After that, run every
 - A results table per stage, with numbers from the reference phone.
 - A one-page report: which hypotheses held, which failed, and what changes in the tech direction.
 - A PR that updates `tech-direction.md` with measured values and any changed decisions.
+
+## Reviewing the results
+
+The results PR is reviewed against these rules, so reviews settle decisions instead of going in circles the way prose-only reviews of the tech direction did.
+
+What to check:
+- Every number comes from the reference phone (or the named device), with the build, browser version, entity count, and test settings next to it, so anyone can rerun it.
+- Each hypothesis has a verdict (held, failed, or unclear), and the verdict follows from the numbers and the pass bar, not from impressions.
+- A failed hypothesis leads to the fallback decision written in its stage, or the PR says why it does not.
+- Comparisons are fair: both sides were built with the same care, measured the same way, and on the same scene. A ruled-out option that wins should change the decision.
+- Each change to `tech-direction.md` traces back to a result in the report. Nothing else in the doc changes in this PR.
+- Limits found by pushing past the pass bars are recorded, so later work knows the headroom.
+
+How to rate findings:
+- P1: a result is missing, wrong, or not reproducible, or a decision in the tech direction is kept or changed against what the numbers show. These block the PR.
+- P2: a measurement is weaker than it should be (too short, too few runs, missing a device), but the verdict would likely stand. Fix it if cheap, otherwise note it.
+- Not a finding: edge cases in how the real game will implement a system. Those belong in that system's own code and tests, not in this review or the tech direction.
+
+How to run the review:
+- Give the reviewer this section, the report, and the results tables, not just the diff.
+- A finding must name the result or decision it is about and what would change if it were fixed.
+- If a second review finds P1s only in areas the first review's fixes touched, stop reviewing and rerun the measurement instead.
