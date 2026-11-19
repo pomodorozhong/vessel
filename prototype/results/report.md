@@ -1,6 +1,6 @@
 # Prototype report (run 1)
 
-Everything here was measured on the **dev machine**: Intel Core i7-13700, 64 GB, NVIDIA RTX 3060, Windows 11 Pro 10.0.26200, Chrome 156.0.8078.73 (Edge 157.0.4341.60 where named), on local production builds. "Throttled" means Chrome's 4× CPU throttling, which cannot reach workers. **No number is a reference-device result, and nothing ran on GitHub Pages**: the branch could not be pushed (see "Blocked"). Details, tables, raw data and rerun steps are in `stage-0.md` to `stage-6.md`.
+Everything here was measured on the **dev machine**: Intel Core i7-13700, 64 GB, NVIDIA RTX 3060, Windows 11 Pro 10.0.26200, Chrome 156.0.8078.73 (Edge 157.0.4341.60 where named), on local production builds. "Throttled" means Chrome's 4× CPU throttling, which cannot reach workers. **No number is a reference-device result, and nothing ran on GitHub Pages**: the branch could not be pushed to the repository (see "Blocked"). Details, tables, raw data and rerun steps are in `stage-0.md` to `stage-6.md`.
 
 ## Verdicts
 
@@ -43,7 +43,7 @@ No fallback was applied. Stage 1's fallback (cut the entity target or step rate 
 
 P1 (a result is missing):
 
-1. **Nothing was pushed or deployed.** `git push` returns 403 for the account on the dev machine (read-only on `pomodorozhong/vessel`; the GitHub API reports `push: false`). The API reported no Pages site when the run started and reports one at the end (`has_pages: true`), but nothing of this branch is on it. So Stage 0's "loads from GitHub Pages" and every real-Pages check in Stage 5 (our own file types' headers, real CDN behaviour during a deploy) are missing, and there is no PR yet.
+1. **Nothing was pushed or deployed.** `git push` returns 403 for the account on the dev machine (read-only on `pomodorozhong/vessel`; the GitHub API reports `push: false`). The API reported no Pages site when the run started and reports one at the end (`has_pages: true`), but nothing of this branch is on it. So Stage 0's "loads from GitHub Pages" and every real-Pages check in Stage 5 (our own file types' headers, real CDN behaviour during a deploy) are missing. The PR is opened from a fork instead (see "Blocked").
 2. **Stage 4's pass bar cannot be judged**: macOS (Chrome, Edge, Safari), Firefox, sleep/wake and gamepads were not run.
 
 P2 (weaker than it should be; the verdict would likely stand):
@@ -80,8 +80,8 @@ The core decisions (raw WebGPU, Rust/WASM sim in a worker, GitHub Pages, owning 
 
 ## Blocked
 
-- `git push -u origin prototype/run-1` fails with 403: the signed-in account (`skymiku39`) has read access only. All commits are local on `prototype/run-1` (last retried after the final commit). No fork was created and nothing was published elsewhere.
-- Because of that there is no Pages deploy and no PR. The workflow (`.github/workflows/deploy.yml`) is written but has never run. To finish: push the branch with an account that can write (or give `skymiku39` write access), check that Pages uses "GitHub Actions" as its source and that the `github-pages` environment allows this branch, open the PR, and run the Pages steps above.
+- `git push -u origin prototype/run-1` fails with 403: the signed-in account (`skymiku39`) has read access only. With the owner's agreement the branch was then pushed to a fork (`skymiku39/vessel`) and the PR to `main` is opened from there.
+- There is still no Pages deploy of this branch: the workflow (`.github/workflows/deploy.yml`) deploys on a push to `main` or `prototype/run-1` in the repository itself, and has never run there. To finish: push the branch to `pomodorozhong/vessel` with an account that can write (or merge the PR), check that Pages uses "GitHub Actions" as its source and that the `github-pages` environment allows the branch, and run the Pages steps above.
 
 ## Assumptions made where the plan was silent
 
