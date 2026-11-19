@@ -5,11 +5,21 @@ The prototype is throwaway code that tests the riskiest bets in [tech-direction.
 ## Ground rules
 
 - Test on the reference device: a mid-range Android phone a few years old, in Chrome. Also check a desktop in Chrome and an iPhone in Safari for anything that differs by browser.
-- Every test records its numbers in the debug overlay and in a results table in this folder, so results can be compared across changes.
+- Every test records its numbers in the debug overlay and in a results table under `prototype/results/`, so results can be compared across changes.
 - Fix the test scene before starting: decide side-view or top-down (the open question in the tech direction). The default is top-down if no decision is made, since it stresses rendering and crowds harder.
 - Optimize for findings, not speed. Where a stage can test an alternative cheaply, build both and compare, including options the tech direction ruled out, so each decision rests on a measurement rather than an argument.
 - Push every test past its pass bar to find where it breaks (entity count, frame rate, delay), so the doc records the real limit, not just that the target was met.
 - A stage that fails its pass bar triggers its fallback decision, not more tuning, unless the miss is small and the cause is obvious.
+
+## How it runs
+
+The whole plan runs in one pass by one agent, from Stage 0 to the Stage 7 review, without stopping for questions. Choices the plan leaves open take their stated defaults.
+
+- Code goes under `prototype/`, results under `prototype/results/` (one `stage-N.md` per stage and a `report.md`), all on one branch, `prototype/run-1`, with a commit after each stage and one PR at the end.
+- Independent stages run in parallel as subagents in separate worktrees and are merged back into the branch.
+- The agent has no phone. It measures in a real browser with WebGPU on its own machine, and approximates the reference phone with Chrome's CPU throttling (4x to 6x), a 30 fps frame cap, and a lower resolution. Every number is labeled "desktop" or "desktop, throttled", never presented as a phone result.
+- A verdict that depends on the real phone (heat, mobile GPU limits, mobile Safari) is marked "provisional", and the results file gives exact steps for a person to rerun it on the phone. Anything that cannot be measured is said to be unmeasured, never guessed.
+- Each `stage-N.md` holds the results table, the limits found, the verdict (held, failed, unclear, or provisional), and the fallback that applies if it failed.
 
 ## Stage 0: skeleton
 
@@ -146,7 +156,7 @@ If it fails: simplify the catch-up rules (for example, freeze chunks that have p
 
 ## Stage 7: review the results
 
-Once every other stage is done, the results PR is reviewed against these rules, so reviews settle decisions instead of going in circles the way prose-only reviews of the tech direction did.
+Once every other stage is done, the agent reviews its own results against these rules (and a person can review the PR the same way), so reviews settle decisions instead of going in circles the way prose-only reviews of the tech direction did.
 
 Why the prototype exists, which the review and the tech direction update should keep in mind:
 - The tech direction went through about eight rounds of review, and every round found two or more P1s. Almost all of them were in three areas: the snapshot hand-off between the sim worker and the main thread, chunk catch-up, and deploys on GitHub Pages.
@@ -183,6 +193,6 @@ Stage 0 comes first, since every other stage builds on it. After that, run every
 
 ## Output
 
-- A results table per stage, with numbers from the reference phone.
-- A one-page report: which hypotheses held, which failed, and what changes in the tech direction.
-- A PR that updates `tech-direction.md` with measured values and any changed decisions.
+- A results file per stage in `prototype/results/`, with every number labeled by where it was measured.
+- `prototype/results/report.md`, one page: each hypothesis's verdict and the numbers behind it, the limits found, which ruled-out options won or lost, the P1 and P2 findings from Stage 7, and the phone runs still needed.
+- One PR from `prototype/run-1` with the prototype, the results, and the updates to `tech-direction.md` that the results call for.
