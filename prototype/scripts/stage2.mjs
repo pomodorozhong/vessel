@@ -12,6 +12,8 @@ for (const [design, lag] of [['A', 2], ['B', 0]]) for (const cap of [0, 30]) for
 for (const lag of [1, 1.5, 2.5, 3]) for (const cap of [0, 30]) runs.push({ name: `A-lag${lag}-${cap || 60}fps-delay20`, q: `design=A&lag=${lag}&cap=${cap}&delay=20` });
 for (const design of ['A', 'B']) for (const stall of [100, 500]) runs.push({ name: `${design}-stall${stall}`, q: `design=${design}&lag=2&delay=20&stall=${stall}`, dur: 125 });
 runs.push({ name: 'A-lag2-60fps-delay20-pool3', q: 'design=A&lag=2&delay=20&pool=3&maxq=1' });
+runs.push({ name: 'A-lag2-60fps-delay20-pool4', q: 'design=A&lag=2&delay=20&pool=4&maxq=2' });
+runs.push({ name: 'A-lag2-60fps-delay20-pool5', q: 'design=A&lag=2&delay=20&pool=5&maxq=3' });
 runs.push({ name: 'A-lag2-60fps-delay0-heap', q: 'design=A&lag=2&delay=0', dur: 60 });
 runs.push({ name: 'A-lag2-60fps-delay20-main', q: 'design=A&lag=2&delay=20&thread=main' });
 
