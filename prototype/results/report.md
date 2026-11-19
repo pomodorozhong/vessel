@@ -62,7 +62,7 @@ P2 (weaker than it should be; the verdict would likely stand):
 - Threads and workers: the measured snapshot design, lag (2 steps), queue (3) and pool (6) (Stage 2).
 - Ruled out: measured numbers for Three.js (Stage 3) and the TypeScript sim (Stage 1); the SIMD claim in the stack table is reduced to what was measured (Stage 1).
 - Rendering: measured CPU cost and draw count, and that the plain path's gap is small (Stage 3).
-- WebGPU trade-off: a lost device can fail to come back until a reload (Stage 4).
+- WebGPU trade-off: after repeated crashes a lost device does not come back, at first until a reload and then not even after one (Stage 4).
 - Asset pipeline and hosting: Pages gzips `application/wasm` and `application/octet-stream`; the meshopt decoder is about 29 KB, not a few KB; measured meshopt and RDO gains; first-chunk size limit (Stage 5).
 - Chunks and saves: the two catch-up rules the property test forced, the slab rule for saves, and that `persist()` was refused (Stage 6).
 - Prototype first: a pointer to this report and a note that all quoted numbers are dev-machine numbers.
@@ -96,5 +96,5 @@ The core decisions (raw WebGPU, Rust/WASM sim in a worker, GitHub Pages, owning 
 - Stage 5 measured against a local emulator built from headers observed on other public `github.io` sites; "Fast 4G" is Chrome's preset (9 Mbit/s down, 165 ms latency).
 - Stage 6: chunks of 64 plots and 8 furnaces, a 4,096-chunk world, player speed 5 units/s, 32-unit chunks, jobs started 2 chunks out (the 12.8 s window).
 - The 5-minute rule was applied to steady-speed runs (Stages 1 to 3); one-shot measurements (startup, catch-up jobs, saves, crash recovery) were repeated instead.
-- Stages 5 and 6 ran as subagents in worktrees and were merged; Stages 1 to 4 ran in order in the main checkout so their timings did not disturb each other.
+- Stages 5 and 6 ran as subagents in worktrees and were merged; Stages 1 to 4 ran one at a time in the main checkout. Stage 1 overlapped with the subagents' builds (see P2); Stages 2 to 4 ran with nothing else measuring.
 - Dependencies added without asking, because the task said not to stop: dev tools `puppeteer-core`, `@webgpu/types`, `three` and `@types/three` (comparison only); runtime `wgpu-matrix` and `meshoptimizer` (both named in the tech direction); and the Rust crate `mipple` 0.9.102 as a build-time BC7 RDO encoder, which should be reviewed before the real pipeline adopts it (it only compiled unoptimized in reasonable time).
