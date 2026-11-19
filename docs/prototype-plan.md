@@ -144,19 +144,9 @@ Pass: the property test finds no mismatch over a long run, catch-up for a week-o
 
 If it fails: simplify the catch-up rules (for example, freeze chunks that have pending events until activated) before adding more machinery.
 
-## Order
+## Stage 7: review the results
 
-Stage 0 comes first, since every other stage builds on it. After that, run every stage that does not need another's result at the same time: Stages 1, 4, 5, and 6 are independent, Stage 2 needs Stage 1's entities, and Stage 3 needs Stage 2's snapshots. Stages 1 to 3 are the ones most likely to change the direction.
-
-## Output
-
-- A results table per stage, with numbers from the reference phone.
-- A one-page report: which hypotheses held, which failed, and what changes in the tech direction.
-- A PR that updates `tech-direction.md` with measured values and any changed decisions.
-
-## Reviewing the results
-
-The results PR is reviewed against these rules, so reviews settle decisions instead of going in circles the way prose-only reviews of the tech direction did.
+Once every other stage is done, the results PR is reviewed against these rules, so reviews settle decisions instead of going in circles the way prose-only reviews of the tech direction did.
 
 What to check:
 - Every number comes from the reference phone (or the named device), with the build, browser version, entity count, and test settings next to it, so anyone can rerun it.
@@ -175,3 +165,13 @@ How to run the review:
 - Give the reviewer this section, the report, and the results tables, not just the diff.
 - A finding must name the result or decision it is about and what would change if it were fixed.
 - If a second review finds P1s only in areas the first review's fixes touched, stop reviewing and rerun the measurement instead.
+
+## Order
+
+Stage 0 comes first, since every other stage builds on it. After that, run every stage that does not need another's result at the same time: Stages 1, 4, 5, and 6 are independent, Stage 2 needs Stage 1's entities, and Stage 3 needs Stage 2's snapshots. Stages 1 to 3 are the ones most likely to change the direction. Stage 7 runs last, once every other stage has results.
+
+## Output
+
+- A results table per stage, with numbers from the reference phone.
+- A one-page report: which hypotheses held, which failed, and what changes in the tech direction.
+- A PR that updates `tech-direction.md` with measured values and any changed decisions.
