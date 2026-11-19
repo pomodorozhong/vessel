@@ -35,6 +35,15 @@ jobs:
       - name: Build (Rust sim to WASM, then the app)
         working-directory: prototype
         run: pnpm run build
+      # --- Stage 5: assets, build manifest, and the previous build's files (a Pages deploy replaces the whole site) ---
+      - name: Stage 5 assets and postbuild
+        working-directory: prototype
+        run: |
+          node stage5/build-assets.mjs
+          node scripts/stage5-postbuild.mjs --tag "${GITHUB_SHA::8}"
+      - name: Keep the previous build's files (tolerates "no live site yet")
+        working-directory: prototype
+        run: node scripts/stage5-keep-previous.mjs --dist dist --site "https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: prototype/dist

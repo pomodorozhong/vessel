@@ -3,3 +3,8 @@ dist
 sim/target
 src/wasm
 .chrome-profile*
+# Stage 5: generated assets, work files and the BC7 tool's build output
+stage5/out
+stage5/work
+stage5/tools/bc7tool/target
+stage5/.deploys

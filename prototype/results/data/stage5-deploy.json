@@ -1,0 +1,3118 @@
+{
+ "meta": {
+  "measuredAt": "2026-11-19T10:29:09.641Z",
+  "host": "dev machine, local Pages emulator on localhost:4175",
+  "reps": 5,
+  "note": "No network throttling in these runs; they check correctness, not speed."
+ },
+ "keep-sw0": [
+  {
+   "sw": 0,
+   "rep": 0,
+   "steps": [
+    {
+     "step": "A tab: 2 lazy loads before deploy",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-A"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.c7c4bdf28e.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab after deploy B: 3 more lazy loads",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "new visitor (no cache) after deploy B",
+     "build": "s5-B",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-B"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.78ecd64819.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "B tab (one deploy old) after deploy C",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.ab152ff6fa.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.d71eeedcf3.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab (two deploys old) after deploy C",
+     "failed": [
+      "404 /vessel/a/lazy4.af15fe1d40.bin.gz",
+      "404 /vessel/a/lazy5.266c8edf33.bin.gz"
+     ],
+     "prompt": true,
+     "savedCalls": 1,
+     "promptVisible": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": true,
+    "keepLog": "keep-previous: no live builds.json (HTTP 404): first deploy, or the site does not exist yet\nkeep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":false,\"liveId\":null,\"downloaded\":0,\"skipped\":0,\"failed\":[],\"bytes\":0} previous = none"
+   },
+   "tabA": {
+    "build": "s5-A"
+   },
+   "deployB": {
+    "label": "B",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"d9e1c792\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = d9e1c792 (35 files)"
+   },
+   "sameBrowserNewTabBuild": "s5-A",
+   "deployC": {
+    "label": "C",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"fc05c091\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = fc05c091 (35 files)"
+   },
+   "liveManifest": {
+    "currentId": "eacf9f06",
+    "currentTag": "s5-C",
+    "previousId": "fc05c091",
+    "previousTag": "s5-B",
+    "currentFiles": 35,
+    "previousFiles": 35
+   },
+   "pass": {
+    "aKeepsWorkingAfterB": true,
+    "freshTabGetsB": true,
+    "oneDeployOldTabFine": true,
+    "twoDeploysOldTabPrompts": true
+   }
+  },
+  {
+   "sw": 0,
+   "rep": 1,
+   "steps": [
+    {
+     "step": "A tab: 2 lazy loads before deploy",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-A"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.c7c4bdf28e.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab after deploy B: 3 more lazy loads",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "new visitor (no cache) after deploy B",
+     "build": "s5-B",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-B"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.78ecd64819.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "B tab (one deploy old) after deploy C",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.ab152ff6fa.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.d71eeedcf3.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab (two deploys old) after deploy C",
+     "failed": [
+      "404 /vessel/a/lazy4.af15fe1d40.bin.gz",
+      "404 /vessel/a/lazy5.266c8edf33.bin.gz"
+     ],
+     "prompt": true,
+     "savedCalls": 1,
+     "promptVisible": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": true,
+    "keepLog": "keep-previous: no live builds.json (HTTP 404): first deploy, or the site does not exist yet\nkeep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":false,\"liveId\":null,\"downloaded\":0,\"skipped\":0,\"failed\":[],\"bytes\":0} previous = none"
+   },
+   "tabA": {
+    "build": "s5-A"
+   },
+   "deployB": {
+    "label": "B",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"d9e1c792\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = d9e1c792 (35 files)"
+   },
+   "sameBrowserNewTabBuild": "s5-A",
+   "deployC": {
+    "label": "C",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"fc05c091\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = fc05c091 (35 files)"
+   },
+   "liveManifest": {
+    "currentId": "eacf9f06",
+    "currentTag": "s5-C",
+    "previousId": "fc05c091",
+    "previousTag": "s5-B",
+    "currentFiles": 35,
+    "previousFiles": 35
+   },
+   "pass": {
+    "aKeepsWorkingAfterB": true,
+    "freshTabGetsB": true,
+    "oneDeployOldTabFine": true,
+    "twoDeploysOldTabPrompts": true
+   }
+  },
+  {
+   "sw": 0,
+   "rep": 2,
+   "steps": [
+    {
+     "step": "A tab: 2 lazy loads before deploy",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-A"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.c7c4bdf28e.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab after deploy B: 3 more lazy loads",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "new visitor (no cache) after deploy B",
+     "build": "s5-B",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-B"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.78ecd64819.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "B tab (one deploy old) after deploy C",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.ab152ff6fa.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.d71eeedcf3.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab (two deploys old) after deploy C",
+     "failed": [
+      "404 /vessel/a/lazy4.af15fe1d40.bin.gz",
+      "404 /vessel/a/lazy5.266c8edf33.bin.gz"
+     ],
+     "prompt": true,
+     "savedCalls": 1,
+     "promptVisible": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": true,
+    "keepLog": "keep-previous: no live builds.json (HTTP 404): first deploy, or the site does not exist yet\nkeep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":false,\"liveId\":null,\"downloaded\":0,\"skipped\":0,\"failed\":[],\"bytes\":0} previous = none"
+   },
+   "tabA": {
+    "build": "s5-A"
+   },
+   "deployB": {
+    "label": "B",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"d9e1c792\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = d9e1c792 (35 files)"
+   },
+   "sameBrowserNewTabBuild": "s5-A",
+   "deployC": {
+    "label": "C",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"fc05c091\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = fc05c091 (35 files)"
+   },
+   "liveManifest": {
+    "currentId": "eacf9f06",
+    "currentTag": "s5-C",
+    "previousId": "fc05c091",
+    "previousTag": "s5-B",
+    "currentFiles": 35,
+    "previousFiles": 35
+   },
+   "pass": {
+    "aKeepsWorkingAfterB": true,
+    "freshTabGetsB": true,
+    "oneDeployOldTabFine": true,
+    "twoDeploysOldTabPrompts": true
+   }
+  },
+  {
+   "sw": 0,
+   "rep": 3,
+   "steps": [
+    {
+     "step": "A tab: 2 lazy loads before deploy",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-A"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.c7c4bdf28e.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab after deploy B: 3 more lazy loads",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "new visitor (no cache) after deploy B",
+     "build": "s5-B",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-B"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.78ecd64819.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "B tab (one deploy old) after deploy C",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.ab152ff6fa.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.d71eeedcf3.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab (two deploys old) after deploy C",
+     "failed": [
+      "404 /vessel/a/lazy4.af15fe1d40.bin.gz",
+      "404 /vessel/a/lazy5.266c8edf33.bin.gz"
+     ],
+     "prompt": true,
+     "savedCalls": 1,
+     "promptVisible": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": true,
+    "keepLog": "keep-previous: no live builds.json (HTTP 404): first deploy, or the site does not exist yet\nkeep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":false,\"liveId\":null,\"downloaded\":0,\"skipped\":0,\"failed\":[],\"bytes\":0} previous = none"
+   },
+   "tabA": {
+    "build": "s5-A"
+   },
+   "deployB": {
+    "label": "B",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"d9e1c792\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = d9e1c792 (35 files)"
+   },
+   "sameBrowserNewTabBuild": "s5-A",
+   "deployC": {
+    "label": "C",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"fc05c091\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = fc05c091 (35 files)"
+   },
+   "liveManifest": {
+    "currentId": "eacf9f06",
+    "currentTag": "s5-C",
+    "previousId": "fc05c091",
+    "previousTag": "s5-B",
+    "currentFiles": 35,
+    "previousFiles": 35
+   },
+   "pass": {
+    "aKeepsWorkingAfterB": true,
+    "freshTabGetsB": true,
+    "oneDeployOldTabFine": true,
+    "twoDeploysOldTabPrompts": true
+   }
+  },
+  {
+   "sw": 0,
+   "rep": 4,
+   "steps": [
+    {
+     "step": "A tab: 2 lazy loads before deploy",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-A"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.c7c4bdf28e.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab after deploy B: 3 more lazy loads",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "new visitor (no cache) after deploy B",
+     "build": "s5-B",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-B"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.78ecd64819.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "B tab (one deploy old) after deploy C",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.ab152ff6fa.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.d71eeedcf3.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab (two deploys old) after deploy C",
+     "failed": [
+      "404 /vessel/a/lazy4.af15fe1d40.bin.gz",
+      "404 /vessel/a/lazy5.266c8edf33.bin.gz"
+     ],
+     "prompt": true,
+     "savedCalls": 1,
+     "promptVisible": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": true,
+    "keepLog": "keep-previous: no live builds.json (HTTP 404): first deploy, or the site does not exist yet\nkeep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":false,\"liveId\":null,\"downloaded\":0,\"skipped\":0,\"failed\":[],\"bytes\":0} previous = none"
+   },
+   "tabA": {
+    "build": "s5-A"
+   },
+   "deployB": {
+    "label": "B",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"d9e1c792\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = d9e1c792 (35 files)"
+   },
+   "sameBrowserNewTabBuild": "s5-A",
+   "deployC": {
+    "label": "C",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"fc05c091\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = fc05c091 (35 files)"
+   },
+   "liveManifest": {
+    "currentId": "eacf9f06",
+    "currentTag": "s5-C",
+    "previousId": "fc05c091",
+    "previousTag": "s5-B",
+    "currentFiles": 35,
+    "previousFiles": 35
+   },
+   "pass": {
+    "aKeepsWorkingAfterB": true,
+    "freshTabGetsB": true,
+    "oneDeployOldTabFine": true,
+    "twoDeploysOldTabPrompts": true
+   }
+  }
+ ],
+ "keep-sw1": [
+  {
+   "sw": 1,
+   "rep": 0,
+   "steps": [
+    {
+     "step": "A tab: 2 lazy loads before deploy",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-A"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.c7c4bdf28e.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab after deploy B: 3 more lazy loads",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "new visitor (no cache) after deploy B",
+     "build": "s5-B",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-B"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.78ecd64819.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "B tab (one deploy old) after deploy C",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.ab152ff6fa.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.d71eeedcf3.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab (two deploys old) after deploy C",
+     "failed": [
+      "404 /vessel/a/lazy4.af15fe1d40.bin.gz",
+      "404 /vessel/a/lazy5.266c8edf33.bin.gz"
+     ],
+     "prompt": true,
+     "savedCalls": 1,
+     "promptVisible": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": true,
+    "keepLog": "keep-previous: no live builds.json (HTTP 404): first deploy, or the site does not exist yet\nkeep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":false,\"liveId\":null,\"downloaded\":0,\"skipped\":0,\"failed\":[],\"bytes\":0} previous = none"
+   },
+   "tabA": {
+    "build": "s5-A"
+   },
+   "deployB": {
+    "label": "B",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"d9e1c792\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = d9e1c792 (35 files)"
+   },
+   "sameBrowserNewTabBuild": "s5-B",
+   "deployC": {
+    "label": "C",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"fc05c091\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = fc05c091 (35 files)"
+   },
+   "liveManifest": {
+    "currentId": "eacf9f06",
+    "currentTag": "s5-C",
+    "previousId": "fc05c091",
+    "previousTag": "s5-B",
+    "currentFiles": 35,
+    "previousFiles": 35
+   },
+   "pass": {
+    "aKeepsWorkingAfterB": true,
+    "freshTabGetsB": true,
+    "oneDeployOldTabFine": true,
+    "twoDeploysOldTabPrompts": true
+   }
+  },
+  {
+   "sw": 1,
+   "rep": 1,
+   "steps": [
+    {
+     "step": "A tab: 2 lazy loads before deploy",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-A"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.c7c4bdf28e.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab after deploy B: 3 more lazy loads",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "new visitor (no cache) after deploy B",
+     "build": "s5-B",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-B"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.78ecd64819.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "B tab (one deploy old) after deploy C",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.ab152ff6fa.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.d71eeedcf3.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab (two deploys old) after deploy C",
+     "failed": [
+      "404 /vessel/a/lazy4.af15fe1d40.bin.gz",
+      "404 /vessel/a/lazy5.266c8edf33.bin.gz"
+     ],
+     "prompt": true,
+     "savedCalls": 1,
+     "promptVisible": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": true,
+    "keepLog": "keep-previous: no live builds.json (HTTP 404): first deploy, or the site does not exist yet\nkeep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":false,\"liveId\":null,\"downloaded\":0,\"skipped\":0,\"failed\":[],\"bytes\":0} previous = none"
+   },
+   "tabA": {
+    "build": "s5-A"
+   },
+   "deployB": {
+    "label": "B",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"d9e1c792\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = d9e1c792 (35 files)"
+   },
+   "sameBrowserNewTabBuild": "s5-B",
+   "deployC": {
+    "label": "C",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"fc05c091\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = fc05c091 (35 files)"
+   },
+   "liveManifest": {
+    "currentId": "eacf9f06",
+    "currentTag": "s5-C",
+    "previousId": "fc05c091",
+    "previousTag": "s5-B",
+    "currentFiles": 35,
+    "previousFiles": 35
+   },
+   "pass": {
+    "aKeepsWorkingAfterB": true,
+    "freshTabGetsB": true,
+    "oneDeployOldTabFine": true,
+    "twoDeploysOldTabPrompts": true
+   }
+  },
+  {
+   "sw": 1,
+   "rep": 2,
+   "steps": [
+    {
+     "step": "A tab: 2 lazy loads before deploy",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-A"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.c7c4bdf28e.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab after deploy B: 3 more lazy loads",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "new visitor (no cache) after deploy B",
+     "build": "s5-B",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-B"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.78ecd64819.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "B tab (one deploy old) after deploy C",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.ab152ff6fa.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.d71eeedcf3.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab (two deploys old) after deploy C",
+     "failed": [
+      "404 /vessel/a/lazy4.af15fe1d40.bin.gz",
+      "404 /vessel/a/lazy5.266c8edf33.bin.gz"
+     ],
+     "prompt": true,
+     "savedCalls": 1,
+     "promptVisible": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": true,
+    "keepLog": "keep-previous: no live builds.json (HTTP 404): first deploy, or the site does not exist yet\nkeep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":false,\"liveId\":null,\"downloaded\":0,\"skipped\":0,\"failed\":[],\"bytes\":0} previous = none"
+   },
+   "tabA": {
+    "build": "s5-A"
+   },
+   "deployB": {
+    "label": "B",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"d9e1c792\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = d9e1c792 (35 files)"
+   },
+   "sameBrowserNewTabBuild": "s5-B",
+   "deployC": {
+    "label": "C",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"fc05c091\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = fc05c091 (35 files)"
+   },
+   "liveManifest": {
+    "currentId": "eacf9f06",
+    "currentTag": "s5-C",
+    "previousId": "fc05c091",
+    "previousTag": "s5-B",
+    "currentFiles": 35,
+    "previousFiles": 35
+   },
+   "pass": {
+    "aKeepsWorkingAfterB": true,
+    "freshTabGetsB": true,
+    "oneDeployOldTabFine": true,
+    "twoDeploysOldTabPrompts": true
+   }
+  },
+  {
+   "sw": 1,
+   "rep": 3,
+   "steps": [
+    {
+     "step": "A tab: 2 lazy loads before deploy",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-A"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.c7c4bdf28e.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab after deploy B: 3 more lazy loads",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "new visitor (no cache) after deploy B",
+     "build": "s5-B",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-B"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.78ecd64819.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "B tab (one deploy old) after deploy C",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.ab152ff6fa.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.d71eeedcf3.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab (two deploys old) after deploy C",
+     "failed": [
+      "404 /vessel/a/lazy4.af15fe1d40.bin.gz",
+      "404 /vessel/a/lazy5.266c8edf33.bin.gz"
+     ],
+     "prompt": true,
+     "savedCalls": 1,
+     "promptVisible": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": true,
+    "keepLog": "keep-previous: no live builds.json (HTTP 404): first deploy, or the site does not exist yet\nkeep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":false,\"liveId\":null,\"downloaded\":0,\"skipped\":0,\"failed\":[],\"bytes\":0} previous = none"
+   },
+   "tabA": {
+    "build": "s5-A"
+   },
+   "deployB": {
+    "label": "B",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"d9e1c792\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = d9e1c792 (35 files)"
+   },
+   "sameBrowserNewTabBuild": "s5-B",
+   "deployC": {
+    "label": "C",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"fc05c091\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = fc05c091 (35 files)"
+   },
+   "liveManifest": {
+    "currentId": "eacf9f06",
+    "currentTag": "s5-C",
+    "previousId": "fc05c091",
+    "previousTag": "s5-B",
+    "currentFiles": 35,
+    "previousFiles": 35
+   },
+   "pass": {
+    "aKeepsWorkingAfterB": true,
+    "freshTabGetsB": true,
+    "oneDeployOldTabFine": true,
+    "twoDeploysOldTabPrompts": true
+   }
+  },
+  {
+   "sw": 1,
+   "rep": 4,
+   "steps": [
+    {
+     "step": "A tab: 2 lazy loads before deploy",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-A"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.c7c4bdf28e.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab after deploy B: 3 more lazy loads",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "new visitor (no cache) after deploy B",
+     "build": "s5-B",
+     "failed": [],
+     "log": [
+      {
+       "kind": "chunk",
+       "url": "lazy.ts",
+       "ok": true,
+       "note": "lazy chunk from build s5-B"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy0.78ecd64819.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "B tab (one deploy old) after deploy C",
+     "failed": [],
+     "prompt": false,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.ab152ff6fa.bin.gz",
+       "ok": true,
+       "status": 200
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.d71eeedcf3.bin.gz",
+       "ok": true,
+       "status": 200
+      }
+     ]
+    },
+    {
+     "step": "A tab (two deploys old) after deploy C",
+     "failed": [
+      "404 /vessel/a/lazy4.af15fe1d40.bin.gz",
+      "404 /vessel/a/lazy5.266c8edf33.bin.gz"
+     ],
+     "prompt": true,
+     "savedCalls": 1,
+     "promptVisible": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy4.af15fe1d40.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy5.266c8edf33.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": true,
+    "keepLog": "keep-previous: no live builds.json (HTTP 404): first deploy, or the site does not exist yet\nkeep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":false,\"liveId\":null,\"downloaded\":0,\"skipped\":0,\"failed\":[],\"bytes\":0} previous = none"
+   },
+   "tabA": {
+    "build": "s5-A"
+   },
+   "deployB": {
+    "label": "B",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"d9e1c792\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = d9e1c792 (35 files)"
+   },
+   "sameBrowserNewTabBuild": "s5-B",
+   "deployC": {
+    "label": "C",
+    "keep": true,
+    "keepLog": "keep-previous: {\"site\":\"http://localhost:4175/vessel/\",\"liveFound\":true,\"liveId\":\"fc05c091\",\"downloaded\":8,\"skipped\":27,\"failed\":[],\"bytes\":186675} previous = fc05c091 (35 files)"
+   },
+   "liveManifest": {
+    "currentId": "eacf9f06",
+    "currentTag": "s5-C",
+    "previousId": "fc05c091",
+    "previousTag": "s5-B",
+    "currentFiles": 35,
+    "previousFiles": 35
+   },
+   "pass": {
+    "aKeepsWorkingAfterB": true,
+    "freshTabGetsB": true,
+    "oneDeployOldTabFine": true,
+    "twoDeploysOldTabPrompts": true
+   }
+  }
+ ],
+ "nokeep-sw0": [
+  {
+   "sw": 0,
+   "rep": 0,
+   "steps": [
+    {
+     "step": "A tab after deploy B without keep-previous",
+     "failed": [
+      "404 /vessel/a/lazy1.87c6951582.bin.gz",
+      "404 /vessel/a/lazy2.6ad60b6a26.bin.gz",
+      "404 /vessel/a/lazy3.e37182ca16.bin.gz"
+     ],
+     "prompt": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": false,
+    "keepLog": ""
+   },
+   "deployB": {
+    "label": "B (no keep-previous)",
+    "keep": false,
+    "keepLog": ""
+   },
+   "pass": {
+    "testCanFail": true
+   }
+  },
+  {
+   "sw": 0,
+   "rep": 1,
+   "steps": [
+    {
+     "step": "A tab after deploy B without keep-previous",
+     "failed": [
+      "404 /vessel/a/lazy1.87c6951582.bin.gz",
+      "404 /vessel/a/lazy2.6ad60b6a26.bin.gz",
+      "404 /vessel/a/lazy3.e37182ca16.bin.gz"
+     ],
+     "prompt": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": false,
+    "keepLog": ""
+   },
+   "deployB": {
+    "label": "B (no keep-previous)",
+    "keep": false,
+    "keepLog": ""
+   },
+   "pass": {
+    "testCanFail": true
+   }
+  },
+  {
+   "sw": 0,
+   "rep": 2,
+   "steps": [
+    {
+     "step": "A tab after deploy B without keep-previous",
+     "failed": [
+      "404 /vessel/a/lazy1.87c6951582.bin.gz",
+      "404 /vessel/a/lazy2.6ad60b6a26.bin.gz",
+      "404 /vessel/a/lazy3.e37182ca16.bin.gz"
+     ],
+     "prompt": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": false,
+    "keepLog": ""
+   },
+   "deployB": {
+    "label": "B (no keep-previous)",
+    "keep": false,
+    "keepLog": ""
+   },
+   "pass": {
+    "testCanFail": true
+   }
+  },
+  {
+   "sw": 0,
+   "rep": 3,
+   "steps": [
+    {
+     "step": "A tab after deploy B without keep-previous",
+     "failed": [
+      "404 /vessel/a/lazy1.87c6951582.bin.gz",
+      "404 /vessel/a/lazy2.6ad60b6a26.bin.gz",
+      "404 /vessel/a/lazy3.e37182ca16.bin.gz"
+     ],
+     "prompt": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": false,
+    "keepLog": ""
+   },
+   "deployB": {
+    "label": "B (no keep-previous)",
+    "keep": false,
+    "keepLog": ""
+   },
+   "pass": {
+    "testCanFail": true
+   }
+  },
+  {
+   "sw": 0,
+   "rep": 4,
+   "steps": [
+    {
+     "step": "A tab after deploy B without keep-previous",
+     "failed": [
+      "404 /vessel/a/lazy1.87c6951582.bin.gz",
+      "404 /vessel/a/lazy2.6ad60b6a26.bin.gz",
+      "404 /vessel/a/lazy3.e37182ca16.bin.gz"
+     ],
+     "prompt": true,
+     "log": [
+      {
+       "kind": "asset",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy1.87c6951582.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy2.6ad60b6a26.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      },
+      {
+       "kind": "asset",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": false,
+       "status": 404
+      },
+      {
+       "kind": "missing",
+       "url": "a/lazy3.e37182ca16.bin.gz",
+       "ok": false,
+       "note": "HTTP 404"
+      }
+     ]
+    }
+   ],
+   "deployA": {
+    "label": "A",
+    "keep": false,
+    "keepLog": ""
+   },
+   "deployB": {
+    "label": "B (no keep-previous)",
+    "keep": false,
+    "keepLog": ""
+   },
+   "pass": {
+    "testCanFail": true
+   }
+  }
+ ],
+ "sw-update": [
+  {
+   "rep": 0,
+   "noskip": false,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": 2,
+    "swReachedB": true
+   }
+  },
+  {
+   "rep": 1,
+   "noskip": false,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": 2,
+    "swReachedB": true
+   }
+  },
+  {
+   "rep": 2,
+   "noskip": false,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": 2,
+    "swReachedB": true
+   }
+  },
+  {
+   "rep": 3,
+   "noskip": false,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": 2,
+    "swReachedB": true
+   }
+  },
+  {
+   "rep": 4,
+   "noskip": false,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "10082840",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": 2,
+    "swReachedB": true
+   }
+  }
+ ],
+ "sw-update-noskip": [
+  {
+   "rep": 0,
+   "noskip": true,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": -1,
+    "swReachedB": false
+   }
+  },
+  {
+   "rep": 1,
+   "noskip": true,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": -1,
+    "swReachedB": false
+   }
+  },
+  {
+   "rep": 2,
+   "noskip": true,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": -1,
+    "swReachedB": false
+   }
+  },
+  {
+   "rep": 3,
+   "noskip": true,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": -1,
+    "swReachedB": false
+   }
+  },
+  {
+   "rep": 4,
+   "noskip": true,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "swReg": {
+      "registered": true,
+      "scope": "http://localhost:4175/vessel/"
+     },
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": true,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": -1,
+    "swReachedB": false
+   }
+  }
+ ]
+}
