@@ -163,6 +163,7 @@ Several parts of this direction rest on guesses that only running code can settl
 3. GPU-driven rendering (compute culling, `drawIndirect`, render bundles) of that crowd stays within the GPU budget, and the draw count stays low with all kinds and layers.
 4. Raw WebGPU starts, recovers from a lost device, and shows the "not supported" page correctly on the target browsers.
 5. Startup (WASM compile, first chunk's assets, gzipped textures) and the GitHub Pages deploy, including a deploy while a tab is open, behave as described.
+6. Chunk catch-up by direct calculation in job workers matches replaying every step, and saves survive the browser.
 
 ## Open question
 

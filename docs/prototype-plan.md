@@ -7,10 +7,11 @@ The prototype is throwaway code that tests the riskiest bets in [tech-direction.
 - Test on the reference device: a mid-range Android phone a few years old, in Chrome. Also check a desktop in Chrome and an iPhone in Safari for anything that differs by browser.
 - Every test records its numbers in the debug overlay and in a results table in this folder, so results can be compared across changes.
 - Fix the test scene before starting: decide side-view or top-down (the open question in the tech direction). The default is top-down if no decision is made, since it stresses rendering and crowds harder.
-- Time-box each stage. If a stage runs over its box, stop and write down why; that is a result too.
+- Optimize for findings, not speed. Where a stage can test an alternative cheaply, build both and compare, including options the tech direction ruled out, so each decision rests on a measurement rather than an argument.
+- Push every test past its pass bar to find where it breaks (entity count, frame rate, delay), so the doc records the real limit, not just that the target was met.
 - A stage that fails its pass bar triggers its fallback decision, not more tuning, unless the miss is small and the cause is obvious.
 
-## Stage 0: skeleton (2–3 days)
+## Stage 0: skeleton
 
 Goal: the smallest app that has every moving part connected, so later stages measure real costs.
 
@@ -22,7 +23,7 @@ Goal: the smallest app that has every moving part connected, so later stages mea
 
 Done when the page loads on all three devices and the overlay shows numbers.
 
-## Stage 1: does the sim fit its budget? (1 week)
+## Stage 1: does the sim fit its budget?
 
 Hypothesis: a single-threaded Rust/WASM sim in one worker steps a few thousand entities within 4 ms per step on the reference phone.
 
@@ -40,9 +41,13 @@ Measure, at 1,000, 2,000, 5,000, and 10,000 entities:
 
 Pass: 2,000 entities at a 99th percentile under 4 ms on the reference phone after 5 minutes.
 
+Also compare:
+- The same sim written in careful typed-array TypeScript, to measure what Rust/WASM actually buys (the tech direction ruled the TypeScript sim out without numbers).
+- The sim on the main thread instead of a worker, to measure what the worker costs in delay and gains in frame time.
+
 If it fails: first cut the entity target or the step rate. If that is not acceptable, the single sim thread is the bottleneck, so reconsider GitHub Pages (a host with COOP and COEP allows a multithreaded sim) before reconsidering Rust.
 
-## Stage 2: are snapshots smooth? (1 week)
+## Stage 2: are snapshots smooth?
 
 Hypothesis: worker snapshots plus interpolation in the vertex shader give smooth motion at 60 fps and at 30 fps, with a fixed buffer pool and no allocation in the game loop.
 
@@ -68,7 +73,7 @@ Output: the lag, queue size, and pool size to use, and which design wins. These 
 
 If it fails: rendering the player character from its own latest state instead of the interpolated snapshot is the first fix for delay. If motion is still not smooth, consider running the sim on the main thread for the player only.
 
-## Stage 3: does GPU-driven rendering pay off? (1–2 weeks)
+## Stage 3: does GPU-driven rendering pay off?
 
 Hypothesis: compute culling, `drawIndirect`, and render bundles keep CPU time per frame small and flat as entity count grows, and stay within the GPU budget on the reference phone.
 
@@ -88,9 +93,11 @@ Measure, at the Stage 1 entity counts:
 
 Pass: the frame fits about 60% of 16.7 ms (60 fps) on the reference phone with 2,000 entities, CPU encoding stays under 2 ms, and GPU-driven rendering beats the plain path by a clear margin at the higher counts.
 
+Also compare the same scene in Three.js with its WebGPU renderer and instancing, to measure what owning the renderer gains over the main ruled-out option.
+
 If it fails: if the plain path is as fast, drop compute culling and render bundles and keep plain instancing, which is simpler. If the GPU is the limit, lower resolution and overdraw first, then the target entity count.
 
-## Stage 4: is raw WebGPU reliable enough? (3–4 days)
+## Stage 4: is raw WebGPU reliable enough?
 
 Hypothesis: a raw WebGPU renderer with no fallback starts, recovers, and fails cleanly on the target browsers.
 
@@ -104,7 +111,7 @@ Pass: the game runs on current Chrome and Safari on all three test devices, reco
 
 If it fails: if too many target players lack WebGPU, revisit the "no WebGL fallback" decision before writing more renderer code.
 
-## Stage 5: startup and hosting (3–4 days)
+## Stage 5: startup and hosting
 
 Hypothesis: the game starts quickly from GitHub Pages, and a deploy does not break a running tab.
 
@@ -118,13 +125,28 @@ Pass: first frame within about 3 seconds on a cold load over Fast 4G, under 1 se
 
 If it fails: reconsider the asset formats before reconsidering the host. If deploys cannot be made safe on Pages, that is a reason to move to Cloudflare Pages or Netlify.
 
-## Not in the prototype
+## Stage 6: chunk catch-up and saves
 
-These matter but are cheap to change later, or do not depend on the risky choices above: chunk catch-up and the summary simulation, saves and IndexedDB, audio, UI, the full asset pipeline, and gameplay. Chunk catch-up gets a property test (random job orders and events, checked against replaying every step) when it is built for real.
+Hypothesis: catch-up by direct calculation in job workers gives the same result as replaying every step, and saves survive the browser.
 
-## Order and timing
+Build:
+- Stored chunks with time-based systems (crop growth, smelting, fuel), an event list from a stub summary simulation (raids), and catch-up jobs in job workers.
+- A property test that runs random orders of job starts, job returns, events, chunk activations, and player jumps, and checks every activated chunk against a reference that replays every step.
+- Saves through a save job worker to IndexedDB, with export and import.
 
-Stages 0 to 3 run in order, since each builds on the last, and are the ones that can change the direction. Stages 4 and 5 are independent and can run alongside Stage 3. Total: about 4 to 6 weeks.
+Measure:
+- Mismatches found by the property test, and the smallest failing case for each.
+- Catch-up job time for a chunk left alone for an hour, a day, and a week of game time.
+- Save time and size for a large world.
+- Whether `navigator.storage.persist()` is granted on each test browser, and how storage eviction behaves (Chrome's storage pressure tools, Safari's 7-day rule with a shifted clock where possible).
+
+Pass: the property test finds no mismatch over a long run, catch-up for a week-old chunk finishes before the player can reach it at full speed, and a save takes under one sim step of work in the sim worker.
+
+If it fails: simplify the catch-up rules (for example, freeze chunks that have pending events until activated) before adding more machinery.
+
+## Order
+
+Stage 0 comes first, since every other stage builds on it. After that, run every stage that does not need another's result at the same time: Stages 1, 4, 5, and 6 are independent, Stage 2 needs Stage 1's entities, and Stage 3 needs Stage 2's snapshots. Stages 1 to 3 are the ones most likely to change the direction.
 
 ## Output
 
