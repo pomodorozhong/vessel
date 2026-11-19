@@ -156,7 +156,7 @@ Both are free, deploy from the same repository, and let us set headers. With COO
 
 ## Prototype first
 
-Several parts of this direction rest on guesses that only running code can settle. Before building the game, a throwaway prototype tests them on the reference phone, and its results update this doc:
+Several parts of this direction rest on guesses that only running code can settle. Before building the game, a throwaway prototype tests them on the reference phone, and its results update this doc. [prototype-plan.md](prototype-plan.md) has the stages, measurements, and pass bars. The hypotheses it tests:
 
 1. A Rust/WASM sim in one worker steps a few thousand entities (movement, spatial-hash collision, one flow field) within its budget at 30 Hz.
 2. Worker snapshots plus vertex-shader interpolation look smooth at 60 fps and at 30 fps, with jitter and stalls, and the measured lag, queue, and pool sizes replace guesses.
