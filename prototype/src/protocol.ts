@@ -13,7 +13,7 @@ export const snapshotBytes = (maxEntities: number) => HEADER_BYTES + ENTRY_BYTES
 export interface InputState { seq: number; moveX: number; moveY: number; buttons: number; t: number }
 
 export type ToWorker =
-  | { type: 'init'; module: WebAssembly.Module | null; n: number; seed: number; sim: string; hz: number; script: number; pool: ArrayBuffer[]; bench: boolean; dur: number }
+  | { type: 'init'; module: WebAssembly.Module | null; n: number; seed: number; sim: string; opt: { n: number; hz: number; script: number; bench: boolean; dur: number; warmup: number }; pool: ArrayBuffer[] }
   | { type: 'input'; input: InputState }
   | { type: 'return'; buffer: ArrayBuffer }
   | { type: 'delay'; ms: number }

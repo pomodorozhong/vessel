@@ -10,7 +10,8 @@ export const params = {
   thread: str('thread', 'worker'),   // worker | main
   hz: num('hz', 30),                 // sim step rate
   bench: str('bench', ''),           // '' | stage name; a bench run ends by setting window.__result
-  dur: num('dur', 300),              // bench duration in seconds
+  dur: num('dur', 300),
+  warmup: num('warmup', 5),           // seconds before a bench starts recording
   script: num('script', q.has('bench') ? 1 : 0), // 1 = scripted player input (benchmarks)
 };
 export type Params = typeof params;
