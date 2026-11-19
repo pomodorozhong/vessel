@@ -148,6 +148,17 @@ If it fails: simplify the catch-up rules (for example, freeze chunks that have p
 
 Once every other stage is done, the results PR is reviewed against these rules, so reviews settle decisions instead of going in circles the way prose-only reviews of the tech direction did.
 
+Why the prototype exists, which the review and the tech direction update should keep in mind:
+- The tech direction went through about eight rounds of review, and every round found two or more P1s. Almost all of them were in three areas: the snapshot hand-off between the sim worker and the main thread, chunk catch-up, and deploys on GitHub Pages.
+- Each fix added rules (generation numbers, more queue slots and buffers, extra deploy steps), and the next review found an edge case in those new rules. One fix was later reversed (keeping old builds on a branch).
+- The core decisions held steady through every round: raw WebGPU, a Rust/WASM sim in a worker, GitHub Pages, and owning the runtime. The loop came from writing concurrent protocols in prose, which cannot be checked, and from reviews with no clear bar for P1.
+- So the tech direction was cut back to decisions and intent, and the prototype settles the protocols and the riskiest bets with measurements, including against the options the doc ruled out.
+
+When updating the tech direction from the results:
+- Record decisions, measured limits, and the reason for each, not protocols. A protocol that was settled in the prototype is described in a sentence or two, and its exact rules live in code and tests.
+- Keep the core decisions unless a result shows they fail; do not reopen them on argument alone.
+- Where a ruled-out option won, change the decision and say what number changed it.
+
 What to check:
 - Every number comes from the reference phone (or the named device), with the build, browser version, entity count, and test settings next to it, so anyone can rerun it.
 - Each hypothesis has a verdict (held, failed, or unclear), and the verdict follows from the numbers and the pass bar, not from impressions.
