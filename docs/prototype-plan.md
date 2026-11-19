@@ -9,6 +9,7 @@ The prototype is throwaway code that tests the riskiest bets in [tech-direction.
 - Fix the test scene before starting: decide side-view or top-down (the open question in the tech direction). The default is top-down if no decision is made, since it stresses rendering and crowds harder.
 - Optimize for findings, not speed. Where a stage can test an alternative cheaply, build both and compare, including options the tech direction ruled out, so each decision rests on a measurement rather than an argument.
 - Push every test past its pass bar to find where it breaks (entity count, frame rate, delay), so the doc records the real limit, not just that the target was met.
+- Every measurement that includes heat runs for 10 minutes, in every stage, so stage results add up to one frame budget.
 - A stage that fails its pass bar triggers its fallback decision, not more tuning, unless the miss is small and the cause is obvious.
 
 ## How it runs
@@ -21,13 +22,31 @@ The whole plan runs in one pass by one agent, from Stage 0 to the Stage 7 review
 - A verdict that depends on the real phone (heat, mobile GPU limits, mobile Safari) is marked "provisional", and the results file gives exact steps for a person to rerun it on the phone. Anything that cannot be measured is said to be unmeasured, never guessed.
 - Each `stage-N.md` holds the results table, the limits found, the verdict (held, failed, unclear, or provisional), and the fallback that applies if it failed.
 
+## Known pitfalls
+
+Facts about the platform found while writing the tech direction. They hold whatever design wins, so check them before building, but they are hints, not a spec.
+
+- WebGPU startup: `requestAdapter()` resolves to null rather than throwing when no adapter is available, and an adapter can create only one device, so recovering from a lost device needs a new adapter. A `device.lost` with reason `"destroyed"` means the game destroyed it on purpose.
+- A new adapter may offer different optional features (compressed texture formats, `shader-f16`), so feature choices are made again after a lost device.
+- Indirect draws: a non-zero `firstInstance` needs the optional `indirect-first-instance` feature, and without it the draw silently draws nothing.
+- Dynamic storage-buffer offsets must be multiples of `minStorageBufferOffsetAlignment` (256 bytes in core WebGPU).
+- Culling an interpolated entity has to cover both of its positions, or it pops in and out at the screen edge.
+- A page's preloads are not shared with workers. A compiled `WebAssembly.Module` can be sent to a worker with `postMessage`.
+- A `<link rel="preload" as="fetch">` needs `crossorigin` to match a later `fetch()`, or the file downloads twice.
+- `mapAsync` on the current frame's data makes the CPU wait for the GPU.
+- GitHub Pages cannot send COOP and COEP, so there is no `SharedArrayBuffer`, and it tells browsers to cache files for about 10 minutes. Its CDN can serve a stale copy of a file whose name does not change.
+- A Pages deploy replaces the whole site, so a tab opened before a deploy loses the previous build's files unless the deploy keeps them.
+- A service worker that does not call `skipWaiting` never activates while one tab keeps reloading.
+- Without a custom domain, every Pages site on the account shares the `<user>.github.io` origin, and a root-scope service worker from the account's root site can control our pages.
+- Safari deletes script-written storage after 7 days of use without visiting the site, except for sites added to the home screen.
+
 ## Stage 0: skeleton
 
 Goal: the smallest app that has every moving part connected, so later stages measure real costs.
 
 - Vite + TypeScript app deployed to GitHub Pages from an Actions workflow, with the `/vessel/` base path.
 - WebGPU startup check (`navigator.gpu`, adapter, device) and a "not supported" page.
-- A Rust crate built to WASM with SIMD, compiled on the main thread from an inline script and sent to a worker.
+- A Rust crate built to WASM with SIMD, loaded as early as possible and run in a worker.
 - The worker steps an empty sim at 30 Hz and sends a snapshot buffer to the main thread; the main thread clears the canvas each frame.
 - Debug overlay: frame time, sim step time (reported by the worker), GPU time from `timestamp-query` where available, and the snapshot queue length.
 
@@ -45,7 +64,7 @@ Build:
 - Static obstacles on the grid (walls, trees) that entities collide with.
 
 Measure, at 1,000, 2,000, 5,000, and 10,000 entities:
-- Sim step time: median and 99th percentile, after 5 minutes of running (to include heat).
+- Sim step time: median and 99th percentile, after 10 minutes of running (to include heat).
 - The share of step time in collision, flow field, AI, and snapshot writing.
 - WASM SIMD on versus off, to confirm SIMD is worth it.
 
@@ -75,7 +94,7 @@ Measure:
 
 Try at least two designs and compare them on the numbers:
 - A: the tech direction's design (queued snapshots, render clock steered toward a fixed lag).
-- B: a simpler one (the main thread keeps only the latest two snapshots and interpolates between them, with the clock following the newest).
+- B: a simpler one (no queue: the main thread keeps only the newest snapshot, whose entries already hold start and end state, and the render clock follows it). Entities change slots every step, so no design may blend entries from two different snapshots.
 
 Pass: no visible pauses or jumps at 60 fps or 30 fps with up to 20 ms of delay added, recovery within one second after a stall, and an input-to-screen delay under about 100 ms.
 
@@ -113,17 +132,22 @@ Hypothesis: a raw WebGPU renderer with no fallback starts, recovers, and fails c
 
 Test:
 - Startup on Chrome (desktop and Android), Safari (macOS and iOS), and Firefox, recording which features each adapter offers (compressed texture formats, `shader-f16`, `timestamp-query`).
-- A lost device, forced with `device.destroy()` from a debug button and by hiding the tab for a long time on a phone: the game must rebuild and keep running.
+- A lost device that the game did not cause: crash the GPU process (`chrome://gpucrash` in Chrome) and leave the tab hidden for a long time on a phone. The game must rebuild and keep running. A loss from `device.destroy()` is on purpose and does not test recovery.
 - A browser without WebGPU, or with it turned off: the "not supported" page must show.
 - A rough count of how many of the people we expect to play have WebGPU, from public browser support data.
 
-Pass: the game runs on current Chrome and Safari on all three test devices, recovers from a lost device without a reload, and shows the "not supported" page everywhere else.
+Pass: the game runs on current Chrome on the desktop, Chrome on the Android phone, and Safari on the iPhone, recovers from a lost device without a reload, and shows the "not supported" page everywhere else.
 
 If it fails: if too many target players lack WebGPU, revisit the "no WebGL fallback" decision before writing more renderer code.
 
 ## Stage 5: startup and hosting
 
 Hypothesis: the game starts quickly from GitHub Pages, and a deploy does not break a running tab.
+
+Build (this stage builds its own pieces, so it does not wait for other stages):
+- A small asset set: a few models in the packed binary format and a few textures encoded to BC7, ASTC, and ETC2 with and without RDO, gzipped.
+- A service worker that keeps hashed files and cleans up old ones.
+- A deploy workflow that keeps the previous build's files available, and the save-and-reload prompt on a missing file.
 
 Test:
 - Time to first frame on the reference phone over a throttled connection (Chrome's "Fast 4G"), cold and with a warm service worker cache.
@@ -150,7 +174,7 @@ Measure:
 - Save time and size for a large world.
 - Whether `navigator.storage.persist()` is granted on each test browser, and how storage eviction behaves (Chrome's storage pressure tools, Safari's 7-day rule with a shifted clock where possible).
 
-Pass: the property test finds no mismatch over a long run, catch-up for a week-old chunk finishes before the player can reach it at full speed, and a save takes under one sim step of work in the sim worker.
+Pass: the property test finds no mismatch over a long run, catch-up for a week-old chunk finishes before the player can reach it at full speed, and a save takes under 1 ms of work in the sim worker.
 
 If it fails: simplify the catch-up rules (for example, freeze chunks that have pending events until activated) before adding more machinery.
 
