@@ -1,0 +1,5 @@
+node_modules
+dist
+sim/target
+src/wasm
+.chrome-profile*

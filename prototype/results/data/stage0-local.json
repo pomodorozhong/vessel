@@ -1,0 +1,68 @@
+{
+ "chrome": {
+  "result": {
+   "ready": true,
+   "unsupported": null,
+   "gpu": {
+    "info": {
+     "vendor": "nvidia",
+     "architecture": "ampere",
+     "device": "",
+     "description": ""
+    },
+    "features": {
+     "bc": true,
+     "f16": true,
+     "timestamp": true,
+     "indirectFirstInstance": true
+    },
+    "all": [
+     "depth32float-stencil8",
+     "rg11b10ufloat-renderable",
+     "texture-formats-tier1",
+     "bgra8unorm-storage",
+     "texture-compression-bc",
+     "dual-source-blending",
+     "core-features-and-limits",
+     "float32-filterable",
+     "indirect-first-instance",
+     "float32-blendable",
+     "subgroup-size-control",
+     "texture-compression-unaligned",
+     "depth-clip-control",
+     "texture-compression-bc-sliced-3d",
+     "timestamp-query",
+     "texture-formats-tier2",
+     "shader-f16",
+     "clip-distances",
+     "primitive-index",
+     "texture-component-swizzle",
+     "subgroups"
+    ]
+   },
+   "overlay": "frame  16.67 ms  p99 16.75  (60 fps)\ncpu    0.16 ms  p99 0.26\ngpu    0.00 ms  p99 0.00\nsim    0.000 ms  p99 0.005  tick 170\nqueue  1  skipped(worker) 0  dropped(main) 169\ngpu    nvidia ampere  losses 0\npad    press a button to connect",
+   "isolated": true,
+   "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36"
+  },
+  "version": "Chrome/156.0.8078.73",
+  "errors": [
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "url": "http://localhost:4173/vessel/",
+  "throttleRate": 1,
+  "measuredAt": "2026-11-19T08:49:19.575Z"
+ },
+ "chrome-webgpu-disabled": {
+  "result": {
+   "unsupported": "No GPU adapter is available.",
+   "shown": "block"
+  },
+  "version": "Chrome/156.0.8078.73",
+  "errors": [
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "url": "http://localhost:4173/vessel/",
+  "throttleRate": 1,
+  "measuredAt": "2026-11-19T08:49:20.623Z"
+ }
+}
