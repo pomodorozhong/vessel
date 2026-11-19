@@ -43,7 +43,7 @@ No fallback was applied. Stage 1's fallback (cut the entity target or step rate 
 
 P1 (a result is missing):
 
-1. **Nothing was pushed or deployed.** `git push` returns 403 for the account on the dev machine (read-only on `pomodorozhong/vessel`), and the repository reports no Pages site. So Stage 0's "loads from GitHub Pages" and every real-Pages check in Stage 5 (our own file types' headers, real CDN behaviour during a deploy) are missing, and there is no PR yet.
+1. **Nothing was pushed or deployed.** `git push` returns 403 for the account on the dev machine (read-only on `pomodorozhong/vessel`; the GitHub API reports `push: false`). The API reported no Pages site when the run started and reports one at the end (`has_pages: true`), but nothing of this branch is on it. So Stage 0's "loads from GitHub Pages" and every real-Pages check in Stage 5 (our own file types' headers, real CDN behaviour during a deploy) are missing, and there is no PR yet.
 2. **Stage 4's pass bar cannot be judged**: macOS (Chrome, Edge, Safari), Firefox, sleep/wake and gamepads were not run.
 
 P2 (weaker than it should be; the verdict would likely stand):
@@ -80,8 +80,8 @@ The core decisions (raw WebGPU, Rust/WASM sim in a worker, GitHub Pages, owning 
 
 ## Blocked
 
-- `git push -u origin prototype/run-1` fails with 403: the signed-in account (`skymiku39`) has read access only. All commits are local on `prototype/run-1`. No fork was created and nothing was published elsewhere.
-- Because of that there is no Pages deploy and no PR. The workflow (`.github/workflows/deploy.yml`) is written but has never run. To finish: push the branch with an account that can write, enable Pages with "GitHub Actions" as the source, open the PR, and run the Pages steps above.
+- `git push -u origin prototype/run-1` fails with 403: the signed-in account (`skymiku39`) has read access only. All commits are local on `prototype/run-1` (last retried after the final commit). No fork was created and nothing was published elsewhere.
+- Because of that there is no Pages deploy and no PR. The workflow (`.github/workflows/deploy.yml`) is written but has never run. To finish: push the branch with an account that can write (or give `skymiku39` write access), check that Pages uses "GitHub Actions" as its source and that the `github-pages` environment allows this branch, open the PR, and run the Pages steps above.
 
 ## Assumptions made where the plan was silent
 
