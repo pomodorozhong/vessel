@@ -1,6 +1,6 @@
 # Technical direction
 
-Vessel is a survival game with 3D visuals where every character moves in a single plane. It runs in the browser, and performance is the top priority.
+Vessel is a survival game with 3D visuals where every character moves in a single plane. It runs in the browser on desktop computers, is made for 720p to 1080p screens, and is played with keyboard and mouse or a gamepad. Phones and touch are not targets. Performance is the top priority.
 
 The core idea: run a 2D game, simulated in 2D, and draw it in 3D. Rendering is only a view of the 2D state.
 
@@ -21,6 +21,7 @@ AI agents make writing code cheap, so we prefer control over ready-made features
 | Simulation | Rust compiled to WASM (with SIMD), running single-threaded in a worker | Steady speed with no garbage collector and no JIT warm-up, SIMD for the hot loops (collision, AI, movement), and the main thread is left free for rendering. Starting in Rust avoids a port later. |
 | Glue (input, UI, audio, build) | TypeScript + Vite | WebGPU is a JavaScript API, so rendering, input, UI, and audio stay in TypeScript. Types help agents as much as people. Vite loads `.wgsl` files as text and bundles the WASM module. |
 | Rendering | Raw WebGPU with WGSL shaders, GPU-driven, no engine or rendering library | Vessel needs a small renderer: one plane, a fixed camera, instanced meshes, almost no post-processing. Owning it lets entity data go from the sim's tables into GPU buffers with two plain copies per step and no conversion (WASM memory into the snapshot buffer in the worker, then the snapshot into a GPU buffer with `writeBuffer` on the main thread), and lets culling, crowd animation, and particles run in compute shaders. See "Rendering" below. |
+| Input | Keyboard, mouse, and gamepad (the browser's Gamepad API), no touch | The game targets desktop browsers. Gamepads are read once per frame on the main thread and sent to the sim with the rest of the input, and every menu and UI screen works with a gamepad alone. |
 | Math | wgpu-matrix on the TypeScript side | Small, allocation-free vector and matrix math laid out for WebGPU buffers, for the camera and render setup. The sim is 2D and does its own math in Rust. |
 | Entity storage | Our own struct-of-arrays tables in WASM memory, no ECS library | No garbage at all, so thousands of entities (enemies, trees, drops) run without stutter. We choose the memory layout, so the render data each table produces matches the GPU buffer it feeds, including padding and grouping. |
 | Physics | Custom 2D collision in Rust (AABB and circles plus a spatial hash grid). Rapier 2D only if real rigid bodies are needed. | Characters move in one plane, so 3D physics is never needed. This is the biggest performance win. Rapier is written in Rust, so it would drop straight into the sim if ever needed. |
@@ -31,10 +32,10 @@ AI agents make writing code cheap, so we prefer control over ready-made features
 
 ### The trade-off: WebGPU is required
 
-There is no WebGL fallback. A browser or device without WebGPU (older iPhones, some Android GPUs, blocklisted drivers, some Linux setups) cannot run the game. We accept this in exchange for full control and lower overhead.
+There is no WebGL fallback. A browser or device without WebGPU (older browser versions, some older GPUs, blocklisted drivers, some Linux setups) cannot run the game. We accept this in exchange for full control and lower overhead.
 
 - At startup, check that WebGPU, an adapter, and a device are all available. If not, show a clear "your browser does not support WebGPU" page with a list of supported browsers, not a blank screen.
-- Use only core WebGPU limits. Optional features, such as a compressed texture format (BC, ETC2, or ASTC) or `shader-f16`, are picked at runtime from what the adapter offers.
+- Use only core WebGPU limits. Optional features, such as BC texture compression or `shader-f16`, are picked at runtime from what the adapter offers.
 - Anything a library would normally handle (device-specific bugs, lost devices, resizing) is our job. When the GPU device is lost by accident, the game rebuilds everything on a new adapter and device in one code path, and shows the "not supported" page if none comes back.
 
 ### Ruled out
@@ -63,16 +64,17 @@ The simulation is written as per-chunk jobs even though it runs on one thread to
 
 - GPU-driven: every instance of every kind lives in a few large GPU buffers. A compute shader culls them and writes the draw counts, and the frame is drawn with indirect draws. The CPU does almost no per-object work, and the number of draw calls does not grow with the number of entities.
 - Render bundles: the fixed sequence of indirect draws is recorded once and replayed each frame for almost no CPU cost. Chunks streaming in and out only change buffer contents, never the bundles.
+- Fixed internal resolution with an upscale: the world is drawn into a texture at most 1080p tall, and one final pass scales it to the canvas's real size with a sharpening upscale filter in our own shader (in the style of AMD's FSR 1), not with CSS stretching. The UI is drawn after the upscale at full resolution, so text and icons stay sharp. The dynamic resolution scale lowers the internal resolution on the same path, and the upscale pass also does color grading, so it is the one post-processing pass.
 - Debugging GPU-driven rendering is harder, because culling happens where it cannot easily be inspected. The debug overlay includes a view of the culled and drawn instance counts per kind.
 
 ## Asset pipeline
 
 glTF stays the format artists export. A build script turns it into files the game can upload without parsing.
 
-- Models: converted to our own binary format whose vertex and index layout matches the GPU buffers, with attributes packed into 8- and 16-bit formats instead of 32-bit floats. Vertex and index data stay meshopt-encoded, which shrinks them on its own; the meshopt decoder is a few kilobytes and is the only decoder the game loads.
-- Textures: encoded at build time into each GPU format (BC7 for desktop, ASTC and ETC2 for phones), with mipmaps, stored in KTX2 containers without Basis, and gzipped. Plain BC7 and ASTC blocks barely shrink under gzip, so the encoders run in rate-distortion-optimized (RDO) mode, which trades a little quality for blocks that gzip compresses well. We measure the size gain per format; if it is still poor, we look at zstd with our own small decoder. The build also writes an uncompressed RGBA8 fallback, used only when the adapter offers none of `texture-compression-bc`, `-astc`, or `-etc2`. The game downloads only the format the device supports and unpacks it with the browser's built-in `DecompressionStream`, so no extra library or WASM is needed.
+- Models: converted to our own binary format whose vertex and index layout matches the GPU buffers, with attributes packed into 8- and 16-bit formats instead of 32-bit floats. Vertex and index data are meshopt-encoded and then gzipped, since meshopt's encoding is built to be followed by a general-purpose compressor and Pages does not gzip our binary types. The game unpacks them with `DecompressionStream` and then the meshopt decoder, which is a few kilobytes and is the only decoder the game loads.
+- Textures: encoded at build time to BC7, which every desktop GPU supports (Macs with Apple chips included), with mipmaps, stored in KTX2 containers without Basis, and gzipped. Plain BC7 blocks barely shrink under gzip, so the encoder runs in rate-distortion-optimized (RDO) mode, which trades a little quality for blocks that gzip compresses well. We measure the size gain; if it is still poor, we look at zstd with our own small decoder. The build also writes an uncompressed RGBA8 fallback, used only when the adapter does not offer `texture-compression-bc`. The game downloads only the format the device supports and unpacks it with the browser's built-in `DecompressionStream`, so no extra library or WASM is needed.
 - Every output file name includes a content hash, so caches never serve a stale file (see "Hosting on GitHub Pages").
-- The encoders (meshopt, BC7, ASTC, and ETC2 encoders) run only at build time and are never shipped.
+- The encoders (meshopt and BC7) run only at build time and are never shipped.
 
 ## How the single plane shapes the design
 
@@ -87,20 +89,20 @@ glTF stays the format artists export. A build script turns it into files the gam
 
 ### Budgets and measuring
 
-1. Measure from the start with our own overlay: CPU time per system and GPU time (the `timestamp-query` feature where available). The reference device is a mid-range Android phone a few years old; test on it, not only on the dev machine.
-2. Every system has a time budget on the reference phone (for example: sim step 4 ms, render encoding 2 ms). A system over its budget is fixed before new features are added.
-3. Leave headroom for heat. Phones slow down when they get hot, so aim to use about 60% of the frame time on the reference phone, not 100%.
-4. Draw calls are capped at 100 per frame on the reference phone. GPU-driven rendering and instancing keep the real number far below that.
+1. Measure from the start with our own overlay: CPU time per system and GPU time (the `timestamp-query` feature where available). The reference device is a laptop a few years old with integrated graphics, running Chrome at 1080p; test on it, not only on the dev machine.
+2. Every system has a time budget on the reference device (for example: sim step 4 ms, render encoding 2 ms). A system over its budget is fixed before new features are added.
+3. Leave headroom. Other tabs and apps share the machine, and thin laptops slow down when they get hot, so aim to use about 60% of the frame time on the reference device, not 100%.
+4. Draw calls are capped at 100 per frame on the reference device. GPU-driven rendering and instancing keep the real number far below that.
 
 ### GPU
 
 5. Draw repeated objects (trees, rocks, grass, enemies of one type) as instances, and use texture atlases so many objects share one pipeline and bind group.
-6. Keep overdraw down: phones are limited by how many pixels they can draw, so how many times each pixel is drawn matters more than triangle count. Draw solid objects roughly front to back (by layer, since culling does not sort), keep alpha blending to small areas and draw it last, and keep particles small.
+6. Keep overdraw down: integrated GPUs are limited by how many pixels they can draw, so how many times each pixel is drawn matters more than triangle count. Draw solid objects roughly front to back (by layer, since culling does not sort), keep alpha blending to small areas and draw it last, and keep particles small.
 7. Use small data: packed vertex attributes (see "Asset pipeline"), compressed textures with mipmaps, and 16-bit floats in shaders where `shader-f16` is available.
 8. Crowd animation uses vertex animation textures (animation on the GPU). Skeletal animation is only for the player and bosses.
-9. Cap the pixel ratio at `Math.min(devicePixelRatio, 1.5)`, and add a dynamic resolution scale that drops when the frame rate drops.
+9. Draw the world at most 1080p tall and upscale to the screen (see "Rendering"), and add a dynamic resolution scale that lowers the internal resolution when the frame rate drops.
 10. The day and night cycle changes a few shader uniforms (sun direction, light color and strength, fog, sky color) instead of adding real lights.
-11. At most one cheap post-processing pass (color grading or vignette), or none.
+11. At most one cheap post-processing pass: the upscale pass, which also does color grading (and a vignette if wanted).
 12. Create every pipeline at load time with `createRenderPipelineAsync` and `createComputePipelineAsync`, so no shader is compiled mid-game.
 13. Never wait on GPU data during a frame. Data the CPU needs from the GPU, such as timings, is read a few frames later. Nothing the sim depends on comes from the GPU.
 14. Upload only what changed, apart from the sim's per-step instance data, which is uploaded whole once per sim step, not once per frame.
@@ -127,7 +129,7 @@ glTF stays the format artists export. A build script turns it into files the gam
 
 Browsers can delete IndexedDB on their own, and a survival save can hold many hours of play, so we do not rely on IndexedDB alone.
 
-- Safari deletes all storage a script wrote (IndexedDB, Cache Storage, the service worker) after 7 days of Safari use without the player interacting with the site, on both iOS and macOS. A player who takes a week off would lose their save. Sites added to the home screen are exempt, so on Safari the game suggests adding it to the home screen.
+- Safari on macOS deletes all storage a script wrote (IndexedDB, Cache Storage, the service worker) after 7 days of Safari use without the player interacting with the site. A player who takes a week off would lose their save. Whether a web app added to the Dock is exempt is not confirmed and is checked in the prototype; until then, Safari players are pointed to save export.
 - Chrome and Firefox store data as "best effort" by default and can delete the whole origin's data, saves included, when the disk runs low. After the first save the game calls `navigator.storage.persist()` to ask for persistent storage. The browser may refuse, so this lowers the risk but does not remove it.
 - The game can export a save as a file and import it again, so players can keep a copy outside the browser. Export uses the same format the save job writes, so it adds no second serializer.
 
@@ -145,7 +147,7 @@ Survival systems keep running while the player is away, so stored chunks must no
 GitHub Pages serves static files only. We cannot set HTTP headers, cache times, or compression, and the rules below follow from that.
 
 - No shared memory between threads. `SharedArrayBuffer`, and so multithreaded WASM, needs the COOP and COEP headers, which Pages cannot send. "Threads and workers" above describes how we work without it. We do not use the service-worker trick that fakes these headers (coi-serviceworker): it reloads the page on the first visit and is fragile.
-- Compression is ours. Pages gzips common text types but not our binary formats, so the asset pipeline compresses them itself (meshopt for models, gzip for textures), and the `.wasm` module too if Pages does not compress it.
+- Compression is ours. Pages gzips common text types but not our binary formats, so the asset pipeline compresses them itself (meshopt plus gzip for models, gzip for textures), and the `.wasm` module too if Pages does not compress it.
 - Caching is short and fixed: Pages tells browsers to keep files for about 10 minutes. Every built file has a content hash in its name, and a small service worker keeps hashed files so returning players load almost instantly, while new releases are still picked up and old files are cleaned out.
 - A deploy must not break a game that is already running: a tab on the previous build can still load its files, and a missing file makes the game save and ask the player to reload.
 - Base path: the site lives under the repository name, so Vite uses `base: '/vessel/'` (or `/` with a custom domain).
@@ -161,7 +163,7 @@ Both are free, deploy from the same repository, and let us set headers. With COO
 
 ## Prototype first
 
-Several parts of this direction rest on guesses that only running code can settle. Before building the game, a throwaway prototype tests them on the reference phone, and its results update this doc. [prototype-plan.md](prototype-plan.md) has the stages, measurements, and pass bars. The hypotheses it tests:
+Several parts of this direction rest on guesses that only running code can settle. Before building the game, a throwaway prototype tests them on the reference device, and its results update this doc. [prototype-plan.md](prototype-plan.md) has the stages, measurements, and pass bars. The hypotheses it tests:
 
 1. A Rust/WASM sim in one worker steps a few thousand entities (movement, spatial-hash collision, one flow field) within its budget at 30 Hz.
 2. Worker snapshots plus vertex-shader interpolation look smooth at 60 fps and at 30 fps, with jitter and stalls, and the measured lag, queue, and pool sizes replace guesses.
