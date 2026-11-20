@@ -19,6 +19,7 @@ export default defineConfig({
         three: 'three.html',    // Stage 3: Three.js comparison
         stage5: 'stage5.html',  // Stage 5: startup and hosting
         stage6: 'stage6.html',  // Stage 6: chunk catch-up and saves
+        stage9: 'stage9.html',  // Run 2 Stage 9: the cel-shaded look
       },
     },
   },
