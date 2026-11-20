@@ -1,0 +1,25 @@
+{
+  "name": "vessel-prototype",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "packageManager": "pnpm@10.34.9",
+  "scripts": {
+    "wasm": "node scripts/build-wasm.mjs",
+    "dev": "vite",
+    "build": "node scripts/build-wasm.mjs && node scripts/build-chunks.mjs && tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@types/three": "^0.187.0",
+    "@webgpu/types": "^0.1.74",
+    "puppeteer-core": "^25.18.1",
+    "three": "^0.187.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "wgpu-matrix": "^3.4.2"
+  },
+  "dependencies": {
+    "meshoptimizer": "^1.3.0"
+  }
+}

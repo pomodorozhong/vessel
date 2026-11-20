@@ -1,0 +1,3530 @@
+{
+ "meta": {
+  "measuredAt": "2026-11-19T10:14:47.898Z",
+  "host": "dev machine (i7-13700, RTX 3060), local Pages emulator on localhost:4175",
+  "reps": 5,
+  "nets": {
+   "none": null,
+   "fast4g": {
+    "name": "Fast 4G",
+    "downloadThroughput": 1012500,
+    "uploadThroughput": 168750,
+    "latency": 165
+   },
+   "slow4g": {
+    "name": "Slow 4G",
+    "downloadThroughput": 180000,
+    "uploadThroughput": 84375,
+    "latency": 562.5
+   }
+  },
+  "build": "s5-main"
+ },
+ "cold-nothrottle-cpu1": {
+  "config": {
+   "path": "stage5.html",
+   "net": "none",
+   "cpu": 1,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "none",
+   "pageSession": false,
+   "swTargets": 0
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 665.8,
+    "min": 635.5,
+    "max": 694.4,
+    "values": [
+     679.7,
+     694.4,
+     635.5,
+     665.8,
+     654.9
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 215.6,
+    "min": 206.4,
+    "max": 242.3,
+    "values": [
+     212.6,
+     242.3,
+     206.4,
+     215.6,
+     218.6
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 256.1,
+    "min": 233.3,
+    "max": 280.1,
+    "values": [
+     256.6,
+     280.1,
+     233.3,
+     256.1,
+     248.4
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 230,
+    "min": 218.8,
+    "max": 255.1,
+    "values": [
+     226.2,
+     255.1,
+     218.8,
+     230,
+     230.8
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 278.9,
+    "min": 241.7,
+    "max": 289.3,
+    "values": [
+     289.3,
+     278.9,
+     241.7,
+     283.5,
+     265.7
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 26.1,
+    "min": 23.8,
+    "max": 32.8,
+    "values": [
+     26.1,
+     32.8,
+     23.8,
+     24.8,
+     28.1
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 5.4,
+    "min": 4.9,
+    "max": 6.5,
+    "values": [
+     5.4,
+     5.8,
+     6.5,
+     5,
+     4.9
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 18,
+   "bytes": 1330427,
+   "r304": 0,
+   "r404": 1
+  },
+  "rows": [
+   {
+    "firstFrame": 679.7000000476837,
+    "htmlEnd": 212.59999990463257,
+    "jsStart": 256.59999990463257,
+    "wasmCompiled": 226.20000004768372,
+    "assetsDownloaded": 289.2999999523163,
+    "decodeMs": 26.09999990463257,
+    "uploadMs": 5.400000095367432,
+    "gpuDone": 679.5,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 694.4000000953674,
+    "htmlEnd": 242.30000019073486,
+    "jsStart": 280.10000014305115,
+    "wasmCompiled": 255.10000014305115,
+    "assetsDownloaded": 278.90000009536743,
+    "decodeMs": 32.799999952316284,
+    "uploadMs": 5.799999952316284,
+    "gpuDone": 694.1000001430511,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 635.5,
+    "htmlEnd": 206.40000009536743,
+    "jsStart": 233.29999995231628,
+    "wasmCompiled": 218.79999995231628,
+    "assetsDownloaded": 241.70000004768372,
+    "decodeMs": 23.799999952316284,
+    "uploadMs": 6.5,
+    "gpuDone": 635.2999999523163,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 665.7999999523163,
+    "htmlEnd": 215.59999990463257,
+    "jsStart": 256.09999990463257,
+    "wasmCompiled": 230,
+    "assetsDownloaded": 283.5,
+    "decodeMs": 24.799999952316284,
+    "uploadMs": 5,
+    "gpuDone": 665.6999998092651,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 654.8999998569489,
+    "htmlEnd": 218.59999990463257,
+    "jsStart": 248.39999985694885,
+    "wasmCompiled": 230.79999995231628,
+    "assetsDownloaded": 265.7000000476837,
+    "decodeMs": 28.09999990463257,
+    "uploadMs": 4.900000095367432,
+    "gpuDone": 654.7000000476837,
+    "sw": false,
+    "bc7": true
+   }
+  ]
+ },
+ "cold-fast4g-cpu1": {
+  "config": {
+   "path": "stage5.html",
+   "net": "Fast 4G",
+   "cpu": 1,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 2038.9,
+    "min": 2001.7,
+    "max": 2152.7,
+    "values": [
+     2001.7,
+     2053.6,
+     2034.2,
+     2152.7,
+     2038.9
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 408.4,
+    "min": 372.4,
+    "max": 477.5,
+    "values": [
+     372.4,
+     416.3,
+     408.4,
+     477.5,
+     392.2
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 987.7,
+    "min": 944.2,
+    "max": 1075.1,
+    "values": [
+     944.2,
+     1005.6,
+     987.7,
+     1075.1,
+     977.5
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 651.5,
+    "min": 616.1,
+    "max": 722.7,
+    "values": [
+     616.1,
+     662.6,
+     651.5,
+     722.7,
+     638.2
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 1960.8,
+    "min": 1929.2,
+    "max": 2080.5,
+    "values": [
+     1929.2,
+     1978.8,
+     1960.8,
+     2080.5,
+     1960.6
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 23.5,
+    "min": 22.2,
+    "max": 26.9,
+    "values": [
+     22.2,
+     23.5,
+     23.9,
+     22.2,
+     26.9
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 4.9,
+    "min": 4.8,
+    "max": 5.6,
+    "values": [
+     4.9,
+     5.6,
+     4.8,
+     4.8,
+     5.5
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 17,
+   "bytes": 1329797,
+   "r304": 0,
+   "r404": 1
+  },
+  "rows": [
+   {
+    "firstFrame": 2001.7000000476837,
+    "htmlEnd": 372.40000009536743,
+    "jsStart": 944.2000000476837,
+    "wasmCompiled": 616.1000001430511,
+    "assetsDownloaded": 1929.2000000476837,
+    "decodeMs": 22.200000047683716,
+    "uploadMs": 4.900000095367432,
+    "gpuDone": 2001.5,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2053.600000143051,
+    "htmlEnd": 416.30000019073486,
+    "jsStart": 1005.6000001430511,
+    "wasmCompiled": 662.6000001430511,
+    "assetsDownloaded": 1978.8000001907349,
+    "decodeMs": 23.5,
+    "uploadMs": 5.599999904632568,
+    "gpuDone": 2053.5,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2034.1999998092651,
+    "htmlEnd": 408.39999985694885,
+    "jsStart": 987.6999998092651,
+    "wasmCompiled": 651.5,
+    "assetsDownloaded": 1960.7999999523163,
+    "decodeMs": 23.899999856948853,
+    "uploadMs": 4.800000190734863,
+    "gpuDone": 2034,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2152.7000000476837,
+    "htmlEnd": 477.5,
+    "jsStart": 1075.0999999046326,
+    "wasmCompiled": 722.7000000476837,
+    "assetsDownloaded": 2080.5,
+    "decodeMs": 22.200000047683716,
+    "uploadMs": 4.799999952316284,
+    "gpuDone": 2152.5,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2038.9000000953674,
+    "htmlEnd": 392.2000000476837,
+    "jsStart": 977.5,
+    "wasmCompiled": 638.2000000476837,
+    "assetsDownloaded": 1960.5999999046326,
+    "decodeMs": 26.90000009536743,
+    "uploadMs": 5.5,
+    "gpuDone": 2038.7000000476837,
+    "sw": false,
+    "bc7": true
+   }
+  ]
+ },
+ "cold-fast4g-cpu4": {
+  "config": {
+   "path": "stage5.html",
+   "net": "Fast 4G",
+   "cpu": 4,
+   "label": "dev machine, throttled"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 2127.4,
+    "min": 2108,
+    "max": 2193.1,
+    "values": [
+     2140.4,
+     2118.5,
+     2127.4,
+     2108,
+     2193.1
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 401,
+    "min": 381.6,
+    "max": 469.7,
+    "values": [
+     418,
+     389.7,
+     401,
+     381.6,
+     469.7
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 1000.1,
+    "min": 961.3,
+    "max": 1047.8,
+    "values": [
+     1009.1,
+     1000.1,
+     978.8,
+     961.3,
+     1047.8
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 653.6,
+    "min": 588.7,
+    "max": 690.4,
+    "values": [
+     666.3,
+     653.6,
+     653.2,
+     588.7,
+     690.4
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 1961.1,
+    "min": 1941.1,
+    "max": 2027.3,
+    "values": [
+     1979.1,
+     1954.8,
+     1961.1,
+     1941.1,
+     2027.3
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 93.6,
+    "min": 91.8,
+    "max": 95.9,
+    "values": [
+     91.8,
+     93.6,
+     93.4,
+     95.2,
+     95.9
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 23.5,
+    "min": 22.9,
+    "max": 25.7,
+    "values": [
+     23.5,
+     22.9,
+     25.7,
+     23.6,
+     22.9
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 17,
+   "bytes": 1329797,
+   "r304": 0,
+   "r404": 1
+  },
+  "rows": [
+   {
+    "firstFrame": 2140.4000000953674,
+    "htmlEnd": 418,
+    "jsStart": 1009.1000001430511,
+    "wasmCompiled": 666.2999999523163,
+    "assetsDownloaded": 1979.1000001430511,
+    "decodeMs": 91.79999995231628,
+    "uploadMs": 23.5,
+    "gpuDone": 2140,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2118.5,
+    "htmlEnd": 389.7000000476837,
+    "jsStart": 1000.0999999046326,
+    "wasmCompiled": 653.5999999046326,
+    "assetsDownloaded": 1954.7999999523163,
+    "decodeMs": 93.60000014305115,
+    "uploadMs": 22.899999856948853,
+    "gpuDone": 2118.0999999046326,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2127.4000000953674,
+    "htmlEnd": 401,
+    "jsStart": 978.7999999523163,
+    "wasmCompiled": 653.2000000476837,
+    "assetsDownloaded": 1961.0999999046326,
+    "decodeMs": 93.40000009536743,
+    "uploadMs": 25.700000047683716,
+    "gpuDone": 2126.5999999046326,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2108,
+    "htmlEnd": 381.59999990463257,
+    "jsStart": 961.2999999523163,
+    "wasmCompiled": 588.7000000476837,
+    "assetsDownloaded": 1941.0999999046326,
+    "decodeMs": 95.20000004768372,
+    "uploadMs": 23.59999990463257,
+    "gpuDone": 2107.5999999046326,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2193.0999999046326,
+    "htmlEnd": 469.7000000476837,
+    "jsStart": 1047.7999999523163,
+    "wasmCompiled": 690.3999998569489,
+    "assetsDownloaded": 2027.2999999523163,
+    "decodeMs": 95.90000009536743,
+    "uploadMs": 22.899999856948853,
+    "gpuDone": 2192.7000000476837,
+    "sw": false,
+    "bc7": true
+   }
+  ]
+ },
+ "warm-fast4g-cpu1": {
+  "config": {
+   "path": "stage5.html",
+   "net": "Fast 4G",
+   "cpu": 1,
+   "disableHttpCache": false,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 329.4,
+    "min": 319,
+    "max": 464,
+    "values": [
+     464,
+     323.2,
+     319,
+     329.4,
+     333
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 201.1,
+    "min": 189.9,
+    "max": 343.9,
+    "values": [
+     343.9,
+     191,
+     189.9,
+     201.1,
+     203.8
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 224.6,
+    "min": 212.6,
+    "max": 367.6,
+    "values": [
+     367.6,
+     212.7,
+     212.6,
+     224.6,
+     227.6
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 226,
+    "min": 211.9,
+    "max": 366.8,
+    "values": [
+     366.8,
+     214.1,
+     211.9,
+     226,
+     228.9
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 226.1,
+    "min": 214.2,
+    "max": 369.2,
+    "values": [
+     369.2,
+     214.2,
+     214.4,
+     226.1,
+     229
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 22.7,
+    "min": 20.8,
+    "max": 23.2,
+    "values": [
+     23.2,
+     22.3,
+     22.7,
+     20.8,
+     22.7
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 4.8,
+    "min": 4.4,
+    "max": 5.1,
+    "values": [
+     4.8,
+     5.1,
+     4.9,
+     4.6,
+     4.4
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 3,
+   "bytes": 704,
+   "r304": 1,
+   "r404": 0
+  },
+  "swControlledAll": true,
+  "rows": [
+   {
+    "firstFrame": 464,
+    "htmlEnd": 343.89999985694885,
+    "jsStart": 367.59999990463257,
+    "wasmCompiled": 366.7999999523163,
+    "assetsDownloaded": 369.2000000476837,
+    "decodeMs": 23.200000047683716,
+    "uploadMs": 4.799999952316284,
+    "gpuDone": 463.89999985694885,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 323.2000000476837,
+    "htmlEnd": 191,
+    "jsStart": 212.70000004768372,
+    "wasmCompiled": 214.10000014305115,
+    "assetsDownloaded": 214.20000004768372,
+    "decodeMs": 22.299999952316284,
+    "uploadMs": 5.1000001430511475,
+    "gpuDone": 323.10000014305115,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 319,
+    "htmlEnd": 189.89999985694885,
+    "jsStart": 212.59999990463257,
+    "wasmCompiled": 211.89999985694885,
+    "assetsDownloaded": 214.39999985694885,
+    "decodeMs": 22.700000047683716,
+    "uploadMs": 4.8999998569488525,
+    "gpuDone": 319,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 329.40000009536743,
+    "htmlEnd": 201.10000014305115,
+    "jsStart": 224.60000014305115,
+    "wasmCompiled": 226,
+    "assetsDownloaded": 226.10000014305115,
+    "decodeMs": 20.799999952316284,
+    "uploadMs": 4.599999904632568,
+    "gpuDone": 329.2999999523163,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 333,
+    "htmlEnd": 203.79999995231628,
+    "jsStart": 227.59999990463257,
+    "wasmCompiled": 228.90000009536743,
+    "assetsDownloaded": 229,
+    "decodeMs": 22.700000047683716,
+    "uploadMs": 4.400000095367432,
+    "gpuDone": 332.90000009536743,
+    "sw": true,
+    "bc7": true
+   }
+  ],
+  "requestsRun1": [
+   {
+    "p": "/vessel/assets/lazy-DWgUe7SE.js",
+    "s": 200,
+    "b": 74
+   },
+   {
+    "p": "/vessel/stage5.html",
+    "s": 304,
+    "b": 0
+   },
+   {
+    "p": "/vessel/builds.json",
+    "s": 200,
+    "b": 630
+   }
+  ]
+ },
+ "warm-fast4g-cpu4": {
+  "config": {
+   "path": "stage5.html",
+   "net": "Fast 4G",
+   "cpu": 4,
+   "disableHttpCache": false,
+   "label": "dev machine, throttled"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 466.8,
+    "min": 450.6,
+    "max": 580.2,
+    "values": [
+     580.2,
+     460,
+     475.8,
+     450.6,
+     466.8
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 191.8,
+    "min": 190.6,
+    "max": 323.8,
+    "values": [
+     323.8,
+     191.8,
+     202.1,
+     191.3,
+     190.6
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 261,
+    "min": 257.8,
+    "max": 396.7,
+    "values": [
+     396.7,
+     261,
+     270.1,
+     258,
+     257.8
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 257.5,
+    "min": 254.9,
+    "max": 393.5,
+    "values": [
+     393.5,
+     257.5,
+     267.1,
+     254.9,
+     254.9
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 257.7,
+    "min": 255.1,
+    "max": 393.8,
+    "values": [
+     393.8,
+     257.7,
+     267.3,
+     255.1,
+     255.1
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 88.8,
+    "min": 85.8,
+    "max": 93.7,
+    "values": [
+     90.6,
+     93.7,
+     88.8,
+     88.8,
+     85.8
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 22.3,
+    "min": 21.7,
+    "max": 23.2,
+    "values": [
+     21.7,
+     22.1,
+     22.3,
+     23.2,
+     23.1
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 3,
+   "bytes": 704,
+   "r304": 1,
+   "r404": 0
+  },
+  "swControlledAll": true,
+  "rows": [
+   {
+    "firstFrame": 580.2000000476837,
+    "htmlEnd": 323.7999999523163,
+    "jsStart": 396.7000000476837,
+    "wasmCompiled": 393.5,
+    "assetsDownloaded": 393.7999999523163,
+    "decodeMs": 90.59999990463257,
+    "uploadMs": 21.700000047683716,
+    "gpuDone": 579.7999999523163,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 460,
+    "htmlEnd": 191.79999995231628,
+    "jsStart": 261,
+    "wasmCompiled": 257.5,
+    "assetsDownloaded": 257.7000000476837,
+    "decodeMs": 93.70000004768372,
+    "uploadMs": 22.09999990463257,
+    "gpuDone": 459.7999999523163,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 475.7999999523163,
+    "htmlEnd": 202.09999990463257,
+    "jsStart": 270.09999990463257,
+    "wasmCompiled": 267.09999990463257,
+    "assetsDownloaded": 267.2999999523163,
+    "decodeMs": 88.79999995231628,
+    "uploadMs": 22.299999952316284,
+    "gpuDone": 475.40000009536743,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 450.60000014305115,
+    "htmlEnd": 191.29999995231628,
+    "jsStart": 258,
+    "wasmCompiled": 254.90000009536743,
+    "assetsDownloaded": 255.10000014305115,
+    "decodeMs": 88.79999995231628,
+    "uploadMs": 23.200000047683716,
+    "gpuDone": 450.10000014305115,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 466.7999999523163,
+    "htmlEnd": 190.59999990463257,
+    "jsStart": 257.7999999523163,
+    "wasmCompiled": 254.90000009536743,
+    "assetsDownloaded": 255.09999990463257,
+    "decodeMs": 85.79999995231628,
+    "uploadMs": 23.100000143051147,
+    "gpuDone": 449.90000009536743,
+    "sw": true,
+    "bc7": true
+   }
+  ],
+  "requestsRun1": [
+   {
+    "p": "/vessel/stage5.html",
+    "s": 304,
+    "b": 0
+   },
+   {
+    "p": "/vessel/assets/lazy-DWgUe7SE.js",
+    "s": 200,
+    "b": 74
+   },
+   {
+    "p": "/vessel/builds.json",
+    "s": 200,
+    "b": 630
+   }
+  ]
+ },
+ "warm-swonly-fast4g-cpu1": {
+  "config": {
+   "path": "stage5.html",
+   "net": "Fast 4G",
+   "cpu": 1,
+   "disableHttpCache": true,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 332.4,
+    "min": 331.2,
+    "max": 450.9,
+    "values": [
+     450.9,
+     331.8,
+     331.2,
+     349.9,
+     332.4
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 203.4,
+    "min": 196,
+    "max": 322.2,
+    "values": [
+     322.2,
+     203.4,
+     201.7,
+     203.6,
+     196
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 230.3,
+    "min": 221.2,
+    "max": 346.2,
+    "values": [
+     346.2,
+     230.3,
+     228.2,
+     231,
+     221.2
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 231.7,
+    "min": 222.6,
+    "max": 345,
+    "values": [
+     345,
+     231.7,
+     229.7,
+     232.7,
+     222.6
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 231.8,
+    "min": 222.6,
+    "max": 345.1,
+    "values": [
+     345.1,
+     231.8,
+     229.9,
+     232.8,
+     222.6
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 22.8,
+    "min": 21.7,
+    "max": 23.6,
+    "values": [
+     22.8,
+     22.1,
+     21.7,
+     23.6,
+     23.3
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 5.2,
+    "min": 4.5,
+    "max": 5.7,
+    "values": [
+     5.3,
+     4.9,
+     5.2,
+     5.7,
+     4.5
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 3,
+   "bytes": 704,
+   "r304": 1,
+   "r404": 0
+  },
+  "swControlledAll": true,
+  "rows": [
+   {
+    "firstFrame": 450.90000009536743,
+    "htmlEnd": 322.2000000476837,
+    "jsStart": 346.2000000476837,
+    "wasmCompiled": 345,
+    "assetsDownloaded": 345.09999990463257,
+    "decodeMs": 22.799999952316284,
+    "uploadMs": 5.300000190734863,
+    "gpuDone": 450.90000009536743,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 331.7999999523163,
+    "htmlEnd": 203.40000009536743,
+    "jsStart": 230.29999995231628,
+    "wasmCompiled": 231.70000004768372,
+    "assetsDownloaded": 231.79999995231628,
+    "decodeMs": 22.100000143051147,
+    "uploadMs": 4.8999998569488525,
+    "gpuDone": 331.7000000476837,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 331.2000000476837,
+    "htmlEnd": 201.70000004768372,
+    "jsStart": 228.20000004768372,
+    "wasmCompiled": 229.70000004768372,
+    "assetsDownloaded": 229.90000009536743,
+    "decodeMs": 21.700000047683716,
+    "uploadMs": 5.200000047683716,
+    "gpuDone": 331,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 349.89999985694885,
+    "htmlEnd": 203.59999990463257,
+    "jsStart": 231,
+    "wasmCompiled": 232.70000004768372,
+    "assetsDownloaded": 232.79999995231628,
+    "decodeMs": 23.59999990463257,
+    "uploadMs": 5.700000047683716,
+    "gpuDone": 349.7999999523163,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 332.40000009536743,
+    "htmlEnd": 196,
+    "jsStart": 221.20000004768372,
+    "wasmCompiled": 222.60000014305115,
+    "assetsDownloaded": 222.60000014305115,
+    "decodeMs": 23.299999952316284,
+    "uploadMs": 4.5,
+    "gpuDone": 332.40000009536743,
+    "sw": true,
+    "bc7": true
+   }
+  ],
+  "requestsRun1": [
+   {
+    "p": "/vessel/assets/lazy-DWgUe7SE.js",
+    "s": 200,
+    "b": 74
+   },
+   {
+    "p": "/vessel/stage5.html",
+    "s": 304,
+    "b": 0
+   },
+   {
+    "p": "/vessel/builds.json",
+    "s": 200,
+    "b": 630
+   }
+  ]
+ },
+ "cold-slow4g-cpu1": {
+  "config": {
+   "path": "stage5.html",
+   "net": "Slow 4G",
+   "cpu": 1,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Slow 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 8910.8,
+    "min": 8859,
+    "max": 9077.8,
+    "values": [
+     8859,
+     8910.8,
+     8894.6,
+     9077.8,
+     9041.3
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 805.4,
+    "min": 770,
+    "max": 949.3,
+    "values": [
+     770,
+     805.4,
+     791.1,
+     949.3,
+     927.9
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 3161.1,
+    "min": 3118.7,
+    "max": 3343.6,
+    "values": [
+     3118.7,
+     3161.1,
+     3147.2,
+     3343.6,
+     3277.2
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 1682.9,
+    "min": 1653.1,
+    "max": 1808.9,
+    "values": [
+     1653.1,
+     1681.8,
+     1682.9,
+     1795,
+     1808.9
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 8824.8,
+    "min": 8784.2,
+    "max": 9004.1,
+    "values": [
+     8784.2,
+     8824.8,
+     8818.1,
+     9004.1,
+     8947.5
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 21.3,
+    "min": 20.4,
+    "max": 24.3,
+    "values": [
+     24.3,
+     23.7,
+     21.3,
+     21,
+     20.4
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 5,
+    "min": 4.7,
+    "max": 5.4,
+    "values": [
+     5,
+     5.4,
+     5.1,
+     4.7,
+     4.7
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 16,
+   "bytes": 1328930,
+   "r304": 0,
+   "r404": 1
+  },
+  "rows": [
+   {
+    "firstFrame": 8859,
+    "htmlEnd": 770,
+    "jsStart": 3118.699999809265,
+    "wasmCompiled": 1653.0999999046326,
+    "assetsDownloaded": 8784.199999809265,
+    "decodeMs": 24.300000190734863,
+    "uploadMs": 5,
+    "gpuDone": 8858.799999952316,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 8910.799999952316,
+    "htmlEnd": 805.4000000953674,
+    "jsStart": 3161.0999999046326,
+    "wasmCompiled": 1681.7999999523163,
+    "assetsDownloaded": 8824.799999952316,
+    "decodeMs": 23.700000047683716,
+    "uploadMs": 5.400000095367432,
+    "gpuDone": 8910.5,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 8894.600000143051,
+    "htmlEnd": 791.1000001430511,
+    "jsStart": 3147.2000000476837,
+    "wasmCompiled": 1682.9000000953674,
+    "assetsDownloaded": 8818.100000143051,
+    "decodeMs": 21.299999952316284,
+    "uploadMs": 5.099999904632568,
+    "gpuDone": 8894.5,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 9077.799999952316,
+    "htmlEnd": 949.2999999523163,
+    "jsStart": 3343.5999999046326,
+    "wasmCompiled": 1795,
+    "assetsDownloaded": 9004.099999904633,
+    "decodeMs": 21,
+    "uploadMs": 4.700000047683716,
+    "gpuDone": 9077.599999904633,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 9041.300000190735,
+    "htmlEnd": 927.9000000953674,
+    "jsStart": 3277.2000000476837,
+    "wasmCompiled": 1808.9000000953674,
+    "assetsDownloaded": 8947.5,
+    "decodeMs": 20.40000009536743,
+    "uploadMs": 4.700000047683716,
+    "gpuDone": 9024.600000143051,
+    "sw": false,
+    "bc7": true
+   }
+  ]
+ },
+ "warm-slow4g-cpu1": {
+  "config": {
+   "path": "stage5.html",
+   "net": "Slow 4G",
+   "cpu": 1,
+   "disableHttpCache": false,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Slow 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 728.7,
+    "min": 715.7,
+    "max": 1254.2,
+    "values": [
+     1254.2,
+     722.2,
+     730.8,
+     728.7,
+     715.7
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 590,
+    "min": 587.7,
+    "max": 1118.1,
+    "values": [
+     1118.1,
+     590,
+     587.7,
+     592.6,
+     588.1
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 615.7,
+    "min": 612,
+    "max": 1144.2,
+    "values": [
+     1144.2,
+     615.7,
+     612.2,
+     618.2,
+     612
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 617.7,
+    "min": 610.9,
+    "max": 1143,
+    "values": [
+     1143,
+     617.7,
+     613.7,
+     620.3,
+     610.9
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 617.8,
+    "min": 613.6,
+    "max": 1143.1,
+    "values": [
+     1143.1,
+     617.8,
+     614.2,
+     620.6,
+     613.6
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 23.8,
+    "min": 21.4,
+    "max": 25,
+    "values": [
+     23.4,
+     23.8,
+     25,
+     21.4,
+     24.2
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 4.7,
+    "min": 4.7,
+    "max": 6,
+    "values": [
+     4.7,
+     4.7,
+     6,
+     4.8,
+     4.7
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 3,
+   "bytes": 25234,
+   "r304": 1,
+   "r404": 0
+  },
+  "swControlledAll": true,
+  "rows": [
+   {
+    "firstFrame": 1254.2000000476837,
+    "htmlEnd": 1118.0999999046326,
+    "jsStart": 1144.2000000476837,
+    "wasmCompiled": 1143,
+    "assetsDownloaded": 1143.0999999046326,
+    "decodeMs": 23.40000009536743,
+    "uploadMs": 4.699999809265137,
+    "gpuDone": 1253.5999999046326,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 722.2000000476837,
+    "htmlEnd": 590,
+    "jsStart": 615.7000000476837,
+    "wasmCompiled": 617.7000000476837,
+    "assetsDownloaded": 617.7999999523163,
+    "decodeMs": 23.799999952316284,
+    "uploadMs": 4.700000047683716,
+    "gpuDone": 722.2000000476837,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 730.7999999523163,
+    "htmlEnd": 587.7000000476837,
+    "jsStart": 612.2000000476837,
+    "wasmCompiled": 613.7000000476837,
+    "assetsDownloaded": 614.2000000476837,
+    "decodeMs": 25,
+    "uploadMs": 6,
+    "gpuDone": 730.5999999046326,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 728.7000000476837,
+    "htmlEnd": 592.6000001430511,
+    "jsStart": 618.2000000476837,
+    "wasmCompiled": 620.3000001907349,
+    "assetsDownloaded": 620.6000001430511,
+    "decodeMs": 21.399999856948853,
+    "uploadMs": 4.799999952316284,
+    "gpuDone": 728.5,
+    "sw": true,
+    "bc7": true
+   },
+   {
+    "firstFrame": 715.6999998092651,
+    "htmlEnd": 588.0999999046326,
+    "jsStart": 612,
+    "wasmCompiled": 610.8999998569489,
+    "assetsDownloaded": 613.5999999046326,
+    "decodeMs": 24.199999809265137,
+    "uploadMs": 4.700000047683716,
+    "gpuDone": 715.5,
+    "sw": true,
+    "bc7": true
+   }
+  ],
+  "requestsRun1": [
+   {
+    "p": "/vessel/stage5.html",
+    "s": 304,
+    "b": 0
+   },
+   {
+    "p": "/vessel/a/lazy0.878e6a42d8.bin.gz",
+    "s": 200,
+    "b": 24604
+   },
+   {
+    "p": "/vessel/builds.json",
+    "s": 200,
+    "b": 630
+   }
+  ]
+ },
+ "preload-crossorigin": {
+  "path": "stage5.html",
+  "firstFrame": 2207.899999856949,
+  "serverGetsPerAssetPath": {
+   "/vessel/a/sim.7355a6ce7e.wasm.gz": 1,
+   "/vessel/a/character.mesh.2a1f1b8406.bin.gz": 1,
+   "/vessel/a/tree.mesh.f5df70c6b3.bin.gz": 1,
+   "/vessel/a/rock.mesh.776a930383.bin.gz": 1,
+   "/vessel/a/atlas2048.bc7-l1.d5aed64491.ktx2.gz": 1,
+   "/vessel/a/bark1024.bc7-l1.fc83f00444.ktx2.gz": 1,
+   "/vessel/a/rock1024.bc7-l1.e2d3ba2891.ktx2.gz": 1,
+   "/vessel/a/ground1024.bc7-l1.ce84488b8f.ktx2.gz": 1,
+   "/vessel/a/lazy0.878e6a42d8.bin.gz": 1,
+   "/vessel/a/lazy1.bae0845e1a.bin.gz": 1,
+   "/vessel/a/lazy2.0564c86a85.bin.gz": 1,
+   "/vessel/a/lazy3.9780f660b8.bin.gz": 1,
+   "/vessel/a/lazy4.910bf28845.bin.gz": 1
+  },
+  "serverSawMoreThanOne": 0,
+  "totalServerAssetGets": 13,
+  "browserRequestsPerAsset": {
+   "a/sim.7355a6ce7e.wasm.gz": [
+    {
+     "type": "link",
+     "transfer": 10300,
+     "body": 10000
+    }
+   ],
+   "a/character.mesh.2a1f1b8406.bin.gz": [
+    {
+     "type": "link",
+     "transfer": 43887,
+     "body": 43587
+    }
+   ],
+   "a/rock.mesh.776a930383.bin.gz": [
+    {
+     "type": "link",
+     "transfer": 17126,
+     "body": 16826
+    }
+   ],
+   "a/tree.mesh.f5df70c6b3.bin.gz": [
+    {
+     "type": "link",
+     "transfer": 29375,
+     "body": 29075
+    }
+   ],
+   "a/bark1024.bc7-l1.fc83f00444.ktx2.gz": [
+    {
+     "type": "link",
+     "transfer": 141716,
+     "body": 141416
+    }
+   ],
+   "a/rock1024.bc7-l1.e2d3ba2891.ktx2.gz": [
+    {
+     "type": "link",
+     "transfer": 319798,
+     "body": 319498
+    }
+   ],
+   "a/atlas2048.bc7-l1.d5aed64491.ktx2.gz": [
+    {
+     "type": "link",
+     "transfer": 385871,
+     "body": 385571
+    }
+   ],
+   "a/ground1024.bc7-l1.ce84488b8f.ktx2.gz": [
+    {
+     "type": "link",
+     "transfer": 364934,
+     "body": 364634
+    }
+   ]
+  },
+  "browserMadeMoreThanOne": 0,
+  "consoleWarnings": [],
+  "wire": {
+   "requests": 24,
+   "bytes": 1453521,
+   "r304": 0,
+   "r404": 1
+  },
+  "browser": "Chrome/156.0.8078.73"
+ },
+ "preload-no-crossorigin": {
+  "path": "stage5-nocors.html",
+  "firstFrame": 2162.2999999523163,
+  "serverGetsPerAssetPath": {
+   "/vessel/a/sim.7355a6ce7e.wasm.gz": 1,
+   "/vessel/a/character.mesh.2a1f1b8406.bin.gz": 1,
+   "/vessel/a/tree.mesh.f5df70c6b3.bin.gz": 1,
+   "/vessel/a/rock.mesh.776a930383.bin.gz": 1,
+   "/vessel/a/atlas2048.bc7-l1.d5aed64491.ktx2.gz": 1,
+   "/vessel/a/bark1024.bc7-l1.fc83f00444.ktx2.gz": 1,
+   "/vessel/a/rock1024.bc7-l1.e2d3ba2891.ktx2.gz": 1,
+   "/vessel/a/ground1024.bc7-l1.ce84488b8f.ktx2.gz": 1,
+   "/vessel/a/lazy0.878e6a42d8.bin.gz": 1,
+   "/vessel/a/lazy1.bae0845e1a.bin.gz": 1,
+   "/vessel/a/lazy2.0564c86a85.bin.gz": 1,
+   "/vessel/a/lazy3.9780f660b8.bin.gz": 1,
+   "/vessel/a/lazy4.910bf28845.bin.gz": 1
+  },
+  "serverSawMoreThanOne": 0,
+  "totalServerAssetGets": 13,
+  "browserRequestsPerAsset": {
+   "a/sim.7355a6ce7e.wasm.gz": [
+    {
+     "type": "link",
+     "transfer": 10300,
+     "body": 10000
+    },
+    {
+     "type": "fetch",
+     "transfer": 0,
+     "body": 10000
+    }
+   ],
+   "a/rock.mesh.776a930383.bin.gz": [
+    {
+     "type": "link",
+     "transfer": 17126,
+     "body": 16826
+    },
+    {
+     "type": "fetch",
+     "transfer": 0,
+     "body": 16826
+    }
+   ],
+   "a/tree.mesh.f5df70c6b3.bin.gz": [
+    {
+     "type": "link",
+     "transfer": 29375,
+     "body": 29075
+    },
+    {
+     "type": "fetch",
+     "transfer": 0,
+     "body": 29075
+    }
+   ],
+   "a/character.mesh.2a1f1b8406.bin.gz": [
+    {
+     "type": "link",
+     "transfer": 43887,
+     "body": 43587
+    },
+    {
+     "type": "fetch",
+     "transfer": 0,
+     "body": 43587
+    }
+   ],
+   "a/atlas2048.bc7-l1.d5aed64491.ktx2.gz": [
+    {
+     "type": "link",
+     "transfer": 385871,
+     "body": 385571
+    },
+    {
+     "type": "fetch",
+     "transfer": 0,
+     "body": 385571
+    }
+   ],
+   "a/bark1024.bc7-l1.fc83f00444.ktx2.gz": [
+    {
+     "type": "link",
+     "transfer": 141716,
+     "body": 141416
+    },
+    {
+     "type": "fetch",
+     "transfer": 0,
+     "body": 141416
+    }
+   ],
+   "a/rock1024.bc7-l1.e2d3ba2891.ktx2.gz": [
+    {
+     "type": "link",
+     "transfer": 319798,
+     "body": 319498
+    },
+    {
+     "type": "fetch",
+     "transfer": 0,
+     "body": 319498
+    }
+   ],
+   "a/ground1024.bc7-l1.ce84488b8f.ktx2.gz": [
+    {
+     "type": "link",
+     "transfer": 364934,
+     "body": 364634
+    },
+    {
+     "type": "fetch",
+     "transfer": 0,
+     "body": 364634
+    }
+   ]
+  },
+  "browserMadeMoreThanOne": 8,
+  "consoleWarnings": [],
+  "wire": {
+   "requests": 24,
+   "bytes": 1453519,
+   "r304": 0,
+   "r404": 1
+  },
+  "browser": "Chrome/156.0.8078.73"
+ },
+ "wasm-gz-prezipped": {
+  "config": {
+   "path": "stage5.html?wasm=gz",
+   "net": "Fast 4G",
+   "cpu": 1,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 2140.6,
+    "min": 2006.9,
+    "max": 2248.9,
+    "values": [
+     2248.9,
+     2212,
+     2140.6,
+     2024.3,
+     2006.9
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 510.6,
+    "min": 371.3,
+    "max": 603.6,
+    "values": [
+     603.6,
+     531.1,
+     510.6,
+     382.8,
+     371.3
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 1089.2,
+    "min": 955.2,
+    "max": 1191.2,
+    "values": [
+     1191.2,
+     1112.4,
+     1089.2,
+     971.2,
+     955.2
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 755.9,
+    "min": 617.2,
+    "max": 849.8,
+    "values": [
+     849.8,
+     773.8,
+     755.9,
+     631,
+     617.2
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 2065.9,
+    "min": 1933,
+    "max": 2178,
+    "values": [
+     2178,
+     2142.5,
+     2065.9,
+     1951.5,
+     1933
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 23.6,
+    "min": 21.5,
+    "max": 24.3,
+    "values": [
+     21.5,
+     23.7,
+     23.3,
+     24.3,
+     23.6
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 4.9,
+    "min": 4.5,
+    "max": 5.4,
+    "values": [
+     4.5,
+     4.6,
+     4.9,
+     5.4,
+     5.4
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 17,
+   "bytes": 1329797,
+   "r304": 0,
+   "r404": 1
+  },
+  "rows": [
+   {
+    "firstFrame": 2248.899999856949,
+    "htmlEnd": 603.5999999046326,
+    "jsStart": 1191.2000000476837,
+    "wasmCompiled": 849.7999999523163,
+    "assetsDownloaded": 2178,
+    "decodeMs": 21.5,
+    "uploadMs": 4.5,
+    "gpuDone": 2248.7999999523163,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2212,
+    "htmlEnd": 531.1000001430511,
+    "jsStart": 1112.4000000953674,
+    "wasmCompiled": 773.8000001907349,
+    "assetsDownloaded": 2142.5,
+    "decodeMs": 23.700000047683716,
+    "uploadMs": 4.6000001430511475,
+    "gpuDone": 2211.9000000953674,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2140.600000143051,
+    "htmlEnd": 510.60000014305115,
+    "jsStart": 1089.2000000476837,
+    "wasmCompiled": 755.9000000953674,
+    "assetsDownloaded": 2065.9000000953674,
+    "decodeMs": 23.299999952316284,
+    "uploadMs": 4.900000095367432,
+    "gpuDone": 2140.4000000953674,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2024.2999999523163,
+    "htmlEnd": 382.7999999523163,
+    "jsStart": 971.1999998092651,
+    "wasmCompiled": 631,
+    "assetsDownloaded": 1951.5,
+    "decodeMs": 24.299999952316284,
+    "uploadMs": 5.3999998569488525,
+    "gpuDone": 2024.0999999046326,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2006.9000000953674,
+    "htmlEnd": 371.2999999523163,
+    "jsStart": 955.2000000476837,
+    "wasmCompiled": 617.2000000476837,
+    "assetsDownloaded": 1933,
+    "decodeMs": 23.600000143051147,
+    "uploadMs": 5.3999998569488525,
+    "gpuDone": 2006.5999999046326,
+    "sw": false,
+    "bc7": true
+   }
+  ]
+ },
+ "wasm-plain-hostgzip": {
+  "config": {
+   "path": "stage5-plain.html?wasm=plain",
+   "net": "Fast 4G",
+   "cpu": 1,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 1989.3,
+    "min": 1979.2,
+    "max": 1993.2,
+    "values": [
+     1983,
+     1989.3,
+     1992.5,
+     1993.2,
+     1979.2
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 350.7,
+    "min": 348.2,
+    "max": 378.8,
+    "values": [
+     350.7,
+     378.8,
+     350.5,
+     368.1,
+     348.2
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 938.7,
+    "min": 924.4,
+    "max": 950.8,
+    "values": [
+     941.4,
+     950.8,
+     937.2,
+     938.7,
+     924.4
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 600.7,
+    "min": 596.9,
+    "max": 626.1,
+    "values": [
+     600.7,
+     626.1,
+     600,
+     609.6,
+     596.9
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 1919.4,
+    "min": 1905.1,
+    "max": 1921.7,
+    "values": [
+     1913.8,
+     1921.2,
+     1919.4,
+     1921.7,
+     1905.1
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 22.4,
+    "min": 21.6,
+    "max": 23.3,
+    "values": [
+     21.6,
+     22,
+     23.3,
+     22.7,
+     22.4
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 4.9,
+    "min": 4.7,
+    "max": 5.4,
+    "values": [
+     4.9,
+     4.7,
+     5.4,
+     5.3,
+     4.8
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 18,
+   "bytes": 1339805,
+   "r304": 0,
+   "r404": 1
+  },
+  "rows": [
+   {
+    "firstFrame": 1983,
+    "htmlEnd": 350.7000000476837,
+    "jsStart": 941.4000000953674,
+    "wasmCompiled": 600.7000000476837,
+    "assetsDownloaded": 1913.7999999523163,
+    "decodeMs": 21.600000143051147,
+    "uploadMs": 4.8999998569488525,
+    "gpuDone": 1982.7999999523163,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 1989.2999999523163,
+    "htmlEnd": 378.7999999523163,
+    "jsStart": 950.7999999523163,
+    "wasmCompiled": 626.1000001430511,
+    "assetsDownloaded": 1921.2000000476837,
+    "decodeMs": 22,
+    "uploadMs": 4.700000047683716,
+    "gpuDone": 1989.2000000476837,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 1992.5,
+    "htmlEnd": 350.5,
+    "jsStart": 937.2000000476837,
+    "wasmCompiled": 600,
+    "assetsDownloaded": 1919.3999998569489,
+    "decodeMs": 23.300000190734863,
+    "uploadMs": 5.3999998569488525,
+    "gpuDone": 1992.2999999523163,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 1993.2000000476837,
+    "htmlEnd": 368.10000014305115,
+    "jsStart": 938.7000000476837,
+    "wasmCompiled": 609.6000001430511,
+    "assetsDownloaded": 1921.7000000476837,
+    "decodeMs": 22.700000047683716,
+    "uploadMs": 5.299999952316284,
+    "gpuDone": 1993,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 1979.2000000476837,
+    "htmlEnd": 348.2000000476837,
+    "jsStart": 924.4000000953674,
+    "wasmCompiled": 596.9000000953674,
+    "assetsDownloaded": 1905.0999999046326,
+    "decodeMs": 22.399999856948853,
+    "uploadMs": 4.800000190734863,
+    "gpuDone": 1978.9000000953674,
+    "sw": false,
+    "bc7": true
+   }
+  ]
+ },
+ "wasm-plain-uncompressed": {
+  "config": {
+   "path": "stage5-plain.html?wasm=plain",
+   "net": "Fast 4G",
+   "cpu": 1,
+   "label": "dev machine",
+   "emuState": {
+    "gzipWasm": false
+   }
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 2019.8,
+    "min": 2008.4,
+    "max": 2057.3,
+    "values": [
+     2017,
+     2019.8,
+     2008.4,
+     2057.3,
+     2055.8
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 379.9,
+    "min": 360.6,
+    "max": 408.2,
+    "values": [
+     360.6,
+     377.3,
+     379.9,
+     395.4,
+     408.2
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 969.4,
+    "min": 958.8,
+    "max": 999,
+    "values": [
+     958.8,
+     968.6,
+     969.4,
+     999,
+     988.8
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 696.1,
+    "min": 657.5,
+    "max": 720.1,
+    "values": [
+     681.8,
+     696.1,
+     697.5,
+     720.1,
+     657.5
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 1947.6,
+    "min": 1936.1,
+    "max": 1985.9,
+    "values": [
+     1942.9,
+     1947.6,
+     1936.1,
+     1985.9,
+     1985.1
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 22.7,
+    "min": 21.6,
+    "max": 23.2,
+    "values": [
+     23.2,
+     23.2,
+     22.7,
+     22.2,
+     21.6
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 5.2,
+    "min": 4.8,
+    "max": 5.6,
+    "values": [
+     5,
+     5.6,
+     5.2,
+     4.8,
+     5.3
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 18,
+   "bytes": 1352794,
+   "r304": 0,
+   "r404": 1
+  },
+  "rows": [
+   {
+    "firstFrame": 2017,
+    "htmlEnd": 360.59999990463257,
+    "jsStart": 958.7999999523163,
+    "wasmCompiled": 681.7999999523163,
+    "assetsDownloaded": 1942.9000000953674,
+    "decodeMs": 23.199999809265137,
+    "uploadMs": 5,
+    "gpuDone": 2016.7999999523163,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2019.7999999523163,
+    "htmlEnd": 377.2999999523163,
+    "jsStart": 968.5999999046326,
+    "wasmCompiled": 696.0999999046326,
+    "assetsDownloaded": 1947.5999999046326,
+    "decodeMs": 23.200000047683716,
+    "uploadMs": 5.599999904632568,
+    "gpuDone": 2019.6999998092651,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2008.3999998569489,
+    "htmlEnd": 379.89999985694885,
+    "jsStart": 969.3999998569489,
+    "wasmCompiled": 697.5,
+    "assetsDownloaded": 1936.0999999046326,
+    "decodeMs": 22.700000047683716,
+    "uploadMs": 5.200000047683716,
+    "gpuDone": 2008.2000000476837,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2057.2999999523163,
+    "htmlEnd": 395.40000009536743,
+    "jsStart": 999,
+    "wasmCompiled": 720.1000001430511,
+    "assetsDownloaded": 1985.9000000953674,
+    "decodeMs": 22.200000047683716,
+    "uploadMs": 4.799999952316284,
+    "gpuDone": 2057.100000143051,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2055.800000190735,
+    "htmlEnd": 408.2000000476837,
+    "jsStart": 988.8000001907349,
+    "wasmCompiled": 657.5,
+    "assetsDownloaded": 1985.1000001430511,
+    "decodeMs": 21.59999990463257,
+    "uploadMs": 5.299999952316284,
+    "gpuDone": 2055.600000143051,
+    "sw": false,
+    "bc7": true
+   }
+  ]
+ },
+ "scale": [
+  {
+   "pad": 0,
+   "wireBytesAllRequests": 1329797,
+   "median": 1977.8,
+   "min": 1920.1,
+   "max": 2033
+  },
+  {
+   "pad": 1,
+   "wireBytesAllRequests": 1715368,
+   "median": 2364.6,
+   "min": 2350.4,
+   "max": 2405.4
+  },
+  {
+   "pad": 2,
+   "wireBytesAllRequests": 2100939,
+   "median": 2774.6,
+   "min": 2743.8,
+   "max": 2803.8
+  },
+  {
+   "pad": 3,
+   "wireBytesAllRequests": 2486510,
+   "median": 3112.1,
+   "min": 3054.6,
+   "max": 3162.5
+  },
+  {
+   "pad": 4,
+   "wireBytesAllRequests": 2872081,
+   "median": 3587.9,
+   "min": 3523.4,
+   "max": 3674.4
+  },
+  {
+   "pad": 6,
+   "wireBytesAllRequests": 3643223,
+   "median": 4333.4,
+   "min": 4308.1,
+   "max": 4374.9
+  }
+ ],
+ "scale-pad1": {
+  "config": {
+   "path": "stage5.html?pad=1",
+   "net": "Fast 4G",
+   "cpu": 1,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 2364.6,
+    "min": 2350.4,
+    "max": 2405.4,
+    "values": [
+     2354.6,
+     2364.6,
+     2374.8,
+     2350.4,
+     2405.4
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 361.1,
+    "min": 337.8,
+    "max": 388.1,
+    "values": [
+     361.1,
+     360.8,
+     381.3,
+     337.8,
+     388.1
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 942.3,
+    "min": 922.8,
+    "max": 956.1,
+    "values": [
+     942.3,
+     922.8,
+     956.1,
+     923.3,
+     949.3
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 586.6,
+    "min": 551.2,
+    "max": 626.6,
+    "values": [
+     601.9,
+     551.2,
+     568.1,
+     586.6,
+     626.6
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 2293.5,
+    "min": 2279,
+    "max": 2332.6,
+    "values": [
+     2282.5,
+     2293.5,
+     2305.3,
+     2279,
+     2332.6
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 22.9,
+    "min": 22,
+    "max": 23.6,
+    "values": [
+     22.7,
+     23.4,
+     22,
+     22.9,
+     23.6
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 5,
+    "min": 4.8,
+    "max": 5.3,
+    "values": [
+     5,
+     5.3,
+     4.8,
+     4.9,
+     5.2
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 18,
+   "bytes": 1715368,
+   "r304": 0,
+   "r404": 1
+  },
+  "rows": [
+   {
+    "firstFrame": 2354.5999999046326,
+    "htmlEnd": 361.09999990463257,
+    "jsStart": 942.2999999523163,
+    "wasmCompiled": 601.8999998569489,
+    "assetsDownloaded": 2282.5,
+    "decodeMs": 22.699999809265137,
+    "uploadMs": 5,
+    "gpuDone": 2354.2999999523163,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2364.600000143051,
+    "htmlEnd": 360.80000019073486,
+    "jsStart": 922.8000001907349,
+    "wasmCompiled": 551.2000000476837,
+    "assetsDownloaded": 2293.5,
+    "decodeMs": 23.399999856948853,
+    "uploadMs": 5.300000190734863,
+    "gpuDone": 2364.4000000953674,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2374.800000190735,
+    "htmlEnd": 381.30000019073486,
+    "jsStart": 956.1000001430511,
+    "wasmCompiled": 568.1000001430511,
+    "assetsDownloaded": 2305.300000190735,
+    "decodeMs": 22,
+    "uploadMs": 4.799999952316284,
+    "gpuDone": 2374.7000000476837,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2350.399999856949,
+    "htmlEnd": 337.7999999523163,
+    "jsStart": 923.2999999523163,
+    "wasmCompiled": 586.5999999046326,
+    "assetsDownloaded": 2279,
+    "decodeMs": 22.899999856948853,
+    "uploadMs": 4.900000095367432,
+    "gpuDone": 2350.2000000476837,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2405.4000000953674,
+    "htmlEnd": 388.10000014305115,
+    "jsStart": 949.3000001907349,
+    "wasmCompiled": 626.6000001430511,
+    "assetsDownloaded": 2332.600000143051,
+    "decodeMs": 23.59999990463257,
+    "uploadMs": 5.200000047683716,
+    "gpuDone": 2405.2000000476837,
+    "sw": false,
+    "bc7": true
+   }
+  ]
+ },
+ "scale-pad2": {
+  "config": {
+   "path": "stage5.html?pad=2",
+   "net": "Fast 4G",
+   "cpu": 1,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 2774.6,
+    "min": 2743.8,
+    "max": 2803.8,
+    "values": [
+     2784,
+     2743.8,
+     2766.6,
+     2803.8,
+     2774.6
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 381.1,
+    "min": 334.8,
+    "max": 395.3,
+    "values": [
+     381.1,
+     334.8,
+     360.4,
+     387.5,
+     395.3
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 953.6,
+    "min": 915.9,
+    "max": 964,
+    "values": [
+     953.6,
+     915.9,
+     950.8,
+     964,
+     953.8
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 582.5,
+    "min": 568.9,
+    "max": 636.7,
+    "values": [
+     568.9,
+     579.9,
+     609.8,
+     636.7,
+     582.5
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 2703.5,
+    "min": 2674.5,
+    "max": 2730.5,
+    "values": [
+     2710.7,
+     2674.5,
+     2695.5,
+     2730.5,
+     2703.5
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 22.8,
+    "min": 22,
+    "max": 24.1,
+    "values": [
+     23.1,
+     22.6,
+     22,
+     24.1,
+     22.8
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 5.4,
+    "min": 4.9,
+    "max": 7.3,
+    "values": [
+     7.3,
+     4.9,
+     5.4,
+     5.8,
+     5.4
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 19,
+   "bytes": 2100939,
+   "r304": 0,
+   "r404": 1
+  },
+  "rows": [
+   {
+    "firstFrame": 2784,
+    "htmlEnd": 381.09999990463257,
+    "jsStart": 953.5999999046326,
+    "wasmCompiled": 568.8999998569489,
+    "assetsDownloaded": 2710.699999809265,
+    "decodeMs": 23.100000143051147,
+    "uploadMs": 7.299999952316284,
+    "gpuDone": 2783.7999999523163,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2743.7999999523163,
+    "htmlEnd": 334.7999999523163,
+    "jsStart": 915.8999998569489,
+    "wasmCompiled": 579.8999998569489,
+    "assetsDownloaded": 2674.5,
+    "decodeMs": 22.59999990463257,
+    "uploadMs": 4.900000095367432,
+    "gpuDone": 2743.5,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2766.600000143051,
+    "htmlEnd": 360.40000009536743,
+    "jsStart": 950.8000001907349,
+    "wasmCompiled": 609.8000001907349,
+    "assetsDownloaded": 2695.5,
+    "decodeMs": 22,
+    "uploadMs": 5.400000095367432,
+    "gpuDone": 2766.5,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2803.7999999523163,
+    "htmlEnd": 387.5,
+    "jsStart": 964,
+    "wasmCompiled": 636.7000000476837,
+    "assetsDownloaded": 2730.5,
+    "decodeMs": 24.09999990463257,
+    "uploadMs": 5.800000190734863,
+    "gpuDone": 2803.5,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2774.5999999046326,
+    "htmlEnd": 395.2999999523163,
+    "jsStart": 953.7999999523163,
+    "wasmCompiled": 582.5,
+    "assetsDownloaded": 2703.5,
+    "decodeMs": 22.799999952316284,
+    "uploadMs": 5.400000095367432,
+    "gpuDone": 2774.399999856949,
+    "sw": false,
+    "bc7": true
+   }
+  ]
+ },
+ "scale-pad3": {
+  "config": {
+   "path": "stage5.html?pad=3",
+   "net": "Fast 4G",
+   "cpu": 1,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 3112.1,
+    "min": 3054.6,
+    "max": 3162.5,
+    "values": [
+     3112.1,
+     3093.6,
+     3115.7,
+     3054.6,
+     3162.5
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 330.8,
+    "min": 278.5,
+    "max": 390.3,
+    "values": [
+     334.8,
+     330.8,
+     308.6,
+     278.5,
+     390.3
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 896.6,
+    "min": 853.7,
+    "max": 973.7,
+    "values": [
+     907.8,
+     887.8,
+     896.6,
+     853.7,
+     973.7
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 526,
+    "min": 517.7,
+    "max": 636.1,
+    "values": [
+     522.2,
+     517.7,
+     556.2,
+     526,
+     636.1
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 3040,
+    "min": 2980.5,
+    "max": 3092.8,
+    "values": [
+     3040,
+     3025.5,
+     3042.5,
+     2980.5,
+     3092.8
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 21.5,
+    "min": 21.2,
+    "max": 23.5,
+    "values": [
+     21.2,
+     21.6,
+     23.5,
+     21.4,
+     21.5
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 5.5,
+    "min": 4.6,
+    "max": 5.7,
+    "values": [
+     5.7,
+     4.6,
+     4.8,
+     5.7,
+     5.5
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 20,
+   "bytes": 2486510,
+   "r304": 0,
+   "r404": 1
+  },
+  "rows": [
+   {
+    "firstFrame": 3112.100000143051,
+    "htmlEnd": 334.80000019073486,
+    "jsStart": 907.8000001907349,
+    "wasmCompiled": 522.2000000476837,
+    "assetsDownloaded": 3040,
+    "decodeMs": 21.200000047683716,
+    "uploadMs": 5.700000047683716,
+    "gpuDone": 3111.9000000953674,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 3093.5999999046326,
+    "htmlEnd": 330.7999999523163,
+    "jsStart": 887.7999999523163,
+    "wasmCompiled": 517.7000000476837,
+    "assetsDownloaded": 3025.5,
+    "decodeMs": 21.59999990463257,
+    "uploadMs": 4.6000001430511475,
+    "gpuDone": 3093.5,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 3115.699999809265,
+    "htmlEnd": 308.59999990463257,
+    "jsStart": 896.5999999046326,
+    "wasmCompiled": 556.1999998092651,
+    "assetsDownloaded": 3042.5,
+    "decodeMs": 23.5,
+    "uploadMs": 4.799999952316284,
+    "gpuDone": 3115.5,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 3054.5999999046326,
+    "htmlEnd": 278.5,
+    "jsStart": 853.7000000476837,
+    "wasmCompiled": 526,
+    "assetsDownloaded": 2980.5,
+    "decodeMs": 21.40000009536743,
+    "uploadMs": 5.699999809265137,
+    "gpuDone": 3054.5,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 3162.5,
+    "htmlEnd": 390.2999999523163,
+    "jsStart": 973.7000000476837,
+    "wasmCompiled": 636.1000001430511,
+    "assetsDownloaded": 3092.7999999523163,
+    "decodeMs": 21.5,
+    "uploadMs": 5.5,
+    "gpuDone": 3162.2999999523163,
+    "sw": false,
+    "bc7": true
+   }
+  ]
+ },
+ "scale-pad4": {
+  "config": {
+   "path": "stage5.html?pad=4",
+   "net": "Fast 4G",
+   "cpu": 1,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 3587.9,
+    "min": 3523.4,
+    "max": 3674.4,
+    "values": [
+     3587.9,
+     3539.9,
+     3674.4,
+     3523.4,
+     3592.8
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 381.4,
+    "min": 360.6,
+    "max": 489.6,
+    "values": [
+     387.1,
+     372.2,
+     489.6,
+     360.6,
+     381.4
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 978.3,
+    "min": 933.6,
+    "max": 1074.8,
+    "values": [
+     978.3,
+     939.2,
+     1074.8,
+     933.6,
+     980.8
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 627.9,
+    "min": 600.1,
+    "max": 734.9,
+    "values": [
+     635.5,
+     611.7,
+     734.9,
+     600.1,
+     627.9
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 3502.5,
+    "min": 3458.1,
+    "max": 3602.4,
+    "values": [
+     3502.5,
+     3465,
+     3602.4,
+     3458.1,
+     3506.1
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 20.9,
+    "min": 20.3,
+    "max": 23,
+    "values": [
+     21.5,
+     20.9,
+     23,
+     20.3,
+     20.3
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 4.6,
+    "min": 4.5,
+    "max": 5.9,
+    "values": [
+     4.5,
+     4.8,
+     4.6,
+     4.5,
+     5.9
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 21,
+   "bytes": 2872081,
+   "r304": 0,
+   "r404": 1
+  },
+  "rows": [
+   {
+    "firstFrame": 3587.9000000953674,
+    "htmlEnd": 387.09999990463257,
+    "jsStart": 978.2999999523163,
+    "wasmCompiled": 635.5,
+    "assetsDownloaded": 3502.5,
+    "decodeMs": 21.5,
+    "uploadMs": 4.5,
+    "gpuDone": 3572.5,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 3539.899999856949,
+    "htmlEnd": 372.2000000476837,
+    "jsStart": 939.2000000476837,
+    "wasmCompiled": 611.7000000476837,
+    "assetsDownloaded": 3465,
+    "decodeMs": 20.899999856948853,
+    "uploadMs": 4.800000190734863,
+    "gpuDone": 3539.7000000476837,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 3674.4000000953674,
+    "htmlEnd": 489.60000014305115,
+    "jsStart": 1074.8000001907349,
+    "wasmCompiled": 734.9000000953674,
+    "assetsDownloaded": 3602.4000000953674,
+    "decodeMs": 23,
+    "uploadMs": 4.599999904632568,
+    "gpuDone": 3674.2000000476837,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 3523.399999856949,
+    "htmlEnd": 360.59999990463257,
+    "jsStart": 933.5999999046326,
+    "wasmCompiled": 600.0999999046326,
+    "assetsDownloaded": 3458.0999999046326,
+    "decodeMs": 20.299999952316284,
+    "uploadMs": 4.5,
+    "gpuDone": 3523.2999999523163,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 3592.7999999523163,
+    "htmlEnd": 381.39999985694885,
+    "jsStart": 980.7999999523163,
+    "wasmCompiled": 627.8999998569489,
+    "assetsDownloaded": 3506.0999999046326,
+    "decodeMs": 20.299999952316284,
+    "uploadMs": 5.900000095367432,
+    "gpuDone": 3581.0999999046326,
+    "sw": false,
+    "bc7": true
+   }
+  ]
+ },
+ "scale-pad0": {
+  "config": {
+   "path": "stage5.html?pad=0",
+   "net": "Fast 4G",
+   "cpu": 1,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 1977.8,
+    "min": 1920.1,
+    "max": 2033,
+    "values": [
+     2033,
+     1977.8,
+     1967.9,
+     2017.3,
+     1920.1
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 365.2,
+    "min": 281.5,
+    "max": 393.3,
+    "values": [
+     384.6,
+     346.3,
+     365.2,
+     393.3,
+     281.5
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 941.1,
+    "min": 865.7,
+    "max": 978,
+    "values": [
+     967.5,
+     933.1,
+     941.1,
+     978,
+     865.7
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 593.1,
+    "min": 528.7,
+    "max": 640,
+    "values": [
+     631.2,
+     593.1,
+     552.6,
+     640,
+     528.7
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 1907,
+    "min": 1850.2,
+    "max": 1959.5,
+    "values": [
+     1959.5,
+     1907,
+     1895.7,
+     1945.4,
+     1850.2
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 22.8,
+    "min": 21.8,
+    "max": 23.1,
+    "values": [
+     23.1,
+     22.8,
+     22.8,
+     21.8,
+     22.9
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 5,
+    "min": 5,
+    "max": 6.6,
+    "values": [
+     5,
+     6.6,
+     5,
+     5.3,
+     5
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 17,
+   "bytes": 1329797,
+   "r304": 0,
+   "r404": 1
+  },
+  "rows": [
+   {
+    "firstFrame": 2033,
+    "htmlEnd": 384.59999990463257,
+    "jsStart": 967.5,
+    "wasmCompiled": 631.1999998092651,
+    "assetsDownloaded": 1959.5,
+    "decodeMs": 23.09999990463257,
+    "uploadMs": 5,
+    "gpuDone": 2032.7999999523163,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 1977.8000001907349,
+    "htmlEnd": 346.30000019073486,
+    "jsStart": 933.1000001430511,
+    "wasmCompiled": 593.1000001430511,
+    "assetsDownloaded": 1907,
+    "decodeMs": 22.800000190734863,
+    "uploadMs": 6.599999904632568,
+    "gpuDone": 1977.6000001430511,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 1967.8999998569489,
+    "htmlEnd": 365.2000000476837,
+    "jsStart": 941.0999999046326,
+    "wasmCompiled": 552.5999999046326,
+    "assetsDownloaded": 1895.7000000476837,
+    "decodeMs": 22.799999952316284,
+    "uploadMs": 5,
+    "gpuDone": 1967.5999999046326,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 2017.2999999523163,
+    "htmlEnd": 393.2999999523163,
+    "jsStart": 978,
+    "wasmCompiled": 640,
+    "assetsDownloaded": 1945.4000000953674,
+    "decodeMs": 21.799999952316284,
+    "uploadMs": 5.300000190734863,
+    "gpuDone": 2016.9000000953674,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 1920.0999999046326,
+    "htmlEnd": 281.5,
+    "jsStart": 865.6999998092651,
+    "wasmCompiled": 528.6999998092651,
+    "assetsDownloaded": 1850.1999998092651,
+    "decodeMs": 22.90000009536743,
+    "uploadMs": 5,
+    "gpuDone": 1920,
+    "sw": false,
+    "bc7": true
+   }
+  ]
+ },
+ "scale-pad6": {
+  "config": {
+   "path": "stage5.html?pad=6",
+   "net": "Fast 4G",
+   "cpu": 1,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 4333.4,
+    "min": 4308.1,
+    "max": 4374.9,
+    "values": [
+     4333.4,
+     4310.3,
+     4374.9,
+     4354.8,
+     4308.1
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 386.1,
+    "min": 342.7,
+    "max": 406.8,
+    "values": [
+     387.4,
+     353.6,
+     406.8,
+     386.1,
+     342.7
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 973.2,
+    "min": 928.1,
+    "max": 991.4,
+    "values": [
+     973.2,
+     935.7,
+     991.4,
+     978,
+     928.1
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 633.5,
+    "min": 583.4,
+    "max": 652.4,
+    "values": [
+     633.7,
+     596,
+     652.4,
+     633.5,
+     583.4
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 4260.5,
+    "min": 4231.7,
+    "max": 4297.9,
+    "values": [
+     4260.5,
+     4234.4,
+     4297.9,
+     4283.6,
+     4231.7
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 22.1,
+    "min": 21,
+    "max": 22.3,
+    "values": [
+     21,
+     22.3,
+     22.1,
+     21.1,
+     22.2
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 4.8,
+    "min": 4.4,
+    "max": 5.7,
+    "values": [
+     4.8,
+     4.8,
+     5.7,
+     4.6,
+     4.4
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 23,
+   "bytes": 3643223,
+   "r304": 0,
+   "r404": 1
+  },
+  "rows": [
+   {
+    "firstFrame": 4333.400000095367,
+    "htmlEnd": 387.40000009536743,
+    "jsStart": 973.2000000476837,
+    "wasmCompiled": 633.7000000476837,
+    "assetsDownloaded": 4260.5,
+    "decodeMs": 21,
+    "uploadMs": 4.800000190734863,
+    "gpuDone": 4333.200000047684,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 4310.299999952316,
+    "htmlEnd": 353.59999990463257,
+    "jsStart": 935.7000000476837,
+    "wasmCompiled": 596,
+    "assetsDownloaded": 4234.399999856949,
+    "decodeMs": 22.300000190734863,
+    "uploadMs": 4.799999952316284,
+    "gpuDone": 4310.200000047684,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 4374.899999856949,
+    "htmlEnd": 406.7999999523163,
+    "jsStart": 991.3999998569489,
+    "wasmCompiled": 652.3999998569489,
+    "assetsDownloaded": 4297.899999856949,
+    "decodeMs": 22.100000143051147,
+    "uploadMs": 5.699999809265137,
+    "gpuDone": 4374.799999952316,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 4354.799999952316,
+    "htmlEnd": 386.09999990463257,
+    "jsStart": 978,
+    "wasmCompiled": 633.5,
+    "assetsDownloaded": 4283.599999904633,
+    "decodeMs": 21.100000143051147,
+    "uploadMs": 4.599999904632568,
+    "gpuDone": 4354.599999904633,
+    "sw": false,
+    "bc7": true
+   },
+   {
+    "firstFrame": 4308.099999904633,
+    "htmlEnd": 342.69999980926514,
+    "jsStart": 928.0999999046326,
+    "wasmCompiled": 583.3999998569489,
+    "assetsDownloaded": 4231.699999809265,
+    "decodeMs": 22.200000047683716,
+    "uploadMs": 4.400000095367432,
+    "gpuDone": 4307.899999856949,
+    "sw": false,
+    "bc7": true
+   }
+  ]
+ },
+ "fallback-rgba8-fast4g": {
+  "config": {
+   "path": "stage5.html?bc=0",
+   "net": "Fast 4G",
+   "cpu": 1,
+   "label": "dev machine"
+  },
+  "browser": "Chrome/156.0.8078.73",
+  "netInfo": {
+   "net": "Fast 4G",
+   "pageSession": true,
+   "swTargets": 1
+  },
+  "summary": {
+   "firstFrame": {
+    "n": 5,
+    "median": 8849.5,
+    "min": 8797.1,
+    "max": 8861.1,
+    "values": [
+     8797.1,
+     8851,
+     8861.1,
+     8849.5,
+     8827.2
+    ]
+   },
+   "htmlEnd": {
+    "n": 5,
+    "median": 352.9,
+    "min": 325.6,
+    "max": 394.5,
+    "values": [
+     325.6,
+     351.7,
+     352.9,
+     394.5,
+     359.7
+    ]
+   },
+   "jsStart": {
+    "n": 5,
+    "median": 937,
+    "min": 910.4,
+    "max": 965.5,
+    "values": [
+     910.4,
+     941.7,
+     937,
+     965.5,
+     933.2
+    ]
+   },
+   "wasmCompiled": {
+    "n": 5,
+    "median": 570,
+    "min": 542.2,
+    "max": 598.9,
+    "values": [
+     570,
+     542.2,
+     598.9,
+     592.2,
+     546.1
+    ]
+   },
+   "assetsDownloaded": {
+    "n": 5,
+    "median": 1908.7,
+    "min": 1882.8,
+    "max": 1951.4,
+    "values": [
+     1882.8,
+     1908.7,
+     1923.2,
+     1951.4,
+     1898.7
+    ]
+   },
+   "decodeMs": {
+    "n": 5,
+    "median": 85.6,
+    "min": 80.5,
+    "max": 92.4,
+    "values": [
+     87.8,
+     80.5,
+     92.4,
+     85.6,
+     82.7
+    ]
+   },
+   "uploadMs": {
+    "n": 5,
+    "median": 15.8,
+    "min": 14.8,
+    "max": 20.4,
+    "values": [
+     15.3,
+     15.8,
+     20.4,
+     15.9,
+     14.8
+    ]
+   },
+   "errors": 0
+  },
+  "wire": {
+   "requests": 21,
+   "bytes": 7838898,
+   "r304": 0,
+   "r404": 1
+  },
+  "rows": [
+   {
+    "firstFrame": 8797.099999904633,
+    "htmlEnd": 325.59999990463257,
+    "jsStart": 910.4000000953674,
+    "wasmCompiled": 570,
+    "assetsDownloaded": 1882.7999999523163,
+    "decodeMs": 87.80000019073486,
+    "uploadMs": 15.299999952316284,
+    "gpuDone": 8796.900000095367,
+    "sw": false,
+    "bc7": false
+   },
+   {
+    "firstFrame": 8851,
+    "htmlEnd": 351.7000000476837,
+    "jsStart": 941.7000000476837,
+    "wasmCompiled": 542.2000000476837,
+    "assetsDownloaded": 1908.7000000476837,
+    "decodeMs": 80.5,
+    "uploadMs": 15.799999952316284,
+    "gpuDone": 8850.800000190735,
+    "sw": false,
+    "bc7": false
+   },
+   {
+    "firstFrame": 8861.099999904633,
+    "htmlEnd": 352.89999985694885,
+    "jsStart": 937,
+    "wasmCompiled": 598.8999998569489,
+    "assetsDownloaded": 1923.2000000476837,
+    "decodeMs": 92.40000009536743,
+    "uploadMs": 20.399999856948853,
+    "gpuDone": 8845.399999856949,
+    "sw": false,
+    "bc7": false
+   },
+   {
+    "firstFrame": 8849.5,
+    "htmlEnd": 394.5,
+    "jsStart": 965.5,
+    "wasmCompiled": 592.2000000476837,
+    "assetsDownloaded": 1951.3999998569489,
+    "decodeMs": 85.59999990463257,
+    "uploadMs": 15.900000095367432,
+    "gpuDone": 8849.299999952316,
+    "sw": false,
+    "bc7": false
+   },
+   {
+    "firstFrame": 8827.200000047684,
+    "htmlEnd": 359.7000000476837,
+    "jsStart": 933.2000000476837,
+    "wasmCompiled": 546.0999999046326,
+    "assetsDownloaded": 1898.7000000476837,
+    "decodeMs": 82.70000004768372,
+    "uploadMs": 14.799999952316284,
+    "gpuDone": 8826.900000095367,
+    "sw": false,
+    "bc7": false
+   }
+  ]
+ }
+}

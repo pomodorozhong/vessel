@@ -1,0 +1,147 @@
+{
+ "result": {
+  "config": {
+   "n": 10000,
+   "seed": 1,
+   "sim": "wasm-simd",
+   "thread": "worker",
+   "hz": 30,
+   "bench": "stage3",
+   "dur": 300,
+   "warmup": 5,
+   "spawn": 40,
+   "design": "A",
+   "lag": 2,
+   "cap": 0,
+   "delay": 0,
+   "stall": 0,
+   "pool": 6,
+   "maxq": 3,
+   "render": "simple",
+   "ires": 1080,
+   "cw": 0,
+   "ch": 0,
+   "script": 1
+  },
+  "sim": {
+   "steps": 9000,
+   "hz": 30,
+   "entities": 10000,
+   "skipped": 0,
+   "simMs": {
+    "n": 9000,
+    "mean": 2.2553544442388747,
+    "median": 2.234999895095825,
+    "p95": 2.690000057220459,
+    "p99": 2.9649999141693115,
+    "p999": 4.114999771118164,
+    "max": 6.284999847412109
+   },
+   "hostMs": {
+    "n": 9000,
+    "mean": 2.298826666196187,
+    "median": 2.2750000953674316,
+    "p95": 2.7350001335144043,
+    "p99": 3.015000104904175,
+    "p999": 4.170000076293945,
+    "max": 6.350000381469727
+   },
+   "lateMs": {
+    "n": 9000,
+    "mean": 2.4335904985648913,
+    "median": 1.653333306312561,
+    "p95": 5.071666717529297,
+    "p99": 5.828333377838135,
+    "p999": 6.183333396911621,
+    "max": 6.659999847412109
+   },
+   "share": {
+    "collision": 0.8111407969851352,
+    "flowField": 0.031191450258435217,
+    "ai": 0.032622612826630995,
+    "snapshotWrite": 0.013271873397248439,
+    "moveAndSort": 0.11177326653255017
+   },
+   "meanMs": {
+    "collision": 1.8294100013838874,
+    "flowField": 0.07034777596261767,
+    "ai": 0.07357555482122634,
+    "snapshotWrite": 0.029932778649859958,
+    "moveAndSort": 0.2520883334212833,
+    "copyAndPost": 0.037802220265070595
+   },
+   "pairsTestedPerStep": 272464.08588888886,
+   "pairsHitPerStep": 46044.24044444445,
+   "flowRebuilds": 1726,
+   "checksum": 3288005.9061203003
+  },
+  "frameMs": {
+   "n": 17998,
+   "mean": 16.666645279962868,
+   "median": 16.665000915527344,
+   "p95": 16.709999084472656,
+   "p99": 16.7549991607666,
+   "p999": 17.649999618530273,
+   "max": 24.420000076293945
+  },
+  "mainCpuMs": {
+   "n": 17998,
+   "mean": 5.666070397197704,
+   "median": 5.630000114440918,
+   "p95": 6.845000267028809,
+   "p99": 7.659999847412109,
+   "p999": 10.225000381469727,
+   "max": 14.53499984741211
+  },
+  "encodeMs": {
+   "n": 17998,
+   "mean": 2.132513613022093,
+   "median": 2.184999942779541,
+   "p95": 3.005000114440918,
+   "p99": 3.429999828338623,
+   "p999": 4.440000057220459,
+   "max": 6.065000057220459
+  },
+  "gpuMs": {
+   "n": 17957,
+   "mean": 2.4060182774601997,
+   "median": 2.6214399337768555,
+   "p95": 3.8010880947113037,
+   "p99": 4.390912055969238,
+   "p999": 5.767168045043945,
+   "max": 21.561344146728516
+  },
+  "framesOver20ms": 2,
+  "framesOver34ms": 0,
+  "clock": {
+   "pauses": 0,
+   "jumps": 0,
+   "pausesPerMin": 0,
+   "jumpsPerMin": 0
+  },
+  "render": {
+   "name": "three.js r187 WebGPURenderer",
+   "drawCalls": 22,
+   "info": {
+    "visible": 4950,
+    "backend": "webgpu",
+    "calls": 0,
+    "triangles": 0
+   }
+  },
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "canvas": [
+   1920,
+   1080
+  ],
+  "hidden": false,
+  "isolated": true
+ },
+ "version": "Chrome/156.0.8078.73",
+ "errors": [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "url": "http://localhost:4183/vessel/three.html?bench=stage3&spawn=40&n=10000&dur=300",
+ "throttleRate": 4,
+ "measuredAt": "2026-11-19T14:51:36.890Z"
+}

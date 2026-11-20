@@ -1,0 +1,321 @@
+{
+ "result": {
+  "config": {
+   "n": 2000,
+   "seed": 1,
+   "sim": "wasm-simd",
+   "thread": "worker",
+   "hz": 30,
+   "bench": "stage2",
+   "dur": 60,
+   "warmup": 5,
+   "spawn": 40,
+   "design": "A",
+   "lag": 2,
+   "cap": 0,
+   "delay": 0,
+   "stall": 0,
+   "pool": 6,
+   "maxq": 3,
+   "render": "simple",
+   "cw": 0,
+   "ch": 0,
+   "script": 0
+  },
+  "sim": {
+   "steps": 1800,
+   "hz": 30,
+   "entities": 2000,
+   "skipped": 0,
+   "simMs": {
+    "n": 1800,
+    "mean": 0.9326055558522542,
+    "median": 0.7150001525878906,
+    "p95": 1.9900000095367432,
+    "p99": 2.6500000953674316,
+    "p999": 4.980000019073486,
+    "max": 5.255000114440918
+   },
+   "hostMs": {
+    "n": 1800,
+    "mean": 0.9846388934718238,
+    "median": 0.7650001049041748,
+    "p95": 2.059999942779541,
+    "p99": 2.740000009536743,
+    "p999": 5.03000020980835,
+    "max": 5.335000038146973
+   },
+   "lateMs": {
+    "n": 1800,
+    "mean": 1.9670527074486017,
+    "median": 1.1466666460037231,
+    "p95": 5.309999942779541,
+    "p99": 5.869999885559082,
+    "p999": 6.4683332443237305,
+    "max": 6.481666564941406
+   },
+   "share": {
+    "collision": 0.6828032574595481,
+    "flowField": 0.011744276022258008,
+    "ai": 0.03448820322385697,
+    "snapshotWrite": 0.011622154193920188,
+    "moveAndSort": 0.2593421091004168
+   },
+   "meanMs": {
+    "collision": 0.6367861114607917,
+    "flowField": 0.01095277706782023,
+    "ai": 0.03216388993793064,
+    "snapshotWrite": 0.010838885572221544,
+    "moveAndSort": 0.24186389181349013,
+    "copyAndPost": 0.041630556053585475
+   },
+   "pairsTestedPerStep": 53284.55333333334,
+   "pairsHitPerStep": 8981.438333333334,
+   "flowRebuilds": 33,
+   "checksum": 573645.642501831
+  },
+  "frameMs": {
+   "n": 3599,
+   "mean": 16.66664774227752,
+   "median": 16.665000915527344,
+   "p95": 16.729999542236328,
+   "p99": 16.78499984741211,
+   "p999": 17.100000381469727,
+   "max": 18.424999237060547
+  },
+  "mainCpuMs": {
+   "n": 3599,
+   "mean": 0.16467629919187265,
+   "median": 0.14999985694885254,
+   "p95": 0.30500006675720215,
+   "p99": 0.4100000858306885,
+   "p999": 0.7250001430511475,
+   "max": 2.009999990463257
+  },
+  "encodeMs": {
+   "n": 3599,
+   "mean": 0.08954015040470514,
+   "median": 0.08000016212463379,
+   "p95": 0.15000009536743164,
+   "p99": 0.21500015258789062,
+   "p999": 0.35000014305114746,
+   "max": 0.40000009536743164
+  },
+  "gpuMs": {
+   "n": 3599,
+   "mean": 2.893872368899641,
+   "median": 3.21126389503479,
+   "p95": 4.1943039894104,
+   "p99": 6.553599834442139,
+   "p999": 9.043968200683594,
+   "max": 11.66540813446045
+  },
+  "gpuParts": null,
+  "deliveryMs": {
+   "n": 1800,
+   "mean": 0.13208265516493056,
+   "median": 0.064697265625,
+   "p95": 0.329833984375,
+   "p99": 0.68994140625,
+   "p999": 15.499755859375,
+   "max": 16.604736328125
+  },
+  "framesOver20ms": 0,
+  "framesOver34ms": 0,
+  "clock": {
+   "design": "A",
+   "lag": 2,
+   "frames": 3599,
+   "pauses": 0,
+   "jumps": 0,
+   "pausesPerMin": 0,
+   "jumpsPerMin": 0,
+   "rmsErrMs": 0.010896516162748998,
+   "snapshots": 1800,
+   "gaps": 0,
+   "droppedByMain": 0,
+   "maxQueue": 2,
+   "maxOutstanding": 3
+  },
+  "inputLatencyMs": {
+   "n": 59,
+   "mean": 60.66305063538632,
+   "median": 60.584999084472656,
+   "p95": 81.1500015258789,
+   "p99": 83.61000061035156,
+   "p999": 83.61000061035156,
+   "max": 83.61000061035156
+  },
+  "stallRecoveryMs": [],
+  "render": {
+   "name": "simple",
+   "drawCalls": 18
+  },
+  "workerSkipped": 0,
+  "deviceLosses": 0,
+  "gpu": {
+   "info": {
+    "vendor": "nvidia",
+    "architecture": "ampere",
+    "device": "",
+    "description": ""
+   },
+   "features": {
+    "bc": true,
+    "f16": true,
+    "timestamp": true,
+    "indirectFirstInstance": true
+   },
+   "all": [
+    "depth32float-stencil8",
+    "rg11b10ufloat-renderable",
+    "texture-formats-tier1",
+    "bgra8unorm-storage",
+    "texture-compression-bc",
+    "dual-source-blending",
+    "core-features-and-limits",
+    "float32-filterable",
+    "indirect-first-instance",
+    "float32-blendable",
+    "subgroup-size-control",
+    "texture-compression-unaligned",
+    "depth-clip-control",
+    "texture-compression-bc-sliced-3d",
+    "timestamp-query",
+    "texture-formats-tier2",
+    "shader-f16",
+    "clip-distances",
+    "primitive-index",
+    "texture-component-swizzle",
+    "subgroups"
+   ],
+   "limits": {
+    "maxStorageBufferBindingSize": 134217728
+   }
+  },
+  "isolated": true,
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "dpr": 1,
+  "canvas": [
+   1920,
+   1080
+  ],
+  "hidden": false
+ },
+ "heap": {
+  "main": {
+   "seconds": 30,
+   "sampledBytes": 3330872,
+   "bytesPerSecond": 111029.06666666667,
+   "top": [
+    [
+     "Zt index-36aoxZyy.js:38",
+     1019936
+    ],
+    [
+     "(anonymous) index-36aoxZyy.js:0",
+     389004
+    ],
+    [
+     "Z.onmessage index-36aoxZyy.js:34",
+     273024
+    ],
+    [
+     "(anonymous) index-36aoxZyy.js:34",
+     238640
+    ],
+    [
+     "render index-36aoxZyy.js:34",
+     159576
+    ],
+    [
+     "onSnapshot index-36aoxZyy.js:1",
+     135060
+    ],
+    [
+     "setSnapshot index-36aoxZyy.js:34",
+     131712
+    ],
+    [
+     "Vt index-36aoxZyy.js:34",
+     126300
+    ],
+    [
+     "take index-36aoxZyy.js:1",
+     106452
+    ],
+    [
+     "endFrame index-36aoxZyy.js:0",
+     98112
+    ],
+    [
+     "join :-1",
+     96112
+    ],
+    [
+     "frame index-36aoxZyy.js:1",
+     62100
+    ]
+   ]
+  },
+  "worker": {
+   "seconds": 30,
+   "sampledBytes": 915468,
+   "bytesPerSecond": 30515.6,
+   "top": [
+    [
+     "y.onmessage worker-Br-PR_Fd.js:0",
+     303780
+    ],
+    [
+     "stepOnce worker-Br-PR_Fd.js:0",
+     298416
+    ],
+    [
+     "loop worker-Br-PR_Fd.js:0",
+     72960
+    ],
+    [
+     "now worker-Br-PR_Fd.js:0",
+     62644
+    ],
+    [
+     "stats worker-Br-PR_Fd.js:0",
+     43864
+    ],
+    [
+     "(anonymous) worker-Br-PR_Fd.js:0",
+     39476
+    ],
+    [
+     "Float32Array :-1",
+     24120
+    ],
+    [
+     "Uint8Array :-1",
+     23280
+    ],
+    [
+     "(V8 API) :-1",
+     18480
+    ],
+    [
+     "e worker-Br-PR_Fd.js:0",
+     12312
+    ],
+    [
+     "js-to-wasm::d sim-simd-cY6p4yq4.wasm:0",
+     11532
+    ],
+    [
+     "max :-1",
+     2100
+    ]
+   ]
+  }
+ },
+ "version": "Chrome/156.0.8078.73",
+ "errors": [],
+ "url": "http://localhost:4182/vessel/?bench=stage2&n=2000&spawn=40&script=0&design=A&lag=2&delay=0&dur=60",
+ "measuredAt": "2026-11-19T12:07:05.271Z"
+}

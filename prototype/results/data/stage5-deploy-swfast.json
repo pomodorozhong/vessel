@@ -1,0 +1,455 @@
+{
+ "meta": {
+  "measuredAt": "2026-11-19T10:31:07.815Z",
+  "host": "dev machine, local Pages emulator on localhost:4175",
+  "reps": 5,
+  "note": "No network throttling in these runs; they check correctness, not speed."
+ },
+ "sw-update": [
+  {
+   "rep": 0,
+   "noskip": false,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": -1,
+    "swReachedB": false
+   }
+  },
+  {
+   "rep": 1,
+   "noskip": false,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": -1,
+    "swReachedB": false
+   }
+  },
+  {
+   "rep": 2,
+   "noskip": false,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": -1,
+    "swReachedB": false
+   }
+  },
+  {
+   "rep": 3,
+   "noskip": false,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": -1,
+    "swReachedB": false
+   }
+  },
+  {
+   "rep": 4,
+   "noskip": false,
+   "reloads": [
+    {
+     "i": 0,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 1,
+     "pageBuild": "s5-A",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 2,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 3,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 4,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 5,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 6,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    },
+    {
+     "i": 7,
+     "pageBuild": "s5-B",
+     "pageErrors": [],
+     "activeBuildId": "4416305b",
+     "controlled": true,
+     "waiting": false,
+     "installing": false
+    }
+   ],
+   "ids": {
+    "A": "4416305b",
+    "B": "10082840"
+   },
+   "deployedAtReload": 2,
+   "pass": {
+    "pageOnBAfterDeploy": true,
+    "firstReloadWithPageB": 2,
+    "firstReloadWithSwB": -1,
+    "swReachedB": false
+   }
+  }
+ ]
+}

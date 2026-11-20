@@ -1,0 +1,71 @@
+name: Deploy prototype to GitHub Pages
+
+# Deploys on every push to main (merging a PR included). Run it by hand from the Actions tab to redeploy, or to deploy another branch.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: prototype/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: prototype/pnpm-lock.yaml
+      - name: Install the pinned Rust toolchain (prototype/rust-toolchain.toml) with the WASM target
+        working-directory: prototype
+        run: rustup toolchain install
+      - name: Cache the Rust builds (the BC7 tool takes about 3 minutes to compile)
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            prototype/sim/target
+            prototype/chunks/target
+            prototype/stage5/tools/bc7tool/target
+          key: rust-${{ runner.os }}-${{ hashFiles('prototype/rust-toolchain.toml', 'prototype/**/Cargo.lock', 'prototype/**/Cargo.toml') }}
+      - name: Install
+        working-directory: prototype
+        run: pnpm install --frozen-lockfile
+      - name: Build (Rust sim to WASM, then the app)
+        working-directory: prototype
+        run: pnpm run build
+      # --- Stage 5: assets, build manifest, and the previous build's files (a Pages deploy replaces the whole site) ---
+      - name: Stage 5 assets and postbuild
+        working-directory: prototype
+        run: |
+          node stage5/build-assets.mjs
+          node scripts/stage5-postbuild.mjs --tag "${GITHUB_SHA::8}"
+      - name: Keep the previous build's files (tolerates "no live site yet", fails if the live site cannot be read)
+        working-directory: prototype
+        run: node scripts/stage5-keep-previous.mjs --dist dist --site "https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: prototype/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

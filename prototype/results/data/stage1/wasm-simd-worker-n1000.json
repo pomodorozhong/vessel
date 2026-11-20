@@ -1,0 +1,150 @@
+{
+ "result": {
+  "config": {
+   "n": 1000,
+   "seed": 1,
+   "sim": "wasm-simd",
+   "thread": "worker",
+   "hz": 30,
+   "bench": "stage1",
+   "dur": 300,
+   "warmup": 5,
+   "script": 1
+  },
+  "sim": {
+   "steps": 9000,
+   "hz": 30,
+   "entities": 1000,
+   "skipped": 0,
+   "simMs": {
+    "n": 9000,
+    "mean": 0.5511099996036953,
+    "median": 0.49500012397766113,
+    "p95": 0.75,
+    "p99": 0.8949999809265137,
+    "p999": 2.8399999141693115,
+    "max": 53.314998626708984
+   },
+   "hostMs": {
+    "n": 9000,
+    "mean": 0.6171783333619436,
+    "median": 0.5600001811981201,
+    "p95": 0.8299999237060547,
+    "p99": 0.9900000095367432,
+    "p999": 3.3450000286102295,
+    "max": 53.3849983215332
+   },
+   "lateMs": {
+    "n": 9000,
+    "mean": 7.908175496829955,
+    "median": 7.746666431427002,
+    "p95": 14.75333309173584,
+    "p99": 15.664999961853027,
+    "p999": 65.54833221435547,
+    "max": 127.38666534423828
+   },
+   "share": {
+    "collision": 0.3567093862070396,
+    "flowField": 0.2262413838042358,
+    "ai": 0.044664404230207816,
+    "snapshotWrite": 0.011116957589758334,
+    "moveAndSort": 0.36126786812069006
+   },
+   "meanMs": {
+    "collision": 0.19658610969119603,
+    "flowField": 0.12468388893869188,
+    "ai": 0.024614999797609116,
+    "snapshotWrite": 0.0061266664928860135,
+    "moveAndSort": 0.19909833465682136,
+    "copyAndPost": 0.052470000823338823
+   },
+   "pairsTestedPerStep": 7883.496777777777,
+   "pairsHitPerStep": 1549.9884444444444,
+   "flowRebuilds": 1726,
+   "checksum": 328890.1067276001
+  },
+  "frameMs": {
+   "n": 18030,
+   "mean": 16.666638706236895,
+   "median": 16.665000915527344,
+   "p95": 16.71500015258789,
+   "p99": 16.764999389648438,
+   "p999": 17.145000457763672,
+   "max": 29.024999618530273
+  },
+  "mainCpuMs": {
+   "n": 18030,
+   "mean": 0.15871214584978963,
+   "median": 0.1549999713897705,
+   "p95": 0.2200000286102295,
+   "p99": 0.2799999713897705,
+   "p999": 0.43000006675720215,
+   "max": 1.4600000381469727
+  },
+  "deliveryMs": {
+   "n": 9011,
+   "mean": 0.10816554072799911,
+   "median": 0.094970703125,
+   "p95": 0.175048828125,
+   "p99": 0.39501953125,
+   "p999": 0.829833984375,
+   "max": 3.490234375
+  },
+  "framesOver20ms": 3,
+  "workerSkipped": 0,
+  "mainDropped": 9148,
+  "deviceLosses": 0,
+  "gpu": {
+   "info": {
+    "vendor": "nvidia",
+    "architecture": "ampere",
+    "device": "",
+    "description": ""
+   },
+   "features": {
+    "bc": true,
+    "f16": true,
+    "timestamp": true,
+    "indirectFirstInstance": true
+   },
+   "all": [
+    "depth32float-stencil8",
+    "rg11b10ufloat-renderable",
+    "texture-formats-tier1",
+    "bgra8unorm-storage",
+    "texture-compression-bc",
+    "dual-source-blending",
+    "core-features-and-limits",
+    "float32-filterable",
+    "indirect-first-instance",
+    "float32-blendable",
+    "subgroup-size-control",
+    "texture-compression-unaligned",
+    "depth-clip-control",
+    "texture-compression-bc-sliced-3d",
+    "timestamp-query",
+    "texture-formats-tier2",
+    "shader-f16",
+    "clip-distances",
+    "primitive-index",
+    "texture-component-swizzle",
+    "subgroups"
+   ]
+  },
+  "isolated": true,
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "dpr": 1,
+  "canvas": [
+   1920,
+   1080
+  ],
+  "hidden": false
+ },
+ "version": "Chrome/156.0.8078.73",
+ "errors": [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "url": "http://localhost:4181/vessel/?bench=stage1&sim=wasm-simd&thread=worker&n=1000&dur=300",
+ "throttleRate": 1,
+ "measuredAt": "2026-11-19T09:23:37.606Z"
+}

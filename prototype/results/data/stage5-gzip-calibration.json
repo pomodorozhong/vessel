@@ -1,0 +1,62 @@
+[
+ {
+  "url": "https://mozilla.github.io/pdf.js/web/wasm/openjpeg.wasm",
+  "rawBytes": 220817,
+  "observedGzipBytes": 71367,
+  "level1": 78002,
+  "level4": 73530,
+  "level5": 71508,
+  "level6": 71220,
+  "level9": 71119
+ },
+ {
+  "url": "https://mozilla.github.io/pdf.js/build/pdf.mjs",
+  "rawBytes": 895400,
+  "observedGzipBytes": 190311,
+  "level1": 232120,
+  "level4": 197388,
+  "level5": 189327,
+  "level6": 186107,
+  "level9": 184584
+ },
+ {
+  "url": "https://mozilla.github.io/pdf.js/web/viewer.css",
+  "rawBytes": 215041,
+  "observedGzipBytes": 34544,
+  "level1": 44693,
+  "level4": 36245,
+  "level5": 34171,
+  "level6": 33359,
+  "level9": 32951
+ },
+ {
+  "url": "https://mozilla.github.io/pdf.js/web/locale/en-US/viewer.ftl",
+  "rawBytes": 33897,
+  "observedGzipBytes": 8122,
+  "level1": 9248,
+  "level4": 8290,
+  "level5": 8068,
+  "level6": 8051,
+  "level9": 8033
+ },
+ {
+  "url": "https://kripken.github.io/ammo.js/builds/ammo.wasm.wasm",
+  "rawBytes": 750028,
+  "observedGzipBytes": 293048,
+  "level1": 321328,
+  "level4": 301330,
+  "level5": 292850,
+  "level6": 292008,
+  "level9": 291705
+ },
+ {
+  "url": "https://webgpu.github.io/webgpu-samples/assets/gltf/whale.glb",
+  "rawBytes": 143908,
+  "observedGzipBytes": 79576,
+  "level1": 81688,
+  "level4": 81514,
+  "level5": 81279,
+  "level6": 81197,
+  "level9": 81098
+ }
+]

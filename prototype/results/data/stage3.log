@@ -1,0 +1,41 @@
+gpu-n1000 cpu med 0.14 p99 0.40 | encode med 0.10 p99 0.28 | gpu med 1.18 p99 4.39 (world 1.11 post 0.28 cull 0.03) | frame med 16.67 p99 16.81 >20 2 >34 0 | draws 24 visible 1183 | pauses 0 jumps 0 | sim p99 1.88 
+plain-n1000 cpu med 0.35 p99 1.05 | encode med 0.29 p99 0.92 | gpu med 1.57 p99 5.64 (world 1.22 post 0.33 cull 0.00) | frame med 16.67 p99 16.80 >20 0 >34 0 | draws 24 visible 1261 | pauses 0 jumps 0 | sim p99 1.45 
+three-n1000 cpu med 0.98 p99 2.99 | encode med 0.28 p99 0.89 | gpu med 1.18 p99 3.80  | frame med 16.67 p99 16.80 >20 1 >34 0 | draws 22 visible 1261 | pauses 0 jumps 0 | sim p99 1.65 
+gpu-n2000 cpu med 0.15 p99 0.45 | encode med 0.09 p99 0.27 | gpu med 1.31 p99 4.92 (world 1.27 post 0.27 cull 0.04) | frame med 16.67 p99 16.81 >20 1 >34 0 | draws 24 visible 1535 | pauses 0 jumps 0 | sim p99 2.22 
+plain-n2000 cpu med 0.37 p99 1.13 | encode med 0.32 p99 0.97 | gpu med 1.90 p99 5.24 (world 1.51 post 0.30 cull 0.00) | frame med 16.67 p99 16.80 >20 2 >34 0 | draws 23 visible 1643 | pauses 0 jumps 0 | sim p99 1.90 
+three-n2000 cpu med 1.03 p99 3.23 | encode med 0.31 p99 1.06 | gpu med 1.38 p99 4.59  | frame med 16.67 p99 16.80 >20 0 >34 0 | draws 21 visible 1643 | pauses 0 jumps 0 | sim p99 2.23 
+gpu-n5000 cpu med 0.16 p99 0.54 | encode med 0.09 p99 0.25 | gpu med 2.82 p99 5.77 (world 2.29 post 0.34 cull 0.05) | frame med 16.67 p99 16.80 >20 0 >34 0 | draws 24 visible 2690 | pauses 0 jumps 0 | sim p99 3.83 
+plain-n5000 cpu med 0.44 p99 1.31 | encode med 0.38 p99 1.09 | gpu med 2.75 p99 5.70 (world 2.35 post 0.40 cull 0.00) | frame med 16.67 p99 16.80 >20 0 >34 0 | draws 24 visible 2871 | pauses 0 jumps 0 | sim p99 3.37 
+three-n5000 cpu med 1.18 p99 3.57 | encode med 0.42 p99 1.36 | gpu med 2.23 p99 5.24  | frame med 16.67 p99 16.79 >20 0 >34 0 | draws 22 visible 2873 | pauses 0 jumps 0 | sim p99 4.29 
+gpu-n10000 cpu med 0.18 p99 0.62 | encode med 0.08 p99 0.24 | gpu med 2.36 p99 5.77 (world 2.10 post 0.24 cull 0.04) | frame med 16.67 p99 16.78 >20 2 >34 0 | draws 24 visible 4668 | pauses 0 jumps 0 | sim p99 7.75 
+plain-n10000 cpu med 0.55 p99 1.86 | encode med 0.46 p99 1.47 | gpu med 2.42 p99 5.77 (world 2.12 post 0.27 cull 0.00) | frame med 16.67 p99 16.78 >20 0 >34 0 | draws 24 visible 4950 | pauses 0 jumps 0 | sim p99 7.48 
+three-n10000 cpu med 1.50 p99 3.82 | encode med 0.61 p99 1.81 | gpu med 2.75 p99 5.37  | frame med 16.67 p99 16.78 >20 1 >34 0 | draws 22 visible 4950 | pauses 0 jumps 0 | sim p99 6.07 
+gpu-n20000 cpu med 0.22 p99 0.69 | encode med 0.08 p99 0.19 | gpu med 3.41 p99 6.75 (world 3.11 post 0.24 cull 0.05) | frame med 16.67 p99 16.78 >20 1 >34 0 | draws 24 visible 8723 | pauses 0 jumps 0 | sim p99 11.05 
+plain-n20000 cpu med 0.63 p99 1.42 | encode med 0.49 p99 1.11 | gpu med 3.47 p99 6.29 (world 3.16 post 0.24 cull 0.00) | frame med 16.67 p99 16.77 >20 1 >34 0 | draws 24 visible 9175 | pauses 0 jumps 0 | sim p99 9.91 
+three-n20000 cpu med 2.03 p99 3.93 | encode med 0.88 p99 2.04 | gpu med 3.34 p99 5.37  | frame med 16.67 p99 16.77 >20 0 >34 0 | draws 22 visible 9173 | pauses 0 jumps 0 | sim p99 8.50 
+gpu-n2000-i720-c1440 cpu med 0.15 p99 0.44 | encode med 0.09 p99 0.27 | gpu med 1.90 p99 5.24 (world 1.22 post 0.59 cull 0.05) | frame med 16.67 p99 16.81 >20 0 >34 0 | draws 24 visible 1534 | pauses 0 jumps 0 | sim p99 2.37 
+gpu-n2000-i720-c2160 cpu med 0.14 p99 0.45 | encode med 0.09 p99 0.26 | gpu med 1.97 p99 4.85 (world 0.92 post 0.95 cull 0.04) | frame med 16.67 p99 16.81 >20 2 >34 0 | draws 24 visible 1534 | pauses 0 jumps 0 | sim p99 2.38 
+gpu-n2000-i1080-c1440 cpu med 0.15 p99 0.46 | encode med 0.09 p99 0.28 | gpu med 2.56 p99 5.70 (world 1.89 post 0.60 cull 0.06) | frame med 16.67 p99 16.81 >20 0 >34 0 | draws 24 visible 1535 | pauses 0 jumps 0 | sim p99 2.25 
+gpu-n2000-i1080-c2160 cpu med 0.15 p99 0.45 | encode med 0.09 p99 0.28 | gpu med 2.23 p99 5.05 (world 1.31 post 0.87 cull 0.04) | frame med 16.67 p99 16.80 >20 0 >34 0 | draws 24 visible 1534 | pauses 0 jumps 0 | sim p99 2.22 
+gpu-n2000-i720-c1080 cpu med 0.15 p99 0.45 | encode med 0.09 p99 0.26 | gpu med 1.70 p99 5.77 (world 1.34 post 0.40 cull 0.05) | frame med 16.67 p99 16.81 >20 1 >34 0 | draws 24 visible 1535 | pauses 0 jumps 0 | sim p99 2.11 
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+gpu-n2000-cpu4x cpu med 0.43 p99 1.20 | encode med 0.25 p99 0.82 | gpu med 1.97 p99 6.09 (world 1.61 post 0.34 cull 0.05) | frame med 16.67 p99 16.76 >20 2 >34 0 | draws 24 visible 1530 | pauses 0 jumps 0 | sim p99 0.89 
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+gpu-n10000-cpu4x cpu med 0.63 p99 1.59 | encode med 0.23 p99 0.80 | gpu med 2.95 p99 5.96 (world 2.51 post 0.32 cull 0.06) | frame med 16.67 p99 16.76 >20 1 >34 0 | draws 24 visible 4664 | pauses 0 jumps 0 | sim p99 2.94 
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+plain-n2000-cpu4x cpu med 1.22 p99 2.24 | encode med 1.03 p99 2.00 | gpu med 1.31 p99 5.24 (world 1.16 post 0.27 cull 0.00) | frame med 16.67 p99 16.76 >20 1 >34 0 | draws 23 visible 1643 | pauses 0 jumps 0 | sim p99 0.88 
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+plain-n10000-cpu4x cpu med 1.82 p99 2.89 | encode med 1.43 p99 2.41 | gpu med 2.69 p99 5.31 (world 2.20 post 0.38 cull 0.00) | frame med 16.67 p99 16.76 >20 1 >34 0 | draws 24 visible 4950 | pauses 0 jumps 0 | sim p99 3.00 
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+three-n2000-cpu4x cpu med 3.43 p99 4.95 | encode med 1.02 p99 2.03 | gpu med 1.05 p99 3.28  | frame med 16.67 p99 16.76 >20 4 >34 0 | draws 21 visible 1642 | pauses 0 jumps 0 | sim p99 0.96 
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+three-n10000-cpu4x cpu med 5.63 p99 7.66 | encode med 2.18 p99 3.43 | gpu med 2.62 p99 4.39  | frame med 16.67 p99 16.75 >20 2 >34 0 | draws 22 visible 4950 | pauses 0 jumps 0 | sim p99 2.96 
+three-n1000 cpu med 0.48 p99 1.37 | encode med 0.08 p99 0.34 | gpu med 2.88 p99 7.80  | frame med 16.67 p99 16.81 >20 1 >34 0 | draws 22 visible 16437 | pauses 0 jumps 0 | sim p99 1.84 
+three-n2000 cpu med 0.56 p99 1.71 | encode med 0.12 p99 0.53 | gpu med 3.01 p99 7.54  | frame med 16.67 p99 16.81 >20 0 >34 0 | draws 21 visible 16819 | pauses 0 jumps 0 | sim p99 2.45 
+three-n5000 cpu med 0.75 p99 2.38 | encode med 0.23 p99 0.98 | gpu med 3.34 p99 7.80  | frame med 16.67 p99 16.78 >20 1 >34 0 | draws 22 visible 18047 | pauses 0 jumps 0 | sim p99 3.50 
+three-n10000 cpu med 1.17 p99 3.35 | encode med 0.44 p99 1.41 | gpu med 3.15 p99 6.75  | frame med 16.67 p99 16.78 >20 1 >34 0 | draws 22 visible 20129 | pauses 0 jumps 0 | sim p99 7.54 
+three-n20000 cpu med 1.71 p99 3.34 | encode med 0.75 p99 1.65 | gpu med 3.80 p99 6.03  | frame med 16.67 p99 16.76 >20 1 >34 0 | draws 22 visible 24341 | pauses 0 jumps 0 | sim p99 9.30 
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+three-n2000-cpu4x cpu med 2.21 p99 4.89 | encode med 0.43 p99 1.19 | gpu med 1.51 p99 4.98  | frame med 16.67 p99 16.75 >20 1 >34 0 | draws 21 visible 16819 | pauses 0 jumps 0 | sim p99 0.99 
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+three-n10000-cpu4x cpu med 4.26 p99 7.73 | encode med 1.62 p99 3.07 | gpu med 2.49 p99 4.72  | frame med 16.67 p99 16.75 >20 0 >34 0 | draws 22 visible 20128 | pauses 0 jumps 0 | sim p99 3.58 

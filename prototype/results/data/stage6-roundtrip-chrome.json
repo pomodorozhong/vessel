@@ -1,0 +1,35 @@
+{
+ "browser": "chrome",
+ "version": "Chrome/156.0.8078.73",
+ "url": "http://localhost:4176/vessel/stage6.html",
+ "measuredAt": "2026-11-19T10:21:09.361Z",
+ "errors": [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "machine": "dev machine: i7-13700, RTX 3060, 64 GB, Windows 11; production vite build, headed, no CPU throttling",
+ "result": {
+  "fileBytes": 3580484,
+  "shaBefore": "30c0a2fc62c6e7d0781efde6c1e13e9115da86690b788d7d22326c28acf12bd0",
+  "shaFile": "30c0a2fc62c6e7d0781efde6c1e13e9115da86690b788d7d22326c28acf12bd0",
+  "shaAfterImport": "30c0a2fc62c6e7d0781efde6c1e13e9115da86690b788d7d22326c28acf12bd0",
+  "byteIdentical": true,
+  "foundAfterClear": false,
+  "import": {
+   "ok": true,
+   "bytes": 3580484,
+   "tick": 5000
+  },
+  "loadAfterImport": {
+   "found": true,
+   "tick": 5000,
+   "bytes": 3580484
+  },
+  "corruptedFileImport": {
+   "ok": false,
+   "error": {
+    "name": "Error",
+    "message": "checksum mismatch"
+   }
+  }
+ }
+}

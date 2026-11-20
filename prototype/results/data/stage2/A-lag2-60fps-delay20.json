@@ -1,0 +1,210 @@
+{
+ "result": {
+  "config": {
+   "n": 2000,
+   "seed": 1,
+   "sim": "wasm-simd",
+   "thread": "worker",
+   "hz": 30,
+   "bench": "stage2",
+   "dur": 300,
+   "warmup": 5,
+   "spawn": 40,
+   "design": "A",
+   "lag": 2,
+   "cap": 0,
+   "delay": 20,
+   "stall": 0,
+   "pool": 6,
+   "maxq": 3,
+   "render": "simple",
+   "cw": 0,
+   "ch": 0,
+   "script": 0
+  },
+  "sim": {
+   "steps": 9000,
+   "hz": 30,
+   "entities": 2000,
+   "skipped": 0,
+   "simMs": {
+    "n": 9000,
+    "mean": 0.9894583347108629,
+    "median": 0.7300000190734863,
+    "p95": 2.200000047683716,
+    "p99": 2.940000057220459,
+    "p999": 3.929999828338623,
+    "max": 4.489999771118164
+   },
+   "hostMs": {
+    "n": 9000,
+    "mean": 1.0146894440121121,
+    "median": 0.7549998760223389,
+    "p95": 2.240000009536743,
+    "p99": 3,
+    "p999": 3.9800000190734863,
+    "max": 4.559999942779541
+   },
+   "lateMs": {
+    "n": 9000,
+    "mean": 1.5857760388557023,
+    "median": 1.0566664934158325,
+    "p95": 4.994999885559082,
+    "p99": 5.851666450500488,
+    "p999": 6.445000171661377,
+    "max": 6.673333168029785
+   },
+   "share": {
+    "collision": 0.7229432485650336,
+    "flowField": 0.0018057010388981356,
+    "ai": 0.03110568388322878,
+    "snapshotWrite": 0.010058253513042556,
+    "moveAndSort": 0.23408711302657012
+   },
+   "meanMs": {
+    "collision": 0.7153222228156195,
+    "flowField": 0.0017866659429338243,
+    "ai": 0.030777778175142077,
+    "snapshotWrite": 0.009952222771114773,
+    "moveAndSort": 0.2316194450325436,
+    "copyAndPost": 0.01833555579185486
+   },
+   "pairsTestedPerStep": 67933.13133333334,
+   "pairsHitPerStep": 10980.00988888889,
+   "flowRebuilds": 33,
+   "checksum": 579510.6206588745
+  },
+  "frameMs": {
+   "n": 18000,
+   "mean": 16.666641699473065,
+   "median": 16.665000915527344,
+   "p95": 16.729999542236328,
+   "p99": 16.809999465942383,
+   "p999": 17.864999771118164,
+   "max": 21.28499984741211
+  },
+  "mainCpuMs": {
+   "n": 18000,
+   "mean": 0.15141527892483606,
+   "median": 0.1399998664855957,
+   "p95": 0.2800002098083496,
+   "p99": 0.375,
+   "p999": 0.5950000286102295,
+   "max": 2.375
+  },
+  "encodeMs": {
+   "n": 18000,
+   "mean": 0.08385194483068255,
+   "median": 0.07500004768371582,
+   "p95": 0.1400001049041748,
+   "p99": 0.19999980926513672,
+   "p999": 0.315000057220459,
+   "max": 2.0950000286102295
+  },
+  "gpuMs": {
+   "n": 18000,
+   "mean": 2.1442578226592808,
+   "median": 1.8350080251693726,
+   "p95": 3.932159900665283,
+   "p99": 7.143424034118652,
+   "p999": 9.109503746032715,
+   "max": 22.806528091430664
+  },
+  "gpuParts": null,
+  "deliveryMs": {
+   "n": 8999,
+   "mean": 10.90328536938132,
+   "median": 10.384765625,
+   "p95": 19.439697265625,
+   "p99": 20.544921875,
+   "p999": 29.974853515625,
+   "max": 34.39501953125
+  },
+  "framesOver20ms": 4,
+  "framesOver34ms": 0,
+  "clock": {
+   "design": "A",
+   "lag": 2,
+   "frames": 18000,
+   "pauses": 0,
+   "jumps": 0,
+   "pausesPerMin": 0,
+   "jumpsPerMin": 0,
+   "rmsErrMs": 0.16829691420995732,
+   "snapshots": 8999,
+   "gaps": 0,
+   "droppedByMain": 0,
+   "maxQueue": 2,
+   "maxOutstanding": 3
+  },
+  "inputLatencyMs": {
+   "n": 653,
+   "mean": 60.35988511790908,
+   "median": 60.404998779296875,
+   "p95": 80.62000274658203,
+   "p99": 82.91500091552734,
+   "p999": 83.625,
+   "max": 83.625
+  },
+  "stallRecoveryMs": [],
+  "render": {
+   "name": "simple",
+   "drawCalls": 18
+  },
+  "workerSkipped": 0,
+  "deviceLosses": 0,
+  "gpu": {
+   "info": {
+    "vendor": "nvidia",
+    "architecture": "ampere",
+    "device": "",
+    "description": ""
+   },
+   "features": {
+    "bc": true,
+    "f16": true,
+    "timestamp": true,
+    "indirectFirstInstance": true
+   },
+   "all": [
+    "depth32float-stencil8",
+    "rg11b10ufloat-renderable",
+    "texture-formats-tier1",
+    "bgra8unorm-storage",
+    "texture-compression-bc",
+    "dual-source-blending",
+    "core-features-and-limits",
+    "float32-filterable",
+    "indirect-first-instance",
+    "float32-blendable",
+    "subgroup-size-control",
+    "texture-compression-unaligned",
+    "depth-clip-control",
+    "texture-compression-bc-sliced-3d",
+    "timestamp-query",
+    "texture-formats-tier2",
+    "shader-f16",
+    "clip-distances",
+    "primitive-index",
+    "texture-component-swizzle",
+    "subgroups"
+   ],
+   "limits": {
+    "maxStorageBufferBindingSize": 134217728
+   }
+  },
+  "isolated": true,
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "dpr": 1,
+  "canvas": [
+   1920,
+   1080
+  ],
+  "hidden": false
+ },
+ "heap": null,
+ "version": "Chrome/156.0.8078.73",
+ "errors": [],
+ "url": "http://localhost:4182/vessel/?bench=stage2&n=2000&spawn=40&script=0&design=A&lag=2&cap=0&delay=20&dur=300",
+ "measuredAt": "2026-11-19T10:50:46.599Z"
+}

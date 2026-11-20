@@ -1,0 +1,171 @@
+{
+ "browser": "edge",
+ "measuredAt": "2026-11-20T12:38:55.783Z",
+ "url": "http://localhost:4173/vessel/",
+ "startup": {
+  "version": "Edg/157.0.4341.60",
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0",
+  "ready": true,
+  "readyMs": 1374,
+  "gpu": {
+   "info": {
+    "vendor": "nvidia",
+    "architecture": "ampere",
+    "device": "",
+    "description": ""
+   },
+   "features": {
+    "bc": true,
+    "f16": true,
+    "timestamp": true,
+    "indirectFirstInstance": true
+   },
+   "all": [
+    "depth32float-stencil8",
+    "rg11b10ufloat-renderable",
+    "bgra8unorm-storage",
+    "texture-formats-tier1",
+    "texture-compression-bc",
+    "dual-source-blending",
+    "core-features-and-limits",
+    "float32-filterable",
+    "indirect-first-instance",
+    "float32-blendable",
+    "atomic-vec2u-min-max",
+    "subgroup-size-control",
+    "texture-compression-unaligned",
+    "depth-clip-control",
+    "texture-compression-bc-sliced-3d",
+    "texture-formats-tier2",
+    "timestamp-query",
+    "shader-f16",
+    "clip-distances",
+    "primitive-index",
+    "texture-component-swizzle",
+    "subgroups"
+   ],
+   "limits": {
+    "maxStorageBufferBindingSize": 134217728
+   }
+  },
+  "state": {
+   "tick": 153,
+   "deviceLosses": 0,
+   "rebuilds": 1,
+   "pauses": 1,
+   "jumps": 0,
+   "frameMed": 16.665000915527344,
+   "hasGpu": true,
+   "pad": {
+    "id": "",
+    "mapping": "",
+    "connected": false
+   }
+  },
+  "unsupported": null,
+  "errors": [],
+  "crashes": [
+   {
+    "lost": {
+     "reason": "unknown",
+     "message": "A valid external Instance reference no longer exists.",
+     "at": 12789.775000095367
+    },
+    "recovered": {
+     "at": 13607.275000095367,
+     "attempt": 0
+    },
+    "recoveryMs": 817.5,
+    "waitedMs": 14288,
+    "before": {
+     "deviceLosses": 0,
+     "rebuilds": 1
+    },
+    "after": {
+     "tick": 522,
+     "deviceLosses": 1,
+     "rebuilds": 2,
+     "pauses": 2,
+     "jumps": 1,
+     "frameMed": 16.665000915527344,
+     "hasGpu": true,
+     "pad": {
+      "id": "",
+      "mapping": "",
+      "connected": false
+     }
+    },
+    "simKeptRunning": true,
+    "featuresAfter": {
+     "bc": true,
+     "f16": true,
+     "timestamp": true,
+     "indirectFirstInstance": true
+    },
+    "unsupported": null
+   },
+   {
+    "lost": {
+     "reason": "unknown",
+     "message": "A valid external Instance reference no longer exists.",
+     "at": 33290.625
+    },
+    "recovered": "The GPU device was lost and did not come back.",
+    "recoveryMs": null,
+    "waitedMs": 68285,
+    "before": {
+     "deviceLosses": 1,
+     "rebuilds": 2
+    },
+    "after": {
+     "tick": 2930,
+     "deviceLosses": 2,
+     "rebuilds": 2,
+     "pauses": 2,
+     "jumps": 1,
+     "frameMed": 16.665000915527344,
+     "hasGpu": false,
+     "pad": {
+      "id": "",
+      "mapping": "",
+      "connected": false
+     }
+    },
+    "simKeptRunning": true,
+    "featuresAfter": {
+     "bc": true,
+     "f16": true,
+     "timestamp": true,
+     "indirectFirstInstance": true
+    },
+    "unsupported": "The GPU device was lost and did not come back."
+   }
+  ],
+  "gamepadApi": 0,
+  "afterReload": {
+   "ready": true,
+   "unsupported": null
+  }
+ },
+ "unsupported": [
+  {
+   "label": "navigator.gpu missing (simulated by hiding the property)",
+   "args": [],
+   "reason": "navigator.gpu is missing.",
+   "visible": true,
+   "text": "Your browser does not support WebGPU\n\nVessel needs WebGPU and has no fallback. navigator.gpu is missing.\n\nSupported browsers: current Chrome or Edge on Windows and macOS, and Safari 26 or later on macOS. Firefox works on Windows from version 141.\n\nIf your browser is on the list, check that hardware acceleration is turned on and your graphics driver is up to date.",
+   "hasNavigatorGpu": true
+  },
+  {
+   "label": "no adapter (GPU off)",
+   "args": [
+    "--disable-gpu",
+    "--disable-software-rasterizer"
+   ],
+   "reason": "No GPU adapter is available.",
+   "visible": true,
+   "text": "Your browser does not support WebGPU\n\nVessel needs WebGPU and has no fallback. No GPU adapter is available.\n\nSupported browsers: current Chrome or Edge on Windows and macOS, and Safari 26 or later on macOS. Firefox works on Windows from version 141.\n\nIf your browser is on the list, check that hardware acceleration is turned on and your graphics driver is up to date.",
+   "hasNavigatorGpu": true
+  }
+ ]
+}

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vessel stage 5</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #101014; color: #ddd; font: 13px/1.35 ui-monospace, Consolas, monospace; overflow: hidden; }
+    #game { display: block; width: 100vw; height: 100vh; }
+    #info { position: fixed; left: 8px; top: 8px; padding: 6px 8px; background: rgba(0,0,0,.65); white-space: pre; pointer-events: none; }
+    #reload { display: none; position: fixed; left: 50%; top: 40%; transform: translateX(-50%); padding: 16px 24px; background: #223; border: 1px solid #99f; font: 16px system-ui, sans-serif; text-align: center; }
+    #reload button { margin-top: 8px; font: inherit; }
+  </style>
+<!--S5_PRELOADS-->
+  <script>
+  // Starts the WASM compile and the first asset downloads before the app's JS has even arrived.
+  // main.ts picks the promises up from window.__s5early. Config is injected by scripts/stage5-postbuild.mjs.
+  (function () {
+    var S = window.__S5 = /*S5_CONFIG*/{};
+    var q = new URLSearchParams(location.search);
+    var E = window.__s5early = { marks: {}, files: {} };
+    var mark = function (k) { E.marks[k] = performance.now(); };
+    mark('earlyScript');
+    var base = S.base;
+    var wasmMode = q.get('wasm') || 'gz';
+    var wasmP;
+    if (wasmMode === 'gz') {
+      wasmP = fetch(base + S.wasm.gz).then(function (r) {
+        mark('wasmDownloaded');
+        var body = r.body.pipeThrough(new DecompressionStream('gzip'));
+        return WebAssembly.compileStreaming(new Response(body, { headers: { 'Content-Type': 'application/wasm' } }));
+      });
+    } else {
+      wasmP = WebAssembly.compileStreaming(fetch(base + S.wasm.plain).then(function (r) { mark('wasmDownloaded'); return r; }));
+    }
+    E.wasm = wasmP.then(function (m) { mark('wasmCompiled'); return m; });
+    E.wasm.catch(function () {});
+    var extra = +(q.get('pad') || 0);
+    var list = S.firstChunk.slice();
+    for (var i = 0; i < extra; i++) list.push(S.padFile + '?pad=' + i);
+    E.list = list;
+    E.pending = list.map(function (f) {
+      return fetch(base + f).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status + ' for ' + f);
+        return r.arrayBuffer();
+      }).then(function (b) { E.files[f] = b; E.marks['asset:' + f] = performance.now(); return b; });
+    });
+    E.pending.forEach(function (p) { p.catch(function () {}); });
+    E.assets = Promise.all(E.pending).then(function (r) { mark('assetsDownloaded'); return r; });
+    E.assets.catch(function () {});
+  })();
+  </script>
+</head>
+<body>
+  <canvas id="game" width="1280" height="720"></canvas>
+  <div id="info">starting...</div>
+  <div id="reload"><div>A new version is available. Your progress was saved.</div><button id="reload-btn">Reload</button></div>
+  <script type="module" src="/stage5/main.ts"></script>
+</body>
+</html>

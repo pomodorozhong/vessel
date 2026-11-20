@@ -1,0 +1,173 @@
+{
+ "browser": "edge",
+ "version": "Edg/157.0.4341.60",
+ "url": "http://localhost:4176/vessel/stage6.html",
+ "measuredAt": "2026-11-19T10:22:28.203Z",
+ "errors": [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "machine": "dev machine: i7-13700, RTX 3060, 64 GB, Windows 11; production vite build, headed, no CPU throttling",
+ "profile": "fresh automation profile (puppeteer temp user-data-dir)",
+ "result": {
+  "steps": {
+   "info": {
+    "secureContext": true,
+    "persistedBefore": false,
+    "persistResult": false,
+    "persistedAfter": false,
+    "estimate": {
+     "quota": 10737418240,
+     "usage": 0,
+     "usageDetails": {}
+    }
+   },
+   "writeNormal": {
+    "ok": true,
+    "failures": [],
+    "bytes": 3580484,
+    "idbMs": 51.11500000953674,
+    "totalMs": 53.545000076293945,
+    "serializeMs": 2.3600001335144043
+   },
+   "shaAfterWrite": {
+    "id": 2,
+    "found": true,
+    "sha": "43d511ef089cb0d1e65585e7d9ad3c0f60a1ca7dca0b99c4900e061a8a2e08bb",
+    "bytes": 3580484
+   },
+   "estimateAfterWrite": {
+    "quota": 10739229465,
+    "usage": 1811225,
+    "usageDetails": {
+     "indexedDB": 1811225
+    }
+   },
+   "cdpUsageAfterWrite": {
+    "usage": 1811225,
+    "quota": 613944810700,
+    "overrideActive": false,
+    "usageBreakdown": [
+     {
+      "storageType": "file_systems",
+      "usage": 0
+     },
+     {
+      "storageType": "indexeddb",
+      "usage": 1811225
+     },
+     {
+      "storageType": "cache_storage",
+      "usage": 0
+     },
+     {
+      "storageType": "service_workers",
+      "usage": 0
+     }
+    ]
+   },
+   "quota1MB_override": {
+    "usage": 1811225,
+    "quota": 1048576,
+    "overrideActive": true,
+    "usageBreakdown": [
+     {
+      "storageType": "file_systems",
+      "usage": 0
+     },
+     {
+      "storageType": "indexeddb",
+      "usage": 1811225
+     },
+     {
+      "storageType": "cache_storage",
+      "usage": 0
+     },
+     {
+      "storageType": "service_workers",
+      "usage": 0
+     }
+    ]
+   },
+   "quota1MB_estimate": {
+    "quota": 10739229465,
+    "usage": 1811225,
+    "usageDetails": {
+     "indexedDB": 1811225
+    }
+   },
+   "quota1MB_writeSameSession": {
+    "ok": true,
+    "failures": [],
+    "bytes": 3580484,
+    "totalMs": 15.84500002861023
+   },
+   "quota1MB_estimateAfterReload": {
+    "quota": 10739230448,
+    "usage": 1812208,
+    "usageDetails": {
+     "indexedDB": 1812208
+    }
+   },
+   "quota1MB_writeAfterReload": {
+    "ok": true,
+    "failures": [],
+    "bytes": 3580484,
+    "totalMs": 21.855000019073486
+   },
+   "quota1MB_existingData": {
+    "sha": "845f25a0da81c189f61fcb489197f187349ce117aa3eb4fe75f714cbd01a9dba",
+    "load": {
+     "found": true,
+     "tick": 7002,
+     "bytes": 3580484,
+     "error": null
+    }
+   },
+   "quota1MB_smallWrite100KB": {
+    "id": 4,
+    "ok": true,
+    "error": null
+   },
+   "quota4MB_writeAfterReload": {
+    "ok": true,
+    "failures": [],
+    "bytes": 3580484,
+    "totalMs": 18.329999923706055
+   },
+   "quota4MB_existingData": {
+    "sha": "e7a05251f68567dc5642523ac8d4b134a630236e67b9a32f176b0810edc59c45",
+    "load": {
+     "found": true,
+     "tick": 7003,
+     "bytes": 3580484,
+     "error": null
+    }
+   },
+   "restored_write": {
+    "ok": true,
+    "failures": [],
+    "bytes": 3580484,
+    "totalMs": 17.84500002861023
+   },
+   "afterClearData_load": {
+    "found": false,
+    "error": null
+   },
+   "emptyOrigin_quota1MB_write": {
+    "ok": false,
+    "failures": [
+     {
+      "name": "QuotaExceededError",
+      "message": ""
+     }
+    ],
+    "bytes": 3580484,
+    "totalMs": 12.309999942779541
+   },
+   "emptyOrigin_quota1MB_afterFailedWrite_load": {
+    "found": false,
+    "error": null
+   }
+  }
+ }
+}

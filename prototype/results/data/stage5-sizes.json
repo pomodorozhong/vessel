@@ -1,0 +1,248 @@
+{
+ "measuredAt": "2026-11-19T10:08:12.209Z",
+ "note": "Procedural assets: noise-based textures and generated meshes. Sizes for real art will differ. Gzip level 9 (node zlib). BC7 by mipple 0.9.102 (CPU, effort 5), PSNR is RGB of mip level 0 vs the source.",
+ "models": [
+  {
+   "name": "character",
+   "texture": "atlas2048",
+   "vertices": 5102,
+   "uniqueVerticesAfterReorder": 5102,
+   "indices": 28608,
+   "rawPackedBytes": 138896,
+   "meshoptBytes": 66773,
+   "meshoptGzipBytes": 43587,
+   "gzipOnlyBytes": 109462,
+   "file": "character.mesh.2a1f1b8406.bin.gz"
+  },
+  {
+   "name": "tree",
+   "texture": "bark1024",
+   "vertices": 3000,
+   "uniqueVerticesAfterReorder": 3000,
+   "indices": 16704,
+   "rawPackedBytes": 81456,
+   "meshoptBytes": 42151,
+   "meshoptGzipBytes": 29075,
+   "gzipOnlyBytes": 61878,
+   "file": "tree.mesh.f5df70c6b3.bin.gz"
+  },
+  {
+   "name": "rock",
+   "texture": "rock1024",
+   "vertices": 1813,
+   "uniqueVerticesAfterReorder": 1813,
+   "indices": 10368,
+   "rawPackedBytes": 49792,
+   "meshoptBytes": 24728,
+   "meshoptGzipBytes": 16826,
+   "gzipOnlyBytes": 37713,
+   "file": "rock.mesh.776a930383.bin.gz"
+  }
+ ],
+ "textures": [
+  {
+   "name": "ground1024",
+   "size": 1024,
+   "generateMs": 7273,
+   "rgba8": {
+    "rawBytes": 5592416,
+    "gzipBytes": 1953204,
+    "file": "ground1024.rgba8.dcda87f3c2.bin.gz"
+   },
+   "bc7": [
+    {
+     "lambda": 0,
+     "ktx2Bytes": 1398592,
+     "gzipBytes": 1068060,
+     "psnrRgbDb": 53.892,
+     "encodeSecs": 0.72,
+     "effort": 5,
+     "levels": 11,
+     "file": "ground1024.bc7-l0.9f9701649d.ktx2.gz"
+    },
+    {
+     "lambda": 1,
+     "ktx2Bytes": 1398592,
+     "gzipBytes": 364634,
+     "psnrRgbDb": 46.314,
+     "encodeSecs": 6.77,
+     "effort": 5,
+     "levels": 11,
+     "file": "ground1024.bc7-l1.ce84488b8f.ktx2.gz"
+    },
+    {
+     "lambda": 3,
+     "ktx2Bytes": 1398592,
+     "gzipBytes": 256227,
+     "psnrRgbDb": 42.784,
+     "encodeSecs": 6.97,
+     "effort": 5,
+     "levels": 11,
+     "file": "ground1024.bc7-l3.b11fca23a3.ktx2.gz"
+    }
+   ]
+  },
+  {
+   "name": "bark1024",
+   "size": 1024,
+   "generateMs": 239,
+   "rgba8": {
+    "rawBytes": 5592416,
+    "gzipBytes": 1041421,
+    "file": "bark1024.rgba8.2f8c4c66bf.bin.gz"
+   },
+   "bc7": [
+    {
+     "lambda": 0,
+     "ktx2Bytes": 1398592,
+     "gzipBytes": 775855,
+     "psnrRgbDb": 55.223,
+     "encodeSecs": 0.95,
+     "effort": 5,
+     "levels": 11,
+     "file": "bark1024.bc7-l0.f1be3c7476.ktx2.gz"
+    },
+    {
+     "lambda": 1,
+     "ktx2Bytes": 1398592,
+     "gzipBytes": 141416,
+     "psnrRgbDb": 47.266,
+     "encodeSecs": 6.15,
+     "effort": 5,
+     "levels": 11,
+     "file": "bark1024.bc7-l1.fc83f00444.ktx2.gz"
+    },
+    {
+     "lambda": 3,
+     "ktx2Bytes": 1398592,
+     "gzipBytes": 87862,
+     "psnrRgbDb": 44.165,
+     "encodeSecs": 5.65,
+     "effort": 5,
+     "levels": 11,
+     "file": "bark1024.bc7-l3.7116d5ee4c.ktx2.gz"
+    }
+   ]
+  },
+  {
+   "name": "rock1024",
+   "size": 1024,
+   "generateMs": 24109,
+   "rgba8": {
+    "rawBytes": 5592416,
+    "gzipBytes": 1808479,
+    "file": "rock1024.rgba8.1a52d84b08.bin.gz"
+   },
+   "bc7": [
+    {
+     "lambda": 0,
+     "ktx2Bytes": 1398592,
+     "gzipBytes": 998123,
+     "psnrRgbDb": 54.101,
+     "encodeSecs": 0.68,
+     "effort": 5,
+     "levels": 11,
+     "file": "rock1024.bc7-l0.8967efbd44.ktx2.gz"
+    },
+    {
+     "lambda": 1,
+     "ktx2Bytes": 1398592,
+     "gzipBytes": 319498,
+     "psnrRgbDb": 46.197,
+     "encodeSecs": 5.89,
+     "effort": 5,
+     "levels": 11,
+     "file": "rock1024.bc7-l1.e2d3ba2891.ktx2.gz"
+    },
+    {
+     "lambda": 3,
+     "ktx2Bytes": 1398592,
+     "gzipBytes": 215597,
+     "psnrRgbDb": 42.51,
+     "encodeSecs": 7.73,
+     "effort": 5,
+     "levels": 11,
+     "file": "rock1024.bc7-l3.c395854aa0.ktx2.gz"
+    }
+   ]
+  },
+  {
+   "name": "atlas2048",
+   "size": 2048,
+   "generateMs": 296,
+   "rgba8": {
+    "rawBytes": 22369632,
+    "gzipBytes": 1705997,
+    "file": "atlas2048.rgba8.02ef7ff9e0.bin.gz"
+   },
+   "bc7": [
+    {
+     "lambda": 0,
+     "ktx2Bytes": 5592912,
+     "gzipBytes": 1333364,
+     "psnrRgbDb": 54.137,
+     "encodeSecs": 3.14,
+     "effort": 5,
+     "levels": 12,
+     "file": "atlas2048.bc7-l0.84ad72f109.ktx2.gz"
+    },
+    {
+     "lambda": 1,
+     "ktx2Bytes": 5592912,
+     "gzipBytes": 385571,
+     "psnrRgbDb": 47.629,
+     "encodeSecs": 14.99,
+     "effort": 5,
+     "levels": 12,
+     "file": "atlas2048.bc7-l1.d5aed64491.ktx2.gz"
+    },
+    {
+     "lambda": 3,
+     "ktx2Bytes": 5592912,
+     "gzipBytes": 273425,
+     "psnrRgbDb": 44.605,
+     "encodeSecs": 10.8,
+     "effort": 5,
+     "levels": 12,
+     "file": "atlas2048.bc7-l3.dc05a1b8cf.ktx2.gz"
+    }
+   ]
+  }
+ ],
+ "wasm": {
+  "plain": "sim.7355a6ce7e.wasm",
+  "gz": "sim.7355a6ce7e.wasm.gz",
+  "plainBytes": 22998,
+  "gzBytes": 10000
+ },
+ "firstChunkBytes": [
+  {
+   "file": "character.mesh.2a1f1b8406.bin.gz",
+   "bytes": 43587
+  },
+  {
+   "file": "tree.mesh.f5df70c6b3.bin.gz",
+   "bytes": 29075
+  },
+  {
+   "file": "rock.mesh.776a930383.bin.gz",
+   "bytes": 16826
+  },
+  {
+   "file": "atlas2048.bc7-l1.d5aed64491.ktx2.gz",
+   "bytes": 385571
+  },
+  {
+   "file": "bark1024.bc7-l1.fc83f00444.ktx2.gz",
+   "bytes": 141416
+  },
+  {
+   "file": "rock1024.bc7-l1.e2d3ba2891.ktx2.gz",
+   "bytes": 319498
+  },
+  {
+   "file": "ground1024.bc7-l1.ce84488b8f.ktx2.gz",
+   "bytes": 364634
+  }
+ ]
+}
