@@ -1,7 +1,9 @@
 name: Deploy prototype to GitHub Pages
 
-# Run by hand only: the prototype is throwaway code, so a push to main must not publish it as the live site.
+# Deploys on every push to main (merging a PR included). Run it by hand from the Actions tab to redeploy, or to deploy another branch.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:

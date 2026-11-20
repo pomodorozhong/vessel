@@ -76,13 +76,13 @@ The core decisions (raw WebGPU, Rust/WASM sim in a worker, GitHub Pages, owning 
 2. Stage 3: GPU time at 1080p on integrated graphics, and GPU-driven against plain there (`stage-3.md`).
 3. Stage 2: the four pass rows, plus a gamepad (`stage-2.md`).
 4. Stage 4: macOS Chrome, Edge and Safari; Firefox; sleep/wake; gamepads in each browser (`stage-4.md`).
-5. Stage 5 on real Pages after a push with write access and a deploy run by hand from the Actions tab: headers of our file types, cold and warm first frame, a deploy with a tab open (`stage-5.md`); Stage 0's page in each browser (`stage-0.md`).
+5. Stage 5 on real Pages after the merge to `main` deploys the prototype (or a deploy run by hand from the Actions tab): headers of our file types, cold and warm first frame, a deploy with a tab open (`stage-5.md`); Stage 0's page in each browser (`stage-0.md`).
 6. Stage 6: storage eviction, real-profile `persist()`, Safari's 7-day rule, a Dock web app, Firefox (`stage-6.md`).
 
 ## Blocked
 
 - `git push -u origin prototype/run-1` fails with 403: the signed-in account (`skymiku39`) has read access only. With the owner's agreement the branch was then pushed to a fork (`skymiku39/vessel`) and the PR to `main` is opened from there.
-- There is still no Pages deploy of this branch: the workflow (`.github/workflows/deploy.yml`) runs only by hand (`workflow_dispatch`), so neither a push nor merging the PR publishes the throwaway prototype as the live site, and it has never run in the repository itself. To finish: push the branch to `pomodorozhong/vessel` with an account that can write (or merge the PR), check that Pages uses "GitHub Actions" as its source and that the `github-pages` environment allows the branch, run "Deploy prototype to GitHub Pages" by hand from the Actions tab on that branch, and run the Pages steps above.
+- There is still no Pages deploy of this branch: the workflow (`.github/workflows/deploy.yml`) runs on every push to `main` and by hand (`workflow_dispatch`), so merging the PR publishes the prototype as the live site, and it has never run in the repository itself. To finish: check that Pages uses "GitHub Actions" as its source, merge the PR (or run "Deploy prototype to GitHub Pages" by hand from the Actions tab on another branch, which the `github-pages` environment must allow), and run the Pages steps above.
 
 ## Changes after the first review
 
@@ -94,7 +94,7 @@ The core decisions (raw WebGPU, Rust/WASM sim in a worker, GitHub Pages, owning 
 - Saves: one 3.2 MB buffer copied by `postMessage` (0.56 ms median, 0.73 ms p99) is named as a second layout that meets the bar, and the slabs' hold window (about 0.6 ms, 1.0 ms p99) is stated.
 - Saves: the save format holds at most 8 pending events per stored chunk while catch-up was measured with up to 1,000, so the save size and timings assume at most 8 (`stage-6.md`).
 - Deploy: `stage5-keep-previous.mjs` now fails the deploy when the live manifest cannot be read for any reason other than a 404, or a previous file cannot be downloaded (`--allow-missing` to override); the new exits were checked by hand, the emulator scenarios were not rerun.
-- Deploy workflow: runs only by hand from the Actions tab (`workflow_dispatch`), so merging does not publish the prototype; it installs the pinned Rust toolchain and caches Rust builds.
+- Deploy workflow: first changed to run only by hand from the Actions tab (`workflow_dispatch`), then, at the reviewer's request, set to also run on every push to `main`, so merging publishes the prototype; it installs the pinned Rust toolchain and caches Rust builds.
 - The sim's WASM import now names its module (`#[link(wasm_import_module = "env")]`), because the build failed to link on Rust 1.99.1 (`rust-lld: undefined symbol: now`, reported by the reviewer; not reproduced here, where Rust 1.94.1 is installed), and the toolchain is pinned to 1.94.1 in `prototype/rust-toolchain.toml`.
 - Three.js comparison rerun with static instances uploaded once (the first version re-uploaded about 1 MB of static matrices every frame): the gap is 3.4–7.8×, not 7–9×, and is stated as an upper bound (`stage-3.md`, this report, `tech-direction.md`). The first version's data is kept as `threecull-*`.
 - Device recovery rerun with a 60 s retry instead of 5 s: the outcome is the same (second crash within 20 s not recovered until a reload, third within 5 minutes not even then), so the doc's "until the page is reloaded" now rests on 60 s of retrying (`stage-4.md`, `tech-direction.md`).

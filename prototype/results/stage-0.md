@@ -36,7 +36,7 @@ Dev machine: Intel Core i7-13700 (16 cores, 24 threads), 64 GB RAM, NVIDIA GeFor
 
 ## Rerun steps
 
-1. Push `prototype/run-1` with an account that can write to the repository (or merge the PR), check that Pages uses "GitHub Actions" as the source and that the `github-pages` environment allows the branch, then run "Deploy prototype to GitHub Pages" by hand from the Actions tab (the workflow no longer runs on a push).
+1. Push `prototype/run-1` with an account that can write to the repository (or merge the PR), check that Pages uses "GitHub Actions" as the source and that the `github-pages` environment allows the branch, then let the deploy run (it runs on every push to `main`, merging the PR included; for another branch, run "Deploy prototype to GitHub Pages" by hand from the Actions tab).
 2. Open `https://<owner>.github.io/vessel/` in Chrome, Edge, Safari (macOS) and Firefox. Pass: the overlay shows frame, cpu, gpu and sim numbers, or the "not supported" page shows.
 3. Press a button on a gamepad: the overlay's `pad` line shows its id and `[standard]`, and the left stick changes the input sent to the worker.
 4. Repeat step 2 on the reference device.
