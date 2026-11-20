@@ -69,6 +69,10 @@ async function main() {
   const staticPerKind = new Uint32Array(KIND_COUNT);
   for (let i = 0; i < S; i++) staticPerKind[statics[i * 5 + 3]]++;
   const meshes: THREE.InstancedMesh[] = [];
+  // statics=once (default): static kinds are filled and uploaded once and always drawn whole, the way our
+  // renderer uploads statics once. statics=cull is the first version: statics re-culled and re-uploaded every frame.
+  const staticsOnce = new URLSearchParams(location.search).get('statics') !== 'cull';
+  const DYNAMIC = 17;
   for (let k = 0; k < KIND_COUNT; k++) {
     const r = set.ranges[k], n = r.vertexCount;
     const pos = new Float32Array(n * 3), nrm = new Float32Array(n * 3), uv = new Float32Array(n * 2), col = new Float32Array(n * 3);
@@ -88,7 +92,7 @@ async function main() {
     const cap = k < 16 ? Math.ceil(params.n / 16) + 1 : k === 16 ? 1 : staticPerKind[k];
     const m = new THREE.InstancedMesh(g, material, Math.max(1, cap));
     m.frustumCulled = false; // instances are culled on the CPU while the matrices are filled
-    m.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    m.instanceMatrix.setUsage(k >= DYNAMIC && staticsOnce ? THREE.StaticDrawUsage : THREE.DynamicDrawUsage);
     m.count = 0;
     scene.add(m);
     meshes.push(m);
@@ -116,6 +120,12 @@ async function main() {
     a[o + 8] = 0; a[o + 9] = 0; a[o + 10] = s; a[o + 11] = 0;
     a[o + 12] = x; a[o + 13] = y; a[o + 14] = z; a[o + 15] = 1;
   };
+  let staticVisible = 0, staticDraws = 0;
+  if (staticsOnce) {
+    const fill = new Uint32Array(KIND_COUNT);
+    for (let i = 0; i < S; i++) { const k = statics[i * 5 + 3]; put(meshes[k].instanceMatrix.array as Float32Array, fill[k]++, statics[i * 5], statics[i * 5 + 1], 0, statics[i * 5 + 2], statics[i * 5 + 4]); }
+    for (let k = DYNAMIC; k < KIND_COUNT; k++) { meshes[k].count = fill[k]; meshes[k].instanceMatrix.needsUpdate = true; staticVisible += fill[k]; if (fill[k]) staticDraws++; }
+  }
 
   function update(buffer: ArrayBuffer, alpha: number) {
     const h = new Float32Array(buffer, 0, 20);
@@ -126,7 +136,7 @@ async function main() {
     const x0 = cam.cx - cam.halfW, x1 = cam.cx + cam.halfW, y0 = cam.cy - cam.halfH, y1 = cam.cy + cam.halfH;
     cursor.fill(0);
     let sh = 0;
-    for (let i = 0; i < S; i++) {
+    for (let i = 0; i < (staticsOnce ? 0 : S); i++) {
       const x = statics[i * 5], y = statics[i * 5 + 1], r = statics[i * 5 + 4], m = r * 6;
       if (x + m < x0 || x - m > x1 || y + m < y0 || y - m > y1) continue;
       const k = statics[i * 5 + 3];
@@ -146,8 +156,8 @@ async function main() {
       put(meshes[k].instanceMatrix.array as Float32Array, cursor[k]++, x, y, 0, f[o + 4] + df * alpha, r);
       put(sa, sh++, x, y, 0.03, 0, r * 1.5);
     }
-    visible = 0; drawCalls = 2;
-    for (let k = 0; k < KIND_COUNT; k++) { const m = meshes[k]; m.count = cursor[k]; m.instanceMatrix.needsUpdate = true; visible += cursor[k]; if (cursor[k]) drawCalls++; }
+    visible = staticsOnce ? staticVisible : 0; drawCalls = 2 + (staticsOnce ? staticDraws : 0);
+    for (let k = 0; k < (staticsOnce ? DYNAMIC : KIND_COUNT); k++) { const m = meshes[k]; m.count = cursor[k]; m.instanceMatrix.needsUpdate = true; visible += cursor[k]; if (cursor[k]) drawCalls++; }
     shadows.count = sh; shadows.instanceMatrix.needsUpdate = true;
   }
 

@@ -79,6 +79,8 @@ Chunk: 64 plots + 8 furnaces (656 bytes) with game-scale durations (crop stages 
 
 Large world (my choice): 4,096 stored chunks (64 plots + 8 furnaces, each record 792 bytes: chunk, up to 8 pending events) = 3,244,032 bytes; 25 active chunks (656 bytes each) and 10,000 entities x 32 bytes = 336,400 bytes of active area; the whole blob is **3,580,484 bytes**. Per save the sim worker copies the active area and posts buffers to the save worker over a `MessageChannel` (the main thread is not involved); the save worker copies everything into one blob, returns the sim's buffers, computes a checksum and writes the blob in one IndexedDB transaction (default durability). 110 saves per layout after 10 warm-ups. Raw: `results/data/stage6-saves-chrome.json`.
 
+Note: the save format holds at most 8 pending events per stored chunk (`MAX_EVENTS` in `stage6/blob.ts`, line 18), while catch-up (sections 2 and 3) was measured with up to 1,000 events per chunk and more. The 3.6 MB save size and the save timings below assume at most 8 pending events per chunk; a chunk with more would need a larger or variable-size record.
+
 How the sim holds its stored chunks changes the sim-side cost, so three layouts were measured:
 
 | Layout (what the sim posts) | Sim-side work per save, median / p99 (ms) | Save worker: copy+checksum median / p99 (ms) | Buffers held by the save worker, median / p99 (ms) | IndexedDB write median / p99 (ms) | Save worker total median / p99 (ms) |
@@ -114,7 +116,7 @@ Unmeasured, with rerun steps below: real eviction under disk pressure (Chrome, F
 
 - 30 ticks/s; game-scale durations as listed above; 64 plots + 8 furnaces per realistic chunk; events uniform over the age.
 - Player speed 5 units/s, chunks 32 units wide, job started at 2 chunks outside the active radius: 12.8 s window. Fast travel = inline catch-up in the sim worker, compared to a 33 ms step budget.
-- The large world and the blob layout are mine; the summary sim is a stub with three event kinds; stored events live in a fixed 8-slot record in the save layout (the in-memory protocol has an unbounded list).
+- The large world and the blob layout are mine; the summary sim is a stub with three event kinds; stored events live in a fixed 8-slot record in the save layout (the in-memory protocol has an unbounded list). Catch-up was measured with up to 1,000 events per chunk (and more in the limits), so the save size and save timings hold only for at most 8 pending events per chunk.
 - One writer (the sim worker) routes every event and every job result; job workers only compute on copies.
 - Tick order: step, then events stamped with the tick; an event for an active chunk is applied immediately after the current step.
 

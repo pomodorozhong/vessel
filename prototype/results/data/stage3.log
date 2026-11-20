@@ -30,3 +30,12 @@ worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operati
 three-n2000-cpu4x cpu med 3.43 p99 4.95 | encode med 1.02 p99 2.03 | gpu med 1.05 p99 3.28  | frame med 16.67 p99 16.76 >20 4 >34 0 | draws 21 visible 1642 | pauses 0 jumps 0 | sim p99 0.96 
 worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
 three-n10000-cpu4x cpu med 5.63 p99 7.66 | encode med 2.18 p99 3.43 | gpu med 2.62 p99 4.39  | frame med 16.67 p99 16.75 >20 2 >34 0 | draws 22 visible 4950 | pauses 0 jumps 0 | sim p99 2.96 
+three-n1000 cpu med 0.48 p99 1.37 | encode med 0.08 p99 0.34 | gpu med 2.88 p99 7.80  | frame med 16.67 p99 16.81 >20 1 >34 0 | draws 22 visible 16437 | pauses 0 jumps 0 | sim p99 1.84 
+three-n2000 cpu med 0.56 p99 1.71 | encode med 0.12 p99 0.53 | gpu med 3.01 p99 7.54  | frame med 16.67 p99 16.81 >20 0 >34 0 | draws 21 visible 16819 | pauses 0 jumps 0 | sim p99 2.45 
+three-n5000 cpu med 0.75 p99 2.38 | encode med 0.23 p99 0.98 | gpu med 3.34 p99 7.80  | frame med 16.67 p99 16.78 >20 1 >34 0 | draws 22 visible 18047 | pauses 0 jumps 0 | sim p99 3.50 
+three-n10000 cpu med 1.17 p99 3.35 | encode med 0.44 p99 1.41 | gpu med 3.15 p99 6.75  | frame med 16.67 p99 16.78 >20 1 >34 0 | draws 22 visible 20129 | pauses 0 jumps 0 | sim p99 7.54 
+three-n20000 cpu med 1.71 p99 3.34 | encode med 0.75 p99 1.65 | gpu med 3.80 p99 6.03  | frame med 16.67 p99 16.76 >20 1 >34 0 | draws 22 visible 24341 | pauses 0 jumps 0 | sim p99 9.30 
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+three-n2000-cpu4x cpu med 2.21 p99 4.89 | encode med 0.43 p99 1.19 | gpu med 1.51 p99 4.98  | frame med 16.67 p99 16.75 >20 1 >34 0 | draws 21 visible 16819 | pauses 0 jumps 0 | sim p99 0.99 
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+three-n10000-cpu4x cpu med 4.26 p99 7.73 | encode med 1.62 p99 3.07 | gpu med 2.49 p99 4.72  | frame med 16.67 p99 16.75 >20 0 >34 0 | draws 22 visible 20128 | pauses 0 jumps 0 | sim p99 3.58 

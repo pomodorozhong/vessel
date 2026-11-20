@@ -8,7 +8,7 @@ No fallback is applied. The fallback ("if too many target players lack WebGPU, r
 
 ## Results
 
-All rows: dev machine (Intel Core i7-13700, NVIDIA RTX 3060, driver 32.0.15.6094, Windows 11 Pro 10.0.26200), build of commit `99f1571` served by `vite preview`, page `?render=gpu&n=2000&spawn=40` (the Stage 3 GPU-driven renderer). Rerun with `node scripts/stage4.mjs chrome edge`. Raw data: `results/data/stage4-chrome.json`, `stage4-edge.json`, `stage4-chrome-gap150.json`.
+All rows: dev machine (Intel Core i7-13700, NVIDIA RTX 3060, driver 32.0.15.6094, Windows 11 Pro 10.0.26200), local production build served by `vite preview`, page `?render=gpu&n=2000&spawn=40` (the Stage 3 GPU-driven renderer). Rerun with `node scripts/stage4.mjs chrome edge` and `GAP=150 TAG=-gap150 node scripts/stage4.mjs chrome`. Raw data: `results/data/stage4-chrome.json`, `stage4-edge.json`, `stage4-chrome-gap150.json` (rerun after review, 60 s retry) and the `-retry5s` files (first version), log `results/data/stage4.log`.
 
 ### Startup and adapter features
 
@@ -25,19 +25,21 @@ Full feature lists are in the raw data (21 features in Chrome, 22 in Edge, which
 
 ### A lost device the game did not cause
 
-The GPU process was crashed with the DevTools protocol command `Browser.crashGpuProcess`, which is what `chrome://gpucrash` does (the browser ignores that URL when automation navigates to it, which is why the first attempt at this test crashed nothing). The page gets `device.lost` with reason `unknown` and message "A valid external Instance reference no longer exists." The game then asks for a new adapter and device, chooses optional features again, and rebuilds every pipeline and buffer in one code path, retrying every 250 ms for 5 s; the sim worker is not touched.
+The GPU process was crashed with the DevTools protocol command `Browser.crashGpuProcess`, which is what `chrome://gpucrash` does (the browser ignores that URL when automation navigates to it, which is why the first attempt at this test crashed nothing). The page gets `device.lost` with reason `unknown` and message "A valid external Instance reference no longer exists." The game then asks for a new adapter and device, chooses optional features again, and rebuilds every pipeline and buffer in one code path, retrying every 250 ms for 60 s; the sim worker is not touched.
 
 | Browser | Crash | Result | Time from `device.lost` to drawing again (ms) | Sim kept running | Features on the new adapter |
 |---|---|---|---|---|---|
-| Chrome 156 | 1st | recovered without a reload, first attempt | 637 | yes | same four |
-| Chrome 156 | 2nd, 20 s after the 1st | **not recovered**: no adapter for 5 s, "not supported" page shown ("The GPU device was lost and did not come back."); a page reload brought the game back | – | yes | – |
-| Edge 157 | 1st | recovered without a reload, first attempt | 629 | yes | same four |
-| Edge 157 | 2nd, 20 s after the 1st | **not recovered**, same as Chrome; a reload brought the game back | – | yes | – |
-| Chrome 156, second run with 150 s between crashes | 1st | recovered without a reload, first attempt | 629 | yes | same four |
-| Chrome 156, same run | 2nd, 150 s after the 1st | recovered without a reload, first attempt | 612 | yes | same four |
-| Chrome 156, same run | 3rd, 150 s after the 2nd | **not recovered**, and **a reload did not help**: the reloaded page shows "No GPU adapter is available." | – | yes | – |
+| Chrome 156 | 1st | recovered without a reload, first attempt | 703 | yes | same four |
+| Chrome 156 | 2nd, 20 s after the 1st | **not recovered**: no adapter for 60 s (240 tries), "not supported" page shown ("The GPU device was lost and did not come back."); a page reload then brought the game back | – | yes | – |
+| Edge 157 | 1st | recovered without a reload, first attempt | 818 | yes | same four |
+| Edge 157 | 2nd, 20 s after the 1st | **not recovered** for 60 s, same as Chrome; a reload then brought the game back | – | yes | – |
+| Chrome 156, second run with 150 s between crashes | 1st | recovered without a reload, first attempt | 664 | yes | same four |
+| Chrome 156, same run | 2nd, 150 s after the 1st | recovered without a reload, first attempt | 632 | yes | same four |
+| Chrome 156, same run | 3rd, 150 s after the 2nd | **not recovered** for 60 s, and **a reload did not help**: the reloaded page shows "No GPU adapter is available." | – | yes | – |
 
-The snapshot clock counted 2 pauses and 1 jump in Chrome and 1 pause and 1 jump in Edge across the first crash (the canvas shows nothing for about 0.6 s). Two earlier runs of the same test gave 654 and 694 ms.
+These rows are from the rerun after review, where the game retries for 60 s (240 tries, 250 ms apart). The first version retried for only 5 s, which could not tell "no adapter for 5 s" from "no adapter until a reload"; its results were the same in kind (six recoveries in 612–694 ms; second crash at 20 s and third at 150 s not recovered) and are kept in `results/data/stage4-*-retry5s.json`. Every recovery that happened took the first attempt; none came after a wait.
+
+The snapshot clock counted 2 pauses and 1 jump in both browsers across the first crash (the canvas shows nothing for about 0.7 s).
 
 - **Sleep and wake with the tab open: unmeasured.** Putting the dev machine to sleep would have stopped this unattended run.
 - A loss from `device.destroy()` is treated as on purpose (reason `destroyed`) and does not start recovery; it was not used as a recovery test.
@@ -79,7 +81,7 @@ The page names the supported browsers and suggests checking hardware acceleratio
 
 ## Limits found
 
-- **A GPU process crash is recovered in about 0.6–0.7 s, but only so many times.** A second crash 20 s after the first is not recovered (no adapter for at least 5 s) until the page is reloaded. With 150 s between crashes the second one is recovered too, and the third is not, even after a reload: the browser stops offering an adapter for that session (the test did not find when, or whether, it comes back short of restarting the browser). The real game should keep the sim running, save, and offer a reload when the device does not come back, and show "not supported" when the reload does not help.
+- **A GPU process crash is recovered in about 0.6–0.8 s, but only so many times.** A second crash 20 s after the first is not recovered: no adapter comes back in 60 s of retrying, and a page reload then gets one at once. With 150 s between crashes the second one is recovered too, and the third is not, even after a reload: the browser stops offering an adapter for that session (the test did not find when, or whether, it comes back short of restarting the browser). So waiting longer does not help and the game does need a reload prompt: it should keep the sim running, save, and offer a reload when the device does not come back within a second or two, and show "not supported" when the reload does not help.
 - No command-line flag turns WebGPU off in Chrome 156 short of disabling the GPU, so the "`navigator.gpu` missing" path can only be tested by simulation or on a browser that really lacks it.
 
 ## Rerun steps

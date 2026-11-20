@@ -29,7 +29,7 @@ async function startup(name) {
       const bcdp = await browser.target().createCDPSession();
       await bcdp.send('Browser.crashGpuProcess').catch((e) => { out.crashError = String(e); });
       const lost = await until(page, 'window.__lost', 15000);
-      const recovered = lost ? await until(page, 'window.__recovered || window.__unsupported', 20000) : null;
+      const recovered = lost ? await until(page, 'window.__recovered || window.__unsupported', 75000) : null;
       await sleep(5000);
       const after = await page.evaluate('window.__state?.() ?? null');
       const tick1 = after?.tick; await sleep(2000);

@@ -3,11 +3,13 @@
 //
 //   node scripts/stage5-keep-previous.mjs --dist dist --site https://<owner>.github.io/vessel/
 //
-// 1. fetch <site>/builds.json (the live manifest); no live site, a 404 or a bad manifest means "no previous build"
+// 1. fetch <site>/builds.json (the live manifest); only a 404 means "no previous build" (first deploy)
 // 2. download the live build's hashed files into dist/ (files the new build already has are skipped)
 // 3. write dist/builds.json = { current: <this build>, previous: <the live build> }. Builds older than that are
 //    dropped: they are not in the new manifest and their files are not copied.
-// Never fails the deploy: on any error it keeps what it has and says so.
+// Fails the deploy (exit 1) when the live site cannot be read for any reason other than a 404, or when one of
+// the previous build's files cannot be downloaded: publishing without them would break tabs that are already
+// open. --allow-missing turns both into warnings, for the case where the live site is known to be broken.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 
@@ -65,9 +67,15 @@ if (site) {
     }
   } catch (e) {
     stats.error = String(e);
-    console.log(`keep-previous: could not read the live site (${e.message}); continuing without a previous build`);
+    // Only a 404 means "no previous build". Anything else (outage, timeout, bad JSON) would publish a site
+    // without the previous build's files and break tabs that are already open, so the deploy stops here.
+    console.error(`keep-previous: could not read the live site (${e.message}); refusing to deploy without the previous build. Rerun the deploy, or pass --allow-missing to go on without it.`);
+    if (!process.argv.includes('--allow-missing')) process.exit(1);
   }
 }
 writeFileSync(manifestPath, JSON.stringify({ version: 1, current: mine.current, previous }, null, 1));
 console.log('keep-previous:', JSON.stringify(stats), 'previous =', previous ? `${previous.id} (${previous.files.length} files)` : 'none');
-if (stats.failed.length) console.log('keep-previous: some previous files could not be downloaded:\n  ' + stats.failed.join('\n  '));
+if (stats.failed.length) {
+  console.error('keep-previous: some previous files could not be downloaded:\n  ' + stats.failed.join('\n  '));
+  if (!process.argv.includes('--allow-missing')) process.exit(1);
+}

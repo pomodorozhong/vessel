@@ -1,8 +1,7 @@
 name: Deploy prototype to GitHub Pages
 
+# Run by hand only: the prototype is throwaway code, so a push to main must not publish it as the live site.
 on:
-  push:
-    branches: [main, prototype/run-1]
   workflow_dispatch:
 
 permissions:
@@ -27,8 +26,19 @@ jobs:
           node-version: 22
           cache: pnpm
           cache-dependency-path: prototype/pnpm-lock.yaml
-      - name: Add the WASM target
-        run: rustup target add wasm32-unknown-unknown
+      - name: Install the pinned Rust toolchain (prototype/rust-toolchain.toml) with the WASM target
+        working-directory: prototype
+        run: rustup toolchain install
+      - name: Cache the Rust builds (the BC7 tool takes about 3 minutes to compile)
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            prototype/sim/target
+            prototype/chunks/target
+            prototype/stage5/tools/bc7tool/target
+          key: rust-${{ runner.os }}-${{ hashFiles('prototype/rust-toolchain.toml', 'prototype/**/Cargo.lock', 'prototype/**/Cargo.toml') }}
       - name: Install
         working-directory: prototype
         run: pnpm install --frozen-lockfile
@@ -41,7 +51,7 @@ jobs:
         run: |
           node stage5/build-assets.mjs
           node scripts/stage5-postbuild.mjs --tag "${GITHUB_SHA::8}"
-      - name: Keep the previous build's files (tolerates "no live site yet")
+      - name: Keep the previous build's files (tolerates "no live site yet", fails if the live site cannot be read)
         working-directory: prototype
         run: node scripts/stage5-keep-previous.mjs --dist dist --site "https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/"
       - uses: actions/upload-pages-artifact@v3

@@ -19,7 +19,10 @@ pub const PLAYER_RADIUS: f32 = 0.4;
 pub const TURN_RATE: f32 = 0.35; // radians per step
 const UNREACHED: u16 = u16::MAX;
 
+// The import module is named explicitly: newer Rust no longer lets undefined symbols through the
+// WASM linker, so without it the build fails with "undefined symbol: now".
 #[cfg(target_arch = "wasm32")]
+#[link(wasm_import_module = "env")]
 extern "C" {
     fn now() -> f64;
 }

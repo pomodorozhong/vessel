@@ -1,12 +1,12 @@
 {
  "browser": "edge",
- "measuredAt": "2026-11-19T14:59:28.488Z",
+ "measuredAt": "2026-11-20T12:38:55.783Z",
  "url": "http://localhost:4173/vessel/",
  "startup": {
   "version": "Edg/157.0.4341.60",
   "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36 Edg/157.0.0.0",
   "ready": true,
-  "readyMs": 1042,
+  "readyMs": 1374,
   "gpu": {
    "info": {
     "vendor": "nvidia",
@@ -23,8 +23,8 @@
    "all": [
     "depth32float-stencil8",
     "rg11b10ufloat-renderable",
-    "texture-formats-tier1",
     "bgra8unorm-storage",
+    "texture-formats-tier1",
     "texture-compression-bc",
     "dual-source-blending",
     "core-features-and-limits",
@@ -37,8 +37,8 @@
     "depth-clip-control",
     "texture-compression-bc-sliced-3d",
     "texture-formats-tier2",
-    "shader-f16",
     "timestamp-query",
+    "shader-f16",
     "clip-distances",
     "primitive-index",
     "texture-component-swizzle",
@@ -49,7 +49,7 @@
    }
   },
   "state": {
-   "tick": 152,
+   "tick": 153,
    "deviceLosses": 0,
    "rebuilds": 1,
    "pauses": 1,
@@ -69,23 +69,23 @@
     "lost": {
      "reason": "unknown",
      "message": "A valid external Instance reference no longer exists.",
-     "at": 7131.119999885559
+     "at": 12789.775000095367
     },
     "recovered": {
-     "at": 7760.009999990463,
+     "at": 13607.275000095367,
      "attempt": 0
     },
-    "recoveryMs": 628.8900001049042,
-    "waitedMs": 8788,
+    "recoveryMs": 817.5,
+    "waitedMs": 14288,
     "before": {
      "deviceLosses": 0,
      "rebuilds": 1
     },
     "after": {
-     "tick": 356,
+     "tick": 522,
      "deviceLosses": 1,
      "rebuilds": 2,
-     "pauses": 1,
+     "pauses": 2,
      "jumps": 1,
      "frameMed": 16.665000915527344,
      "hasGpu": true,
@@ -108,20 +108,20 @@
     "lost": {
      "reason": "unknown",
      "message": "A valid external Instance reference no longer exists.",
-     "at": 27385.59500002861
+     "at": 33290.625
     },
     "recovered": "The GPU device was lost and did not come back.",
     "recoveryMs": null,
-    "waitedMs": 12760,
+    "waitedMs": 68285,
     "before": {
      "deviceLosses": 1,
      "rebuilds": 2
     },
     "after": {
-     "tick": 1099,
+     "tick": 2930,
      "deviceLosses": 2,
      "rebuilds": 2,
-     "pauses": 1,
+     "pauses": 2,
      "jumps": 1,
      "frameMed": 16.665000915527344,
      "hasGpu": false,

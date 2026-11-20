@@ -106,8 +106,9 @@ async function startGpu() {
     if (info.reason === 'destroyed') return; // destroyed on purpose
     deviceLosses++;
     // An adapter can create only one device, so recovery starts from a new adapter, and optional
-    // features are chosen again. Retry for a while: right after a GPU process crash no adapter exists yet.
-    for (let attempt = 0; attempt < 20; attempt++) {
+    // features are chosen again. Retry for a minute (240 tries, 250 ms apart): right after a GPU process crash
+    // no adapter exists yet, and after repeated crashes the browser may hold it back for longer.
+    for (let attempt = 0; attempt < 240; attempt++) {
       try { await startGpu(); (window as any).__recovered = { at: performance.now(), attempt }; return; } catch (e) { await new Promise((r) => setTimeout(r, 250)); }
     }
     showUnsupported('The GPU device was lost and did not come back.');

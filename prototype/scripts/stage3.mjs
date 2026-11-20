@@ -5,14 +5,16 @@ import { runPage, save } from './browser.mjs';
 
 const dur = Number(process.argv[2] ?? 300);
 const filter = new RegExp(process.argv[3] ?? '.');
-const page = { gpu: '?render=gpu&', plain: '?render=plain&', three: 'three.html?' };
+// three: static instances uploaded once and always drawn. threecull: the first version, which re-culled and
+// re-uploaded the statics every frame (kept so the first review's numbers can be reproduced).
+const page = { gpu: '?render=gpu&', plain: '?render=plain&', three: 'three.html?', threecull: 'three.html?statics=cull&' };
 const runs = [];
-for (const n of [1000, 2000, 5000, 10000, 20000]) for (const r of ['gpu', 'plain', 'three']) runs.push({ name: `${r}-n${n}`, r, q: `n=${n}` });
+for (const n of [1000, 2000, 5000, 10000, 20000]) for (const r of ['gpu', 'plain', 'three', 'threecull']) runs.push({ name: `${r}-n${n}`, r, q: `n=${n}` });
 // Resolution: internal 720p and 1080p, upscaled to a 1440p and a 4K canvas.
 for (const ires of [720, 1080]) for (const [cw, ch] of [[2560, 1440], [3840, 2160]]) runs.push({ name: `gpu-n2000-i${ires}-c${ch}`, r: 'gpu', q: `n=2000&ires=${ires}&cw=${cw}&ch=${ch}` });
 runs.push({ name: 'gpu-n2000-i720-c1080', r: 'gpu', q: 'n=2000&ires=720' });
 // CPU throttled 4x (page only; Chrome cannot throttle the sim worker).
-for (const r of ['gpu', 'plain', 'three']) for (const n of [2000, 10000]) runs.push({ name: `${r}-n${n}-cpu4x`, r, q: `n=${n}`, throttleRate: 4 });
+for (const r of ['gpu', 'plain', 'three', 'threecull']) for (const n of [2000, 10000]) runs.push({ name: `${r}-n${n}-cpu4x`, r, q: `n=${n}`, throttleRate: 4 });
 
 for (const run of runs) {
   const name = `${run.name}${dur !== 300 ? `-${dur}s` : ''}`;
