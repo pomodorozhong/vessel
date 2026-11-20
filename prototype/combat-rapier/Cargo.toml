@@ -1,0 +1,17 @@
+[package]
+name = "vessel-combat-rapier"
+version = "0.0.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+# The one new dependency of Stage 8, approved by the owner, for the comparison with our own pair finding.
+rapier2d = "=0.36.1"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
