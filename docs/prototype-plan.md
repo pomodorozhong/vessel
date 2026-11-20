@@ -225,3 +225,153 @@ Stage 0 comes first, since every other stage builds on it. After that, run every
 - A results file per stage in `prototype/results/`, with every number labeled by where it was measured.
 - `prototype/results/report.md`, one page: each hypothesis's verdict and the numbers behind it, the limits found, which ruled-out options won or lost, the P1 and P2 findings from Stage 7, and the reference-device runs still needed.
 - One PR from `prototype/run-1` with the prototype, the results, and the updates to `tech-direction.md` that the results call for.
+
+# Run 2: full load
+
+Run 1 measured each system on its own: the sim without combat, the renderer without effects, and the hand-off between them with a light scene. It did not show that everything fits in one frame at the same time, and every number came from one fast dev machine. Run 2 loads the sim with combat collision, the renderer with the game's intended look, and the audio with dense combat sound, then runs them all together through a worst-case wave, on the reference device.
+
+The owner has set the targets that run 2 builds toward:
+
+- Look: cel shading, with Breath of the Wild as the reference (banded light, outlines, crisp cast shadows, painterly color, grass fields, soft atmospheric fog). This puts three rules of the tech direction in question: blob shadows instead of shadow maps, only baked ambient occlusion, and at most one post-processing pass. Run 2 measures what the look costs instead of assuming those rules hold.
+- Sound: combat sound in the style of Hades, where every shot, hit, and death gives punchy, layered feedback, many sounds play at once, and the mix stays clear.
+
+The ground rules, "How it runs", and "Known pitfalls" above apply to run 2 as well, with these changes:
+
+- Run 2 builds on run 1's code in `prototype/`, on a new branch `prototype/run-2` from `main`, with one PR at the end. Results go under `prototype/results/run-2/` (one `stage-N.md` per stage and a `report.md`), next to run 1's.
+- Stages 8 to 11 run on the reference device. If none is available, they run on the dev machine with Chrome's 4× CPU throttling, every verdict is provisional, and each results file gives the steps to rerun on the reference device.
+- On the reference device, also rerun run 1's Stages 1 and 3 at their original settings (step 2 of issue #3), so run 1's provisional verdicts can be settled.
+- "Combat collision" means projectiles, building shapes, and crowd pushing, with projectiles weighted most, since they are the newest and likely the most costly.
+- Art and sound are placeholders made for the test (simple models, generated or freely licensed sounds). Run 2 measures cost and checks that the look and the mix can be reached, not final quality. Screenshots and short recordings go into the results so the look can be judged.
+
+## Lessons from run 1
+
+Run 1's results and its review found problems that run 2 must not repeat. Each one becomes a rule here.
+
+- Make comparisons fair before measuring them. The first review found two comparisons that favoured our renderer: the Three.js version re-uploaded about 1 MB of static matrices every frame (the 7 to 9 times gap became 3.4 to 7.8 after the fix), and the plain path culled every static instance on the CPU each frame. Before any 5-minute run, check that both sides of every comparison (pair finding, Rapier 2D, outline methods, shadow methods, mixer designs) were built with the same care and do the same work, and say which way any remaining bias points.
+- Repeat comparisons whose differences are small. Run 1 ran each configuration once, and SIMD's ±10 to 24% was inside the noise. Run each compared configuration at least three times and report the spread, and call a difference real only when it is larger than the spread.
+- Measure on an idle machine. Run 1's Stage 1 ran while other stages' builds used the same machine. Nothing else builds or measures during a run 2 measurement.
+- Say where each measurement stops. Run 1's input delay stopped at frame submit, so Stage 2 could only be provisional. Measure to the screen and the speakers where possible (for audio, include the device's output latency), and otherwise state the end point next to the number.
+- Measure allocations with a method that separates the game from the test harness. Run 1's heap sample showed 111 KB/s on the main thread and 31 KB/s in the worker, and could not tell which was the game's. Pick the method before building, and check it on a loop known to allocate nothing.
+- Know what throttling reaches. Chrome's CPU throttling does not slow workers, so on the dev machine throttled sim numbers come from running the sim on the main thread, and audio worklet numbers are not throttled at all. Label each throttled number with what was slowed.
+- Make tests able to tell outcomes apart. Run 1's 5-second recovery retry could not tell "no adapter for 5 s" from "no adapter until a reload", and its first crash test crashed nothing because the browser ignores `chrome://gpucrash` under automation. Check that every test can produce each outcome it is meant to detect (a projectile that should pass through a wall must be caught by the exact check; a glitch counter must count a forced glitch) before trusting it.
+- Check limits across stages. Run 1's save format held at most 8 pending events per chunk while catch-up was measured with up to 1,000. Check that buffer sizes and formats (snapshot capacity, event slots, particle pools, voice limits) fit the loads other stages measure.
+- Draw only what is seen. Drawing all 15,913 static instances without culling more than doubled Three.js's GPU time (3.0 against 1.3 ms at 2,000 entities). Grass, shadow casters, and outlines are culled per chunk like everything else.
+- New GPU resources join the one rebuild path. Recovery after a lost device rebuilds everything in one code path. The shadow map, grass buffers, outline pass, and bloom targets must be rebuilt there too, and Stage 11 crashes the GPU process once during the wave to check it.
+- Startup has a budget. The first chunk stays under about 2 MB to start within 3 seconds. Sounds, the cel ramp, and grass assets count toward it, so report how much each stage adds to the first chunk.
+- Pin and build the toolchain. Run 1's sim failed to link on newer Rust. Run 2 keeps `prototype/rust-toolchain.toml` and checks that a clean build passes on the pinned version and on current stable Rust before the PR. Pushes to `main` now deploy to GitHub Pages, so run 2 can also check its pages there.
+
+## Stage 8: does combat collision fit the sim budget?
+
+Hypothesis: the single sim thread handles combat (2,000 enemies, 1,000 live projectiles, buildings, and area effects) within 4 ms per step at the 99th percentile on the reference device.
+
+Run 1 found collision is already 48% of the step at 2,000 entities and 80% at 10,000, and the 4 ms budget breaks between 5,000 and 10,000 entities with circles and static obstacles only. This stage adds what combat needs.
+
+Build:
+- Projectiles: pooled, small circles that move up to several grid cells per step. Each one is swept along its path against walls, buildings, and enemies, so it cannot pass through a thin wall or a small enemy, and it hits the first thing along the path. Some come from the player's weapons and some from enemy shooters.
+- Buildings and walls: axis-aligned boxes of several sizes on the grid, including player-built walls that appear and disappear during the run, which update the grid and the flow field.
+- Crowd pushing: overlaps are resolved in several passes per step, with a push priority (the player, then large enemies, then small ones), so crowds pile up against walls and around the player.
+- Area effects: explosions that damage everything in a radius, auras on some enemies checked every step, and a pickup radius around the player.
+- Events for the renderer and the audio (shots, hits, deaths, explosions), written into the snapshot each step.
+
+Try at least three ways of finding nearby pairs and compare them on the numbers:
+- A: run 1's spatial hash grid with entities sorted by cell.
+- B: sort-and-sweep along one axis.
+- C: the grid from A, with the exact checks batched with SIMD.
+- Also Rapier 2D on the same scene, which the tech direction keeps as the escape hatch for real rigid bodies but never measured.
+
+Measure, over 5-minute runs:
+- Sim step time, median and 99th percentile, at 2,000, 5,000, and 10,000 enemies, each with 0, 1,000, and 5,000 live projectiles.
+- The share of the step in finding pairs, exact checks, crowd pushing, projectiles, area effects, and the flow field.
+- Projectiles that passed through something they should have hit, counted by a slower exact check run alongside (must be 0).
+- Events per step at each load, which Stages 9 and 10 use.
+- Push the projectile count and the enemy count past the pass bar to find where 4 ms breaks.
+
+Pass: 2,000 enemies with 1,000 live projectiles at a 99th percentile under 4 ms on the reference device over a 5-minute run, with no projectile passing through anything.
+
+If it fails: first take the fastest of A, B, and C, then cut the pushing passes, the projectile count, or how often area effects are checked. If none of that fits, follow Stage 1's fallback. If Rapier 2D wins, change the physics decision in the tech direction and say what number changed it.
+
+## Stage 9: does the cel-shaded look fit the GPU budget?
+
+Hypothesis: the GPU-driven renderer with the cel-shaded look and the combat effects fits about 60% of 16.7 ms at 1080p on the reference device under combat load, and CPU encoding stays under 2 ms.
+
+Build, on top of the Stage 3 renderer:
+- Cel lighting: the sun's light stepped into two or three bands through a small ramp texture, with slightly soft band edges, plus a rim light. Sun direction, color, and ramp follow the day and night cycle as shader uniforms.
+- Outlines, two ways to compare: A, inverted-hull outlines drawn as an extra instanced pass with no post-processing; B, an edge-detection pass over depth and normals, which needs a normal target and a second post-processing pass.
+- Cast shadows: a shadow map from the sun, sampled with a hard cel edge, against run 1's blob shadows. Crisp cast shadows are part of the look, so this decides whether blob shadows are enough.
+- A grass field: dense instanced grass clumps that sway in the wind in the vertex shader and bend away from entities, the most GPU-heavy part of this look on integrated graphics.
+- Atmosphere: a painted gradient sky and colored distance fog, plus bloom on bright effects (explosions, projectiles) as a second post-processing pass.
+- Combat effects: vertex animation textures for every enemy kind, projectiles drawn as instances with short trails, and GPU particles spawned in a compute shader from the snapshot's hit and death events, then moved and culled on the GPU, up to 50,000 alive.
+- Overdraw: alpha-tested foliage and blended effects (explosions, auras), which is what limits integrated GPUs.
+- A busy UI pass: health bars over enemies, floating damage numbers, and the HUD.
+- Dynamic resolution: lower the internal resolution when GPU time goes over budget and raise it again when there is room.
+
+Measure, at the Stage 8 counts with 0, 10,000, and 50,000 particles:
+- CPU time to encode and submit a frame.
+- GPU time per pass (shadow map, grass, world with cel lighting, outlines, particles, effects, bloom, upscale, UI) at 720p and 1080p internal resolution, for each outline method and each shadow method.
+- Overdraw, from a debug view that counts how many times each pixel is written.
+- Frame time over a 5-minute run, and how often and how quickly dynamic resolution changes.
+- Screenshots of each option side by side, so the look can be judged against the reference.
+- Push the grass density, particle count, and enemy count past the pass bar to find where the frame breaks.
+
+Pass: the frame fits about 60% of 16.7 ms at 1080p on the reference device with the full look (cel lighting, outlines, cast shadows, grass, fog, bloom), 2,000 enemies, 1,000 projectiles, and 10,000 particles, and CPU encoding stays under 2 ms.
+
+If it fails: cut in this order, checking the look after each step: bloom, grass density, particle counts and overdraw, shadow map resolution, then the internal resolution, then blob shadows instead of a shadow map, then the entity count. Take the cheaper outline method unless the other one is needed for the look. Whatever is kept updates the tech direction's lighting, shadow, and post-processing rules, with the numbers that changed them.
+
+## Stage 10: does dense combat sound play cleanly?
+
+Hypothesis: our own small mixer on Web Audio plays dense combat sound (hundreds of sound events per second, dozens of voices at once) without glitches and in time with the picture, while the main thread is busy rendering, with little main-thread cost.
+
+Build:
+- Sound events come from the snapshot (shots, hits, deaths, explosions from Stage 8) and from the player's own input. The player's own sounds (shooting, dashing) play straight from input, without waiting for the sim, so they are not delayed by the snapshot lag.
+- Two mixer designs to compare: A, plain Web Audio nodes, one buffer source per sound through gain and stereo panner nodes; B, our own mixer in an `AudioWorklet`, which mixes every voice itself on the audio thread and gets sound events as small messages.
+- Voice management: a limit per sound and in total, priority (the player's sounds first), and stacking, so many identical hits in one frame play as one louder hit instead of a wall of copies.
+- Variation: each sound has several takes and a small random change in pitch and volume, so repeated hits do not sound the same.
+- Buses: sound effects, music, and UI, with music and smaller sounds ducking under big hits, and a limiter on the master so a crowd never clips.
+- Music in layers that fade in and out with combat intensity.
+
+Measure, with Stage 8's events at its pass load and past it, over 5-minute runs:
+- Audio glitches (dropouts), counted from the audio thread, including during Stage 2's 100 ms and 500 ms main-thread stalls.
+- Delay from input to sound for the player's own sounds, and the offset between a sim event's sound and the frame that shows it.
+- Main-thread time per frame spent on audio, and the audio thread's load.
+- Allocations in the game loop (node design A creates nodes per sound).
+- Voices playing at once, and events merged or dropped by the limits.
+
+Pass: no glitches over 5 minutes at the pass load, stalls included; the player's own sounds within about 30 ms of input plus the device's output latency; event sounds within one frame of the picture; audio under 0.5 ms of main-thread time per frame.
+
+If it fails: lower the voice limits and stack more aggressively first. If design A glitches or allocates too much, use design B. If B glitches, raise its buffer size and say what latency that adds.
+
+## Stage 11: does everything fit at once?
+
+Hypothesis: the sim, the snapshot hand-off, the renderer, and the audio together keep the game smooth at 60 fps through a worst-case combat wave on the reference device, with every system inside its budget at the same time.
+
+Build: a scripted 5-minute wave using the Stage 8 sim, the Stage 9 renderer with the full look, and the Stage 10 mixer. Enemies ramp up to 5,000, with heavy shooting, explosions, particles, and walls being built and destroyed. Snapshots now carry projectiles and events, so they grow, and the hand-off from Stage 2 is measured again under that load.
+
+Measure:
+- Frame time, and pauses and jumps from the Stage 2 render clock.
+- Snapshot size and the cost of copying and sending it.
+- Sim step time, median and 99th percentile.
+- Main-thread time split into snapshot upload, encoding, audio, UI, and everything else, and GPU time.
+- Audio glitches, and keyboard input to frame submit.
+- Memory over the 5 minutes (it must not keep growing), and allocations in the game loop.
+- One GPU process crash during the wave: the full look comes back in one rebuild, and the sim and the audio keep running.
+- Keep ramping the wave past the pass bar and record which budget breaks first.
+
+Pass: no pauses or jumps at 60 fps and no audio glitches through the wave, the sim step under 4 ms and CPU encoding under 2 ms at the 99th percentile, and the frame within about 60% of 16.7 ms, all in the same run on the reference device.
+
+If it fails: the system that breaks first applies its own stage's fallback (Stage 8, 9, 10, or 2).
+
+## Stage 12: review the results
+
+Same as Stage 7, with run 2's report and results. Changes to the tech direction's lighting, shadow, post-processing, and audio rules must trace back to a Stage 9 or 10 result.
+
+## Run 2 order
+
+Stages 8, 9, and 10 are independent and run at the same time: Stages 9 and 10 use a scripted stream of projectiles and events until Stage 8's sim is ready. Stage 11 needs all three. The reference-device reruns of run 1's Stages 1 and 3 can run whenever the device is free. Stage 12 runs last.
+
+Steps 3 (macOS, Safari, and Firefox) and 4 (a gamepad) of issue #3 are not part of run 2 and can run alongside it.
+
+## Run 2 output
+
+- A results file per stage in `prototype/results/run-2/`, with every number labeled by where it was measured, and screenshots and recordings for Stages 9 and 10.
+- `prototype/results/run-2/report.md`, one page: each hypothesis's verdict and the numbers behind it, the limits found and which budget breaks first, which alternatives won or lost (pair finding, Rapier 2D, outline method, shadow method, mixer design), the reference-device reruns of run 1, the P1 and P2 findings from Stage 12, and the runs still needed.
+- One PR from `prototype/run-2` with the prototype changes, the results, and the updates to `tech-direction.md` that the results call for.
