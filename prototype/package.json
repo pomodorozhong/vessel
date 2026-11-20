@@ -6,8 +6,9 @@
   "packageManager": "pnpm@10.34.9",
   "scripts": {
     "wasm": "node scripts/build-wasm.mjs",
+    "wasm:combat": "node scripts/build-combat.mjs",
     "dev": "vite",
-    "build": "node scripts/build-wasm.mjs && node scripts/build-chunks.mjs && tsc --noEmit && vite build",
+    "build": "node scripts/build-wasm.mjs && node scripts/build-combat.mjs && node scripts/build-chunks.mjs && tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "devDependencies": {

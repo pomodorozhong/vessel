@@ -10,3 +10,5 @@ stage5/out
 stage5/work
 stage5/tools/bc7tool/target
 stage5/.deploys
+combat/target
+combat-rapier/target
