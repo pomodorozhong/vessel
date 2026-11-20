@@ -19,6 +19,8 @@ export default defineConfig({
         three: 'three.html',    // Stage 3: Three.js comparison
         stage5: 'stage5.html',  // Stage 5: startup and hosting
         stage6: 'stage6.html',  // Stage 6: chunk catch-up and saves
+        stage10: 'stage10.html', // Stage 10: combat sound (run 2)
+        run2calib: 'run2-calib.html', // run 2: calibration loops for the allocation measurement (scripts/run2/heap.mjs)
       },
     },
   },
