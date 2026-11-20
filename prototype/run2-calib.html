@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Vessel prototype: run 2 allocation calibration</title>
+<style>body{font:13px/1.4 monospace;margin:16px}</style>
+</head>
+<body>
+<h3>Allocation calibration</h3>
+<p>?calib=noalloc : typed-array arithmetic only (must report about 0 B/s for the game).<br>?calib=alloc : allocates one 252-element array per frame, about 1 KB (about 60 KB/s at 60 fps).</p>
+<pre id="out"></pre>
+<script type="module" src="/src/run2/calib.ts"></script>
+</body>
+</html>
