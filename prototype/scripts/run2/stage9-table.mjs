@@ -20,7 +20,7 @@ const GROUPS = ['cull', 'shadowMap', 'grass', 'world', 'outlines', 'particles', 
 const main = [...groups.entries()].filter(([k]) => k.startsWith('main-')).sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }));
 const cfg = (r) => r.result.config;
 if (main.length) {
-  console.log(`Throttle: ${[...new Set(all.map((r) => r.throttleRate))].join(', ')}x CPU (page and workers only; the GPU is not slowed). Chrome ${all[0].version}. Runs of ${[...new Set(all.map((r) => r.result.config.dur))].join('/')} s.\n`);
+  console.log(`Throttle: ${[...new Set(all.map((r) => r.throttleRate))].join(', ')}x CPU (the page only: Chrome cannot throttle the stream worker, and the GPU is not slowed). Chrome ${all[0].version}. Runs of ${[...new Set(all.map((r) => r.result.config.dur))].join('/')} s.\n`);
   console.log('| Particles | Internal | Outline | Shadow | Reps | GPU total median (ms) | GPU total p99 (ms) | Encode+submit median (ms) | Encode+submit p99 (ms) | Frame median (ms) | Frame p99 (ms) | Draw calls | Alive particles (median) |');
   console.log('|---|---|---|---|---|---|---|---|---|---|---|---|---|');
   for (const [, rs] of main) {

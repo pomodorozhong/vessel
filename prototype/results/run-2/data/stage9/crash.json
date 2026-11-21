@@ -1,0 +1,44 @@
+{
+ "measuredAt": "2026-11-21T15:56:32.179Z",
+ "version": "Chrome/156.0.8078.73",
+ "url": "http://localhost:4183/vessel/stage9.html?enemies=2000&proj=1000&particles=10000&ires=1080&outline=hull&shadow=map&overlay=0&seed=1",
+ "steps": [
+  {
+   "k": 1,
+   "lost": {
+    "reason": "unknown",
+    "message": "A valid external Instance reference no longer exists.",
+    "at": 9497.94000005722
+   },
+   "recovered": {
+    "at": 10100.43499994278,
+    "attempt": 0
+   },
+   "waitedMs": 9181,
+   "after": {
+    "rebuilds": 2,
+    "deviceLosses": 1,
+    "hasGpu": true,
+    "visible": 1248,
+    "grassChunks": 50,
+    "alive": 10323,
+    "shadowCasters": 2429,
+    "shadowRes": 2048,
+    "errors": []
+   },
+   "lookBack": true
+  }
+ ],
+ "before": {
+  "rebuilds": 1,
+  "deviceLosses": 0,
+  "hasGpu": true,
+  "visible": 1182,
+  "grassChunks": 50,
+  "alive": 10135,
+  "shadowCasters": 2436,
+  "shadowRes": 2048,
+  "errors": []
+ },
+ "pageErrors": []
+}

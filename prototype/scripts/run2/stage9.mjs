@@ -5,12 +5,14 @@
 //   node scripts/run2/stage9.mjs --only "p10000-i1080"   only runs whose name matches the regex
 //   node scripts/run2/stage9.mjs --dur 20 --reps 1 --out /tmp/smoke   a quick smoke run
 //   node scripts/run2/stage9.mjs --shots          screenshots of every option (and a recording), no measurement
+//   --throttle N   CPU throttling (default 4, the dev-machine stand-in; 1 on the reference device)
+//   --extra 'k=v&...'   appended to every screenshot URL (with --shots)
 //   node scripts/run2/stage9.mjs --crash          one GPU process crash (Browser.crashGpuProcess), check the look comes back; --crashes 2 adds a second one (Chrome does not recover a second crash within about 150 s, see results/stage-4.md)
 //
 // Options: --dur <s> (default 300) --reps <n> (default 3) --sweepdur <s> (default 60) --out <dir> --media <dir>
 // One headed Chrome window per run on the preview build (VESSEL_BASE, default http://localhost:4173/vessel/;
-// the Stage 9 page is built with `vite build -c vite.stage9.config.ts`). Chrome's CPU throttling is 4x on the page
-// and its workers, the GPU is not slowed, the canvas is 1920x1080. Existing result files are skipped, so a run resumes.
+// the Stage 9 page is built with `vite build -c vite.stage9.config.ts`). Chrome's CPU throttling is 4x on the page only
+// (Chrome cannot throttle workers, so the stream worker runs at full speed), the GPU is not slowed, the canvas is 1920x1080. Existing result files are skipped, so a run resumes.
 // Nothing else may build or measure on this machine while a measurement runs.
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, statSync, unlinkSync } from 'node:fs';
@@ -23,6 +25,8 @@ const opt = (n, d) => { const i = argv.indexOf(`--${n}`); return i >= 0 && argv[
 const dur = Number(opt('dur', 300)), reps = Number(opt('reps', 3)), sweepDur = Number(opt('sweepdur', 60));
 const OUT = opt('out', 'results/run-2/data/stage9'), MEDIA = opt('media', 'results/run-2/media/stage9');
 const only = new RegExp(opt('only', '.'));
+// --extra 'k=v&...' is appended to every screenshot URL, e.g. low event rates so the base look can be judged without the effects.
+const EXTRA = opt('extra', '') ? '&' + opt('extra', '') : '';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // By default Chrome rounds GPU timestamps to about 100 us, which is too coarse for passes of a fraction of a millisecond.
 // This flag turns the rounding off. It is a measurement flag only; it does not change what the GPU does.
@@ -45,6 +49,9 @@ runs.push({ name: 'overdraw-hull', q: Q({ overdraw: 1 }), dur: sweepDur, group: 
 runs.push({ name: 'overdraw-edge', q: Q({ overdraw: 1, outline: 'edge' }), dur: sweepDur, group: 'overdraw' });
 runs.push({ name: 'dynres-p50000-budget10', q: Q({ particles: 50000, dynres: 1, budget: 10 }), dur: sweepDur, group: 'dynres' });
 runs.push({ name: 'dynres-p10000-budget6', q: Q({ dynres: 1, budget: 6 }), dur: sweepDur, group: 'dynres' });
+// The dev GPU never goes over the 10 ms budget, so these budgets sit inside its normal range to make the controller act.
+runs.push({ name: 'dynres-p10000-budget3', q: Q({ dynres: 1, budget: 3 }), dur: sweepDur, group: 'dynres' });
+runs.push({ name: 'dynres-p50000-budget4', q: Q({ particles: 50000, dynres: 1, budget: 4 }), dur: sweepDur, group: 'dynres' });
 
 if (flag('list')) {
   let total = 0;
@@ -64,7 +71,7 @@ async function measure() {
     const out = join(OUT, `${run.name}${run.dur !== 300 && run.group === 'main' ? `-${run.dur}s` : ''}.json`);
     if (existsSync(out) && !process.env.FORCE) { console.log('skip (exists)', run.name); continue; }
     let r;
-    try { r = await runPage('chrome', `stage9.html?${run.q}&bench=stage9&dur=${run.dur}&warmup=5&overlay=0`, { throttleRate: 4, timeoutMs: (run.dur + 120) * 1000, expr: 'window.__result ?? window.__error ?? null', launchOpts: { args: TIMING_ARGS } }); }
+    try { r = await runPage('chrome', `stage9.html?${run.q}&bench=stage9&dur=${run.dur}&warmup=5&overlay=0`, { throttleRate: Number(opt('throttle', 4)), timeoutMs: (run.dur + 120) * 1000, expr: 'window.__result ?? window.__error ?? null', launchOpts: { args: TIMING_ARGS } }); }
     catch (e) { console.log('FAILED', run.name, String(e).slice(0, 200)); continue; }
     save(out, { name: run.name, group: run.group, ...r });
     if (typeof r.result === 'string') { console.log('ERROR', run.name, r.result); continue; }
@@ -86,7 +93,7 @@ async function shots() {
     for (const [tod, label] of [[0.45, 'day'], [0.72, 'dusk']]) for (const shadow of ['map', 'blob']) for (const outline of ['hull', 'edge', 'none']) {
       const name = `look-${outline}-${shadow}-${label}`;
       // The same scripted frame for every option: same seed, same time of day, the stream is sampled after the same delay.
-      await page.goto(`${BASE}stage9.html?${Q({ outline, shadow })}&tod=${tod}&overlay=0&seed=1`, { waitUntil: 'load' });
+      await page.goto(`${BASE}stage9.html?${Q({ outline, shadow })}&tod=${tod}&overlay=0&seed=1${EXTRA}`, { waitUntil: 'load' });
       await page.bringToFront();
       await sleep(9000);
       const path = join(MEDIA, `${name}.jpg`);
@@ -95,7 +102,7 @@ async function shots() {
     }
     // A low camera shows the sky, the fog and the grass bending away from the crowd.
     for (const [tod, label] of [[0.3, 'dawn'], [0.45, 'day'], [0.72, 'dusk']]) {
-      await page.goto(`${BASE}stage9.html?${Q()}&tod=${tod}&pitch=30&dist=40&overlay=0&seed=1`, { waitUntil: 'load' });
+      await page.goto(`${BASE}stage9.html?${Q()}&tod=${tod}&pitch=30&dist=40&overlay=0&seed=1${EXTRA}`, { waitUntil: 'load' });
       await sleep(9000);
       const path = join(MEDIA, `lowcam-${label}.jpg`);
       await page.screenshot({ path, type: 'jpeg', quality: 88 }); console.log('shot', path);
@@ -107,7 +114,7 @@ async function shots() {
       catch (e) { console.log('no side-by-side sheet (ffmpeg):', String(e.message).slice(0, 100)); break; }
     }
     // A recording of the full look in combat, about 10 s.
-    await page.goto(`${BASE}stage9.html?${Q()}&tod=0.45&overlay=0&seed=1`, { waitUntil: 'load' });
+    await page.goto(`${BASE}stage9.html?${Q()}&tod=0.45&overlay=0&seed=1${EXTRA}`, { waitUntil: 'load' });
     await sleep(6000);
     const rec = join(MEDIA, 'combat.webm');
     try {
@@ -135,7 +142,7 @@ async function crash() {
     const page = (await browser.pages())[0];
     const errors = [];
     page.on('pageerror', (e) => errors.push(String(e)));
-    const q = `stage9.html?${Q()}&overlay=0&seed=1`;
+    const q = `stage9.html?${Q()}&overlay=0&seed=1${EXTRA}`;
     res.url = BASE + q;
     await page.goto(BASE + q, { waitUntil: 'load' });
     await page.bringToFront();
