@@ -6,7 +6,7 @@
 export {};
 const scope = self as unknown as { postMessage(m: unknown, t?: Transferable[]): void; onmessage: ((e: MessageEvent) => void) | null };
 
-interface Cfg { mode: 'wave' | 'past'; start: number; peak: number; ramp: number; past: number; cap: number; projPerEnemy: number; method: number; passes: number; hz: number; seed: number; warmup: number; dur: number }
+interface Cfg { mode: 'wave' | 'past'; start: number; peak: number; ramp: number; past: number; cap: number; projPerEnemy: number; method: number; passes: number; hz: number; seed: number; warmup: number; dur: number; simslow: number }
 let cfg: Cfg;
 let ex: any, mem: WebAssembly.Memory, ptr = 0, bptr = 0, blen = 0;
 const pool: ArrayBuffer[] = [];
@@ -37,7 +37,9 @@ function stepOnce(due: number) {
   const a = tick * ((Math.PI * 2) / (cfg.hz * 40));
   const t0 = performance.now();
   ex.step(Math.cos(a), Math.sin(a), 0);
-  const t1 = performance.now();
+  let t1 = performance.now();
+  // simslow > 1 stands in for a slower CPU, which Chrome cannot emulate for workers: busy-wait (simslow - 1) x the step time.
+  if (cfg.simslow > 1) { const until = t0 + (t1 - t0) * cfg.simslow; while (performance.now() < until) { /* spin */ } t1 = performance.now(); }
   tick++;
   // Copy the used part of the snapshot into a pooled buffer and send it.
   const used = ex.snapshot_used() as number;

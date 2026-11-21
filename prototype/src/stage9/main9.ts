@@ -106,19 +106,26 @@ function onGpuSample(ms: Float64Array, mask: number) {
 // ---------------------------------------------------------------- dynamic resolution
 const gpuRing = new Float32Array(30); let gpuRingN = 0;
 const RES_STEPS = [432, 540, 648, 720, 810, 900, 990, 1080].filter((h) => h < P.ires).concat([P.ires]);
-let resIdx = RES_STEPS.length - 1, lastResChange = 0;
+let resIdx = RES_STEPS.length - 1, lastResChange = 0, lastResDown = -1e9, lastResUp = -1e9;
+// Stage 12 (Stage 9's dynres P1): it flipped between 432p and 540p every 3-7 s. Now a step up must be predicted to fit under
+// UP_FRACTION of the budget (0.95 before), and waits upHold after the last step down (3 s after any change before). A step up
+// that has to come back down within 5 s doubles upHold, up to 60 s; one that holds for 30 s resets it.
+const UP_FRACTION = 0.8, UP_HOLD_MS = 10000;
+let upHold = UP_HOLD_MS;
 function dynamicResolution(now: number) {
   if (!P.dynres || !renderer || gpuRingN < gpuRing.length) return;
   const med = pct(Float32Array.from(gpuRing).sort(), 0.5);
   let to = resIdx;
   if (med > P.budget && resIdx > 0) to = resIdx - 1;
-  else if (resIdx < RES_STEPS.length - 1 && now - lastResChange > 3000) {
+  else if (resIdx < RES_STEPS.length - 1 && now - lastResChange > 3000 && now - lastResDown > upHold) {
     // Raise only when the next size is predicted to fit (cost taken as proportional to pixels, which overestimates), so it does not flip back and forth.
     const r = RES_STEPS[resIdx + 1] / RES_STEPS[resIdx];
-    if (med * r * r < P.budget * 0.95) to = resIdx + 1;
+    if (med * r * r < P.budget * UP_FRACTION) to = resIdx + 1;
   }
   if (to !== resIdx) {
     dynChanges.push({ t: (now - (benchStart || now)) / 1000, from: RES_STEPS[resIdx], to: RES_STEPS[to], gpuMedianMs: med });
+    if (to < resIdx) { if (now - lastResUp < 5000) upHold = Math.min(60000, upHold * 2); else if (now - lastResUp > 30000) upHold = UP_HOLD_MS; lastResDown = now; }
+    else lastResUp = now;
     resIdx = to; lastResChange = now; gpuRingN = 0; // wait for fresh samples at the new size
     renderer.resize(RES_STEPS[to]);
   }

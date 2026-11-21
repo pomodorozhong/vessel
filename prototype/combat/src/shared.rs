@@ -976,6 +976,23 @@ impl Core {
             t.pfacing[i] = f;
             t.tfacing[i] = f;
             self.respawn(i);
+            // Stage 11's wave adds enemies inside the same square around the player as Stage 8's start (`spawn`), so the
+            // crowd near the player is as dense as Stage 8's pass load. Deaths still respawn at the edge, as in Stage 8.
+            if self.p.spawn > 0.0 {
+                let (cx, cy) = (self.a.x[self.player_slot], self.a.y[self.player_slot]);
+                for _ in 0..24 {
+                    let x = (cx + (self.rng.unit() * 2.0 - 1.0) * self.p.spawn).clamp(1.0, GRID as f32 - 1.0);
+                    let y = (cy + (self.rng.unit() * 2.0 - 1.0) * self.p.spawn).clamp(1.0, GRID as f32 - 1.0);
+                    if self.blocked[cell_index(x, y) as usize] == 0 {
+                        let t = &mut self.a;
+                        t.x[i] = x;
+                        t.y[i] = y;
+                        t.px[i] = x;
+                        t.py[i] = y;
+                        break;
+                    }
+                }
+            }
         }
         if n > self.n {
             self.n = n;

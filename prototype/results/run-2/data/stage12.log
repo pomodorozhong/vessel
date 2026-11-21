@@ -1,0 +1,32 @@
+== start 2026-11-22T05:18:57+08:00 build 8c57e5a + uncommitted stage 12 P1 fixes
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+dynres-p10000-budget3: gpu 2.30 / p99 6.94 ms | encode 0.62 / 1.29 | frame 16.67 / p99 16.77 | draws 76 | internal 768x432 | alive 10005 | shadow 1.04 grass 0.29 world 0.31 outl 0.19 part 0.04 fx 0.07 bloom 0.05 up 0.14 ui 0.02 
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+dynres-p50000-budget4: gpu 2.61 / p99 7.06 ms | encode 0.62 / 1.38 | frame 16.67 / p99 16.77 | draws 77 | internal 768x432 | alive 50033 | shadow 1.06 grass 0.35 world 0.37 outl 0.22 part 0.15 fx 0.07 bloom 0.05 up 0.17 ui 0.02 
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+main-p10000-i1080-hull-map-r1: gpu 4.23 / p99 6.39 ms | encode 0.78 / 1.64 | frame 16.67 / p99 16.77 | draws 77 | internal 1920x1080 | alive 10000 | shadow 0.99 grass 1.39 world 0.64 outl 0.24 part 0.07 fx 0.35 bloom 0.23 up 0.17 ui 0.02 
+shot results\run-2\media\stage12\look-hull-map-day.jpg 686 KB
+shot results\run-2\media\stage12\look-edge-map-day.jpg 728 KB
+shot results\run-2\media\stage12\look-none-map-day.jpg 642 KB
+shot results\run-2\media\stage12\look-hull-blob-day.jpg 703 KB
+shot results\run-2\media\stage12\look-edge-blob-day.jpg 721 KB
+shot results\run-2\media\stage12\look-none-blob-day.jpg 628 KB
+shot results\run-2\media\stage12\look-hull-map-dusk.jpg 594 KB
+shot results\run-2\media\stage12\look-edge-map-dusk.jpg 614 KB
+shot results\run-2\media\stage12\look-none-map-dusk.jpg 553 KB
+shot results\run-2\media\stage12\look-hull-blob-dusk.jpg 635 KB
+shot results\run-2\media\stage12\look-edge-blob-dusk.jpg 646 KB
+shot results\run-2\media\stage12\look-none-blob-dusk.jpg 593 KB
+shot results\run-2\media\stage12\lowcam-dawn.jpg
+shot results\run-2\media\stage12\lowcam-day.jpg
+shot results\run-2\media\stage12\lowcam-dusk.jpg
+sheet map day
+sheet blob day
+sheet map dusk
+sheet blob dusk
+raw recording results\run-2\media\stage12\combat.webm 59.1 MB
+recording results\run-2\media\stage12\combat.mp4 3.21 MB
+2026-11-21T21:33:15.598Z wave-r1
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+wave-r1: sim p99 1.38 | encode p99 1.51 | gpu p99 5.82 | frame p99 17.25 | pauses 0 jumps 0 | audio late 0 | main p99 2.20 | snap 117 KB | heap 34.2->35.2 MB | first break encode@50s/1328 
+== done 2026-11-22T05:38:25+08:00

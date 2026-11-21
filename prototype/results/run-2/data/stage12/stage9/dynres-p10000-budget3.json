@@ -1,0 +1,524 @@
+{
+ "name": "dynres-p10000-budget3",
+ "group": "dynres",
+ "result": {
+  "config": {
+   "enemies": 2000,
+   "proj": 1000,
+   "shots": 7920,
+   "hits": 7540,
+   "deaths": 30,
+   "explosions": 40,
+   "seed": 1,
+   "hz": 30,
+   "outline": "hull",
+   "shadow": "map",
+   "shadowres": 2048,
+   "grass": 1,
+   "bloom": 1,
+   "particles": 10000,
+   "fog": 1,
+   "ui": 1,
+   "overlay": 0,
+   "olw": 2,
+   "tod": "0.45",
+   "daylen": 120,
+   "pitch": 58,
+   "dist": 34,
+   "ires": 1080,
+   "dynres": 1,
+   "budget": 3,
+   "cw": 1920,
+   "ch": 1080,
+   "overdraw": 0,
+   "bench": "stage9",
+   "dur": 180,
+   "warmup": 5,
+   "cap": 0
+  },
+  "url": "http://localhost:4183/vessel/stage9.html?enemies=2000&proj=1000&particles=10000&ires=1080&outline=hull&shadow=map&dynres=1&budget=3&bench=stage9&dur=180&warmup=5&overlay=0",
+  "frameMs": {
+   "n": 10825,
+   "mean": 16.666654080573736,
+   "median": 16.665000915527344,
+   "p95": 16.719999313354492,
+   "p99": 16.774999618530273,
+   "max": 20.149999618530273
+  },
+  "mainCpuMs": {
+   "n": 10825,
+   "mean": 0.9042960733409291,
+   "median": 0.8349997997283936,
+   "p95": 1.3299999237060547,
+   "p99": 1.7100000381469727,
+   "max": 3.694999933242798
+  },
+  "encodeMs": {
+   "n": 10825,
+   "mean": 0.6666914539249059,
+   "median": 0.6150000095367432,
+   "p95": 1,
+   "p99": 1.2850000858306885,
+   "max": 2.674999952316284
+  },
+  "framesOver20ms": 1,
+  "framesOver34ms": 0,
+  "gpuTotalMs": {
+   "n": 10824,
+   "mean": 2.5338043289180607,
+   "median": 2.2968320846557617,
+   "p95": 4.9883198738098145,
+   "p99": 6.9416961669921875,
+   "max": 14.010751724243164
+  },
+  "gpuGroupsMs": {
+   "cull": {
+    "n": 10824,
+    "mean": 0.02649436507278369,
+    "median": 0.025728000327944756,
+    "p95": 0.04505600035190582,
+    "p99": 0.0498879998922348,
+    "max": 0.11343999952077866
+   },
+   "shadowMap": {
+    "n": 10824,
+    "mean": 1.1774643366496957,
+    "median": 1.0414079427719116,
+    "p95": 2.615295886993408,
+    "p99": 3.9096319675445557,
+    "max": 8.887295722961426
+   },
+   "grass": {
+    "n": 10824,
+    "mean": 0.3557730201984214,
+    "median": 0.29286399483680725,
+    "p95": 0.6860799789428711,
+    "p99": 1.057792067527771,
+    "max": 2.234367847442627
+   },
+   "world": {
+    "n": 10824,
+    "mean": 0.3574012593109455,
+    "median": 0.3123199939727783,
+    "p95": 0.6072319746017456,
+    "p99": 1.0956799983978271,
+    "max": 1.7766400575637817
+   },
+   "outlines": {
+    "n": 10824,
+    "mean": 0.21443402227661343,
+    "median": 0.1884160041809082,
+    "p95": 0.3112959861755371,
+    "p99": 0.6369280219078064,
+    "max": 1.8728959560394287
+   },
+   "particles": {
+    "n": 10824,
+    "mean": 0.05360136882843228,
+    "median": 0.04095999896526337,
+    "p95": 0.12492799758911133,
+    "p99": 0.22118400037288666,
+    "max": 1.1028480529785156
+   },
+   "effects": {
+    "n": 10824,
+    "mean": 0.08701786272095603,
+    "median": 0.06758400052785873,
+    "p95": 0.25088000297546387,
+    "p99": 0.3389439880847931,
+    "max": 1.5554560422897339
+   },
+   "bloom": {
+    "n": 10824,
+    "mean": 0.06867034364930862,
+    "median": 0.04915200173854828,
+    "p95": 0.17715200781822205,
+    "p99": 0.3983359932899475,
+    "max": 1.1417598724365234
+   },
+   "upscale": {
+    "n": 10824,
+    "mean": 0.1714943621420499,
+    "median": 0.1382399946451187,
+    "p95": 0.36454400420188904,
+    "p99": 0.41574400663375854,
+    "max": 5.691391944885254
+   },
+   "ui": {
+    "n": 10824,
+    "mean": 0.021453386486104585,
+    "median": 0.018432000651955605,
+    "p95": 0.04403200000524521,
+    "p99": 0.05734400078654289,
+    "max": 3.8973441123962402
+   }
+  },
+  "gpuPassesMs": {
+   "cull": {
+    "n": 10824,
+    "mean": 0.02649436507278369,
+    "median": 0.025728000327944756,
+    "p95": 0.04505600035190582,
+    "p99": 0.0498879998922348,
+    "max": 0.11343999952077866
+   },
+   "shadow": {
+    "n": 10824,
+    "mean": 1.1774643366496957,
+    "median": 1.0414079427719116,
+    "p95": 2.615295886993408,
+    "p99": 3.9096319675445557,
+    "max": 8.887295722961426
+   },
+   "bend": {
+    "n": 10824,
+    "mean": 0.021165031798850573,
+    "median": 0.01945599913597107,
+    "p95": 0.03276799991726875,
+    "p99": 0.03993599861860275,
+    "max": 0.8499199748039246
+   },
+   "grass": {
+    "n": 10824,
+    "mean": 0.3346079880033027,
+    "median": 0.27238398790359497,
+    "p95": 0.6615039706230164,
+    "p99": 1.0383360385894775,
+    "max": 2.210815906524658
+   },
+   "world": {
+    "n": 10824,
+    "mean": 0.3574012593109455,
+    "median": 0.3123199939727783,
+    "p95": 0.6072319746017456,
+    "p99": 1.0956799983978271,
+    "max": 1.7766400575637817
+   },
+   "outline": {
+    "n": 10824,
+    "mean": 0.21443402227661343,
+    "median": 0.1884160041809082,
+    "p95": 0.3112959861755371,
+    "p99": 0.6369280219078064,
+    "max": 1.8728959560394287
+   },
+   "pSpawn": {
+    "n": 10824,
+    "mean": 0.006453262422058638,
+    "median": 0.0030720001086592674,
+    "p95": 0.013311999849975109,
+    "p99": 0.028672000393271446,
+    "max": 0.9758719801902771
+   },
+   "pUpdate": {
+    "n": 10824,
+    "mean": 0.017307056945806105,
+    "median": 0.011264000087976456,
+    "p95": 0.04403200000524521,
+    "p99": 0.05119999870657921,
+    "max": 0.9584640264511108
+   },
+   "pDraw": {
+    "n": 10824,
+    "mean": 0.029841049635663756,
+    "median": 0.025599999353289604,
+    "p95": 0.07168000191450119,
+    "p99": 0.08089599758386612,
+    "max": 0.886784017086029
+   },
+   "effects": {
+    "n": 10824,
+    "mean": 0.08701786272095603,
+    "median": 0.06758400052785873,
+    "p95": 0.25088000297546387,
+    "p99": 0.3389439880847931,
+    "max": 1.5554560422897339
+   },
+   "bloomBright": {
+    "n": 10824,
+    "mean": 0.035864975480658756,
+    "median": 0.021503999829292297,
+    "p95": 0.12800000607967377,
+    "p99": 0.14950400590896606,
+    "max": 1.0926079750061035
+   },
+   "bloomH": {
+    "n": 10824,
+    "mean": 0.01848791142772809,
+    "median": 0.013311999849975109,
+    "p95": 0.030719999223947525,
+    "p99": 0.043007999658584595,
+    "max": 0.9584640264511108
+   },
+   "bloomV": {
+    "n": 10824,
+    "mean": 0.014317457582071941,
+    "median": 0.01228800043463707,
+    "p95": 0.023552000522613525,
+    "p99": 0.03481600061058998,
+    "max": 0.04710400104522705
+   },
+   "upscale": {
+    "n": 10824,
+    "mean": 0.1714943621420499,
+    "median": 0.1382399946451187,
+    "p95": 0.36454400420188904,
+    "p99": 0.41574400663375854,
+    "max": 5.691391944885254
+   },
+   "ui": {
+    "n": 10824,
+    "mean": 0.021453386486104585,
+    "median": 0.018432000651955605,
+    "p95": 0.04403200000524521,
+    "p99": 0.05734400078654289,
+    "max": 3.8973441123962402
+   },
+   "overdraw": {
+    "n": 10824,
+    "mean": 0,
+    "median": 0,
+    "p95": 0,
+    "p99": 0,
+    "max": 0
+   }
+  },
+  "gpuSamples": 10824,
+  "gpuSamplesSkipped": 0,
+  "overdraw": null,
+  "dynres": {
+   "enabled": true,
+   "budgetMs": 3,
+   "steps": [
+    432,
+    540,
+    648,
+    720,
+    810,
+    900,
+    990,
+    1080
+   ],
+   "changes": [
+    {
+     "t": 0,
+     "from": 1080,
+     "to": 990,
+     "gpuMedianMs": 3.022847890853882
+    },
+    {
+     "t": 0,
+     "from": 990,
+     "to": 900,
+     "gpuMedianMs": 3.023871898651123
+    },
+    {
+     "t": 0.049990000009536746,
+     "from": 900,
+     "to": 810,
+     "gpuMedianMs": 3.001215934753418
+    },
+    {
+     "t": 1.2665149998664855,
+     "from": 810,
+     "to": 720,
+     "gpuMedianMs": 3.0208001136779785
+    },
+    {
+     "t": 2.033319999933243,
+     "from": 720,
+     "to": 648,
+     "gpuMedianMs": 3.008512020111084
+    },
+    {
+     "t": 2.6330650000572207,
+     "from": 648,
+     "to": 540,
+     "gpuMedianMs": 3.006688117980957
+    },
+    {
+     "t": 3.301174999952316,
+     "from": 540,
+     "to": 432,
+     "gpuMedianMs": 3.0133440494537354
+    },
+    {
+     "t": 66.46634500002861,
+     "from": 432,
+     "to": 540,
+     "gpuMedianMs": 1.5340800285339355
+    },
+    {
+     "t": 68.05004999995232,
+     "from": 540,
+     "to": 432,
+     "gpuMedianMs": 3.034111976623535
+    },
+    {
+     "t": 88.48333500003815,
+     "from": 432,
+     "to": 540,
+     "gpuMedianMs": 1.1395519971847534
+    },
+    {
+     "t": 91.48349000000954,
+     "from": 540,
+     "to": 648,
+     "gpuMedianMs": 1.062656044960022
+    },
+    {
+     "t": 94.44978500008583,
+     "from": 648,
+     "to": 540,
+     "gpuMedianMs": 3.2252800464630127
+    },
+    {
+     "t": 95.5000450000763,
+     "from": 540,
+     "to": 432,
+     "gpuMedianMs": 3.3812479972839355
+    },
+    {
+     "t": 160.21651999998093,
+     "from": 432,
+     "to": 540,
+     "gpuMedianMs": 1.3893120288848877
+    },
+    {
+     "t": 166.21666000008582,
+     "from": 540,
+     "to": 432,
+     "gpuMedianMs": 3.0996479988098145
+    }
+   ],
+   "finalInternalHeight": 432
+  },
+  "particles": {
+   "target": 10000,
+   "alive": {
+    "n": 501,
+    "mean": 10000.415169660679,
+    "median": 10005,
+    "p95": 10181,
+    "p99": 10229,
+    "max": 10337
+   },
+   "poolCap": 11500,
+   "spawnScale": 0.06969055518458689
+  },
+  "drawCalls": 76,
+  "internal": [
+   768,
+   432
+  ],
+  "render": {
+   "internal": [
+    768,
+    432
+   ],
+   "staticInstances": 1212,
+   "dynamic": 2001,
+   "visible": 1098,
+   "shadowCasters": 2406,
+   "blobs": 1098,
+   "dynVisible": 987,
+   "auras": 109,
+   "grassChunks": 54,
+   "grassClumps": 10368,
+   "alive": 9900,
+   "poolCap": 11500,
+   "spawnScale": 0.06969055518458689,
+   "triangles": 12696,
+   "limits": {
+    "maxStorageBufferBindingSize": 134217728,
+    "maxBufferSize": 268435456,
+    "maxTextureDimension2D": 8192,
+    "instanceBufferBytes": 102816,
+    "visibleBufferBytes": 310700,
+    "particlePoolBytes": 552000,
+    "particlePoolCap": 11500,
+    "eventsCap": 8192,
+    "projectilesCap": 1000,
+    "shadowRes": 2048,
+    "maxStorageBuffersPerShaderStage": 8
+   },
+   "eventsDropped": 0,
+   "explosionsLive": 472,
+   "explosionFramesNotDrawn": 5035623,
+   "truncated": {
+    "entities": 0,
+    "projectiles": 0
+   },
+   "shadowRes": 2048
+  },
+  "stream": {
+   "type": "stats",
+   "steps": 5551,
+   "meanMs": 0.3286299749744452,
+   "maxMs": 2.125
+  },
+  "streamMeanMsInPage": 0.32858978812694123,
+  "deviceLosses": 0,
+  "rebuilds": 1,
+  "errors": [],
+  "lastFailure": "",
+  "gpu": {
+   "info": {
+    "vendor": "nvidia",
+    "architecture": "ampere",
+    "device": "0x2544",
+    "description": "NVIDIA GeForce RTX 3060"
+   },
+   "features": {
+    "bc": true,
+    "f16": true,
+    "timestamp": true,
+    "indirectFirstInstance": true
+   },
+   "all": [
+    "depth32float-stencil8",
+    "rg11b10ufloat-renderable",
+    "texture-formats-tier1",
+    "bgra8unorm-storage",
+    "texture-compression-bc",
+    "dual-source-blending",
+    "core-features-and-limits",
+    "float32-filterable",
+    "indirect-first-instance",
+    "float32-blendable",
+    "subgroup-size-control",
+    "texture-compression-unaligned",
+    "depth-clip-control",
+    "texture-compression-bc-sliced-3d",
+    "timestamp-query",
+    "texture-formats-tier2",
+    "shader-f16",
+    "clip-distances",
+    "primitive-index",
+    "texture-component-swizzle",
+    "subgroups"
+   ],
+   "limits": {
+    "maxStorageBufferBindingSize": 134217728,
+    "maxBufferSize": 268435456,
+    "maxTextureDimension2D": 8192
+   }
+  },
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "dpr": 1,
+  "canvas": [
+   1920,
+   1080
+  ],
+  "hidden": false,
+  "isolated": true,
+  "timestamps": true
+ },
+ "version": "Chrome/156.0.8078.73",
+ "errors": [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "url": "http://localhost:4183/vessel/stage9.html?enemies=2000&proj=1000&particles=10000&ires=1080&outline=hull&shadow=map&dynres=1&budget=3&bench=stage9&dur=180&warmup=5&overlay=0",
+ "throttleRate": 4,
+ "measuredAt": "2026-11-21T21:22:10.696Z"
+}

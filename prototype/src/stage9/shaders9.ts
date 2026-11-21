@@ -18,7 +18,7 @@ struct Frame {
   p4: vec4u,         // clumps per chunk, projectile count, particle capacity, max spawn per event
   p5: vec4f,         // spawn scale, internal width, internal height, explosion count
   p6: vec4f,         // canvas width, canvas height, ramp shift, damage number count
-  p7: vec4f,         // player hp, fog on, 0, 0
+  p7: vec4f,         // player hp, fog on, player x, player y
 }
 struct Entry { p0: vec2f, p1: vec2f, f0: f32, f1: f32, packed: u32, radius: f32 }
 
@@ -421,8 +421,8 @@ struct EOut { @builtin(position) pos: vec4f, @location(0) q: vec2f, @location(1)
   let r = length(in.q);
   if (r > 1.0) { discard; }
   let k = 1.0 - in.age;
-  let core = exp(-r * r * 5.0) * k * k * 3.0;
-  let ring = smoothstep(0.14, 0.0, abs(r - (0.2 + 0.8 * in.age))) * k * 2.2;
+  let core = exp(-r * r * 5.0) * k * k * 1.6;  // Stage 12: 3.0 and 2.2 before; less of it passes the bloom threshold
+  let ring = smoothstep(0.14, 0.0, abs(r - (0.2 + 0.8 * in.age))) * k * 1.3;
   return fx(vec4f(vec3f(1.0, 0.55, 0.15) * (core + ring) + vec3f(1.0, 0.85, 0.6) * core * 0.5, 1.0));
 }
 
@@ -632,8 +632,8 @@ struct BarOut { @builtin(position) pos: vec4f, @location(0) uv: vec2f, @location
   let hp = f32((e.packed >> 8u) & 255u) / 255.0;
   var out: BarOut;
   out.uv = CORNERS[vi]; out.hp = hp;
-  if (hp > 0.985) { out.pos = OFF; return out; }
   let pl = place(e);
+  if (hp > 0.985 || distance(pl.xy, frame.p7.zw) > 14.0) { out.pos = OFF; return out; } // damaged and near the player only (BAR_RANGE 14)
   let top = vec3f(pl.xy, 4.0 * e.radius + 0.5);
   let clip = frame.viewProj * vec4f(top, 1.0);
   let d = length(top - frame.camPos.xyz);

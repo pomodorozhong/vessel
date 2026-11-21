@@ -15,6 +15,7 @@ export const P11 = {
   projPerEnemy: num('ppe', 0.2),     // live projectile target = max(200, enemies x this): 1,000 at 5,000 enemies (Stage 8's pass load)
   method: num('method', 0),          // pair finding: 0 = A (the grid, Stage 8's choice)
   passes: num('passes', 3),
+  simslow: num('simslow', 1),        // > 1: the sim worker busy-waits (simslow - 1) x each step's time, a stand-in for a slower CPU
   hz: 30,
   seed: num('seed', 1),
   // The look: Stage 9's full look at 1080p.
@@ -28,6 +29,7 @@ export const P11 = {
   cw: num('cw', 1920), ch: num('ch', 1080),
   // Sound: Stage 10's mixer.
   mixer: str('mixer', 'B'),
+  lead: num('lead', -1),              // ms: snapshot events fire this much early (-1 = the measured output pipeline delay; Stage 10 found them about one output latency late without it)
   vol: num('vol', 1),
   // Hand-off: the Stage 2 render clock (design A, the run 1 choice).
   lag: num('lag', 2),

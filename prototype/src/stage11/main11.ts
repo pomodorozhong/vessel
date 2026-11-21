@@ -216,12 +216,14 @@ async function main() {
     await harness10.setup({ ctx, mixer, params: { ...p10, mixer: P.mixer, record: 0, forceglitch: 0, vol: P.vol, warmup: P.warmup, bench: 'stage11' }, bank, detectorUrl });
   }
   director = new Director(mixer);
+  // Fire snapshot events early by the output pipeline delay so they line up with the frame that shows them (Stage 10, lead=-1).
+  { const o = ctx.getOutputTimestamp(); director.leadSteps = (P.lead < 0 ? Math.max(0, ctx.currentTime - (o.contextTime ?? 0)) * 1000 : P.lead) * P.hz / 1000; }
   // Sim.
   const module = await WebAssembly.compileStreaming(fetch(combatUrl));
   worker = new Worker(new URL('./sim-worker.ts', import.meta.url), { type: 'module' });
   const ready = await new Promise<{ world: Float32Array; maxEntities: number; maxProj: number }>((resolve) => {
     worker.onmessage = (e) => { if (e.data.type === 'ready') resolve(e.data); };
-    worker.postMessage({ type: 'init', module, cfg: { mode: P.mode, start: P.start, peak: P.peak, ramp: P.ramp, past: P.past, cap: P.cap, projPerEnemy: P.projPerEnemy, method: P.method, passes: P.passes, hz: P.hz, seed: P.seed, warmup: P.warmup, dur: P.dur } });
+    worker.postMessage({ type: 'init', module, cfg: { mode: P.mode, start: P.start, peak: P.peak, ramp: P.ramp, past: P.past, cap: P.cap, projPerEnemy: P.projPerEnemy, method: P.method, passes: P.passes, hz: P.hz, seed: P.seed, warmup: P.warmup, dur: P.dur, simslow: P.simslow } });
   });
   pendingWorld = ready.world;
   worker.onmessage = onWorkerMessage;

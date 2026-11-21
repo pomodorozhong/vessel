@@ -9,7 +9,7 @@ import type { MeshSet } from '../meshes';
 import { makeAtlas } from '../render-world';
 import { v2View } from '../run2/protocol';
 import { EV_EXPLOSION, EV_HIT } from '../run2/protocol';
-import { CHUNKS, CLUMPS_BASE, DMG_CAP, EV_CAP, EXPL_CAP, IND_GRASS, IND_PART, IND_WORDS, K_BUILDING, K_TREE, L_AURA, L_BLOB, L_DYN, L_SHADOW, MAX_ALIVE_POOL, MAX_BUILDINGS, NK, NL, SLOT, SLOTS, TREES, VAT_FRAMES, W_ALIVE, W_GRASS_CHUNKS, lookAt, makeRamp } from './look';
+import { CHUNKS, CLUMPS_BASE, DMG_CAP, EV_CAP, EXPL_CAP, EXPL_DRAW, EXPL_LIFE, IND_GRASS, IND_PART, IND_WORDS, K_BUILDING, K_TREE, L_AURA, L_BLOB, L_DYN, L_SHADOW, MAX_ALIVE_POOL, MAX_BUILDINGS, NK, NL, SLOT, SLOTS, TREES, VAT_FRAMES, W_ALIVE, W_GRASS_CHUNKS, lookAt, makeRamp } from './look';
 import { shaders } from './shaders9';
 import { PassTimer } from './timer9';
 
@@ -94,7 +94,11 @@ export class Renderer9 {
   private frameNo = 0;
   private readbackBusy = false;
   private dmg: { x: number; y: number; v: number; t0: number }[] = [];
-  private expl: { x: number; y: number; r: number; t0: number }[] = [];
+  // Explosions: a ring of the newest EXPL_CAP (a full ring overwrites the oldest), of which only the EXPL_DRAW nearest the player
+  // are drawn (Stage 9 P1: at Stage 8's 940 explosions/s, all 520 alive at once washed the frame out). No allocation per frame.
+  private exX = new Float32Array(EXPL_CAP); private exY = new Float32Array(EXPL_CAP); private exR = new Float32Array(EXPL_CAP); private exT = new Float64Array(EXPL_CAP).fill(-1e9);
+  private exHead = 0; exLive = 0; exSkipped = 0;
+  private heapD = new Float32Array(EXPL_DRAW); private heapI = new Int32Array(EXPL_DRAW);
   private dmgData = new Float32Array(DMG_CAP * 4); private explData = new Float32Array(EXPL_CAP * 4);
   private spawnEvents = 0; private projCount = 0; private playerHp = 1;
   private nowSec = 0;
@@ -388,9 +392,27 @@ export class Renderer9 {
     let numbers = 0;
     for (let i = 0; i < e; i++) {
       const type = eu[i * 4] & 255;
-      if (type === EV_EXPLOSION) { if (this.expl.length < EXPL_CAP) this.expl.push({ x: ef[i * 4 + 1], y: ef[i * 4 + 2], r: ef[i * 4 + 3], t0: now }); }
+      if (type === EV_EXPLOSION) { const k = this.exHead; this.exHead = (k + 1) % EXPL_CAP; this.exX[k] = ef[i * 4 + 1]; this.exY[k] = ef[i * 4 + 2]; this.exR[k] = ef[i * 4 + 3]; this.exT[k] = now; }
       else if (type === EV_HIT && numbers < 12 && this.dmg.length < DMG_CAP) { numbers++; this.dmg.push({ x: ef[i * 4 + 1] + (Math.random() - 0.5), y: ef[i * 4 + 2] + (Math.random() - 0.5), v: Math.max(1, Math.round(ef[i * 4 + 3])), t0: now }); }
     }
+  }
+
+  // The EXPL_DRAW live explosions nearest (px, py), kept in a max-heap on distance, into heapI[0..n). Counts the live ones left out.
+  private nearestExplosions(px: number, py: number): number {
+    const hd = this.heapD, hi = this.heapI, now = this.nowSec;
+    let n = 0, live = 0;
+    for (let k = 0; k < EXPL_CAP; k++) {
+      if (now - this.exT[k] >= EXPL_LIFE) continue;
+      live++;
+      const dx = this.exX[k] - px, dy = this.exY[k] - py, d = dx * dx + dy * dy;
+      if (n < EXPL_DRAW) { // add, sift up
+        let c = n++; while (c > 0) { const pa = (c - 1) >> 1; if (hd[pa] >= d) break; hd[c] = hd[pa]; hi[c] = hi[pa]; c = pa; } hd[c] = d; hi[c] = k;
+      } else if (d < hd[0]) { // replace the farthest, sift down
+        let c = 0; for (;;) { const l = 2 * c + 1; if (l >= n) break; const r = l + 1, m = r < n && hd[r] > hd[l] ? r : l; if (hd[m] <= d) break; hd[c] = hd[m]; hi[c] = hi[m]; c = m; } hd[c] = d; hi[c] = k;
+      }
+    }
+    this.exLive = live; this.exSkipped += live - n;
+    return n;
   }
 
   // ------------------------------------------------------------------ one frame
@@ -417,15 +439,14 @@ export class Renderer9 {
     const bendAmt = 1.1;
     f.set([o.outlinePx * 2 * Math.tan(fov / 2) / this.internal[1], 0.95, bendAmt, 0.18], 88);
     u[92] = Math.round(CLUMPS_BASE * o.grass); u[93] = this.projCount; u[94] = this.poolCap; u[95] = maxSpawn;
-    const live = this.expl.filter((x) => this.nowSec - x.t0 < 0.55);
-    this.expl = live;
+    const nExpl = this.nearestExplosions(px, py);
     const dm = this.dmg.filter((x) => this.nowSec - x.t0 < 1.0);
     this.dmg = dm;
-    f.set([this.spawnScale, this.internal[0], this.internal[1], live.length, o.cw, o.ch, lk.rampShift, dm.length, this.playerHp, o.fog ? 1 : 0, 0, 0], 96);
+    f.set([this.spawnScale, this.internal[0], this.internal[1], nExpl, o.cw, o.ch, lk.rampShift, dm.length, this.playerHp, o.fog ? 1 : 0, px, py], 96);
     q.writeBuffer(this.frameBuf, 0, this.frameData);
     q.writeBuffer(this.indirectBuf, 0, this.indirectTemplate); // counts back to zero
-    for (let i = 0; i < live.length; i++) { const x = live[i]; this.explData.set([x.x, x.y, x.r, (this.nowSec - x.t0) / 0.55], i * 4); }
-    if (live.length) q.writeBuffer(this.explBuf, 0, this.explData, 0, live.length * 4);
+    for (let j = 0; j < nExpl; j++) { const k = this.heapI[j], e = this.explData; e[j * 4] = this.exX[k]; e[j * 4 + 1] = this.exY[k]; e[j * 4 + 2] = this.exR[k]; e[j * 4 + 3] = (this.nowSec - this.exT[k]) / EXPL_LIFE; }
+    if (nExpl) q.writeBuffer(this.explBuf, 0, this.explData, 0, nExpl * 4);
     for (let i = 0; i < dm.length; i++) { const x = dm[i]; this.dmgData.set([x.x, x.y, x.v, this.nowSec - x.t0], i * 4); }
     if (dm.length) q.writeBuffer(this.dmgBuf, 0, this.dmgData, 0, dm.length * 4);
 
@@ -508,7 +529,7 @@ export class Renderer9 {
       p.setBindGroup(0, this.bg.fx);
       p.setPipeline(this.pl.aura as GPURenderPipeline); p.setBindGroup(1, this.bg.draw, [L_AURA * DRAW_STRIDE]); p.drawIndirect(this.indirectBuf, L_AURA * 20); draws++;
       p.setBindGroup(1, this.bg.draw, [0]);
-      if (live.length) { p.setPipeline(this.pl.expl as GPURenderPipeline); p.draw(6, live.length); draws++; }
+      if (nExpl) { p.setPipeline(this.pl.expl as GPURenderPipeline); p.draw(6, nExpl); draws++; }
       if (this.projCount) { p.setPipeline(this.pl.proj as GPURenderPipeline); p.draw(6, this.projCount); draws++; }
       p.end();
     }
@@ -618,14 +639,14 @@ export class Renderer9 {
     return {
       internal: this.internal, staticInstances: this.S, dynamic: this.n, visible: sum(0, NK), shadowCasters: sum(L_SHADOW, L_SHADOW + NK), blobs: c[L_BLOB], dynVisible: c[L_DYN], auras: c[L_AURA],
       grassChunks: this.grassChunks, grassClumps: this.grassChunks * Math.round(CLUMPS_BASE * this.o.grass), alive: this.alive, poolCap: this.poolCap, spawnScale: this.spawnScale,
-      triangles: this.triangles, limits: this.limitsCheck, eventsDropped: this.eventsDropped, truncated: this.truncated, shadowRes: this.map ? this.o.shadowRes : 0,
+      triangles: this.triangles, limits: this.limitsCheck, eventsDropped: this.eventsDropped, explosionsLive: this.exLive, explosionFramesNotDrawn: this.exSkipped, truncated: this.truncated, shadowRes: this.map ? this.o.shadowRes : 0,
     };
   }
   overlay(): string[] {
     const i = this.info();
     return [
       `draw   visible ${i.visible} shadow casters ${i.shadowCasters} blobs ${i.blobs}  grass chunks ${i.grassChunks} (${i.grassClumps} clumps)  internal ${i.internal[0]}x${i.internal[1]}`,
-      `fx     particles alive ${i.alive}/${i.poolCap} scale ${i.spawnScale.toFixed(1)}  proj ${this.projCount}  expl ${this.expl.length}  numbers ${this.dmg.length}`,
+      `fx     particles alive ${i.alive}/${i.poolCap} scale ${i.spawnScale.toFixed(1)}  proj ${this.projCount}  expl ${this.exLive} (drew ≤${EXPL_DRAW})  numbers ${this.dmg.length}`,
     ];
   }
 }

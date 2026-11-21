@@ -4,6 +4,7 @@
 //   node scripts/run2/stage11.mjs --list          print the runs, run nothing
 //   node scripts/run2/stage11.mjs --only "wave-"  only runs whose name matches the regex
 //   Options: --dur <s> (default 300) --reps <n> (default 3) --throttle <n> (default 4; 1 on the reference device) --out <dir> --vol <0..1>
+//            --extra 'k=v&...' appended to every run's URL (e.g. simslow=2)
 //
 // Runs: the wave (enemies 300 -> 5,000 over 240 s, then held) x reps at the throttle; one wave unthrottled (the dev machine
 // as it is); one wave with a GPU process crash 150 s in; one wave with 60 s of allocation sampling at the peak; and the
@@ -22,10 +23,11 @@ const opt = (n, d) => { const i = argv.indexOf(`--${n}`); return i >= 0 && argv[
 const dur = Number(opt('dur', 300)), reps = Number(opt('reps', 3)), thr = Number(opt('throttle', 4)), vol = Number(opt('vol', 1));
 const OUT = opt('out', 'results/run-2/data/stage11');
 const only = new RegExp(opt('only', '.'));
+const EXTRA = opt('extra', '') ? '&' + opt('extra', '') : '';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const ARGS = ['--autoplay-policy=no-user-gesture-required', '--enable-webgpu-developer-features', '--enable-precise-memory-info'];
 
-const q = (extra = '') => `stage11.html?bench=stage11&dur=${dur}&overlay=0&vol=${vol}${extra}`;
+const q = (extra = '') => `stage11.html?bench=stage11&dur=${dur}&overlay=0&vol=${vol}${extra}${EXTRA}`;
 const runs = [];
 for (let r = 1; r <= reps; r++) runs.push({ name: `wave-r${r}`, query: q(), thr });
 runs.push({ name: 'wave-cpu1', query: q(), thr: 1 });

@@ -2,13 +2,18 @@
 
 Hypothesis: the sim, the snapshot hand-off, the renderer and the audio together keep the game smooth at 60 fps through a worst-case combat wave on the reference device, with every system inside its budget at the same time.
 
-Verdict: **provisional pass**. No reference device was available. Every number below is from the dev machine (RTX 3060, Chrome 156), with the page under Chrome's 4× CPU throttling, the run's stand-in for the reference device. In all three five-minute waves up to 5,000 enemies, at the same time:
+Verdict: **provisional pass for the main thread, the GPU and the audio; unclear for the sim**. No reference device was available. Every number below is from the dev machine (RTX 3060, Chrome 156), with the page under Chrome's 4× CPU throttling, the run's stand-in for the reference device. In all three five-minute waves up to 5,000 enemies, at the same time:
 - **No pauses or jumps** from the Stage 2 render clock, and 3–5 frames over 20 ms out of 18,000.
 - **No audio glitches**: 0 late renders and 0 underruns with mixer B.
 - **Sim step** p99 1.54 ms [1.36–1.60], under 4 ms. But Chrome cannot throttle workers, so the sim ran at the dev machine's full speed (see below).
 - **CPU encoding** p99 1.42 ms [1.38–1.42], under 2 ms.
 - **The frame's work**: main thread p99 2.00 ms and GPU p99 6.16 ms, together inside 60% of 16.7 ms (10 ms). The GPU half was measured on the RTX 3060 and holds only for it, as in Stage 9.
 - **Input to frame submit**: median 9.3 ms, p99 17.5 ms.
+
+Why the sim half is unclear (found in the Stage 12 review, see "Stage 12 rerun" below):
+- Chrome cannot throttle the sim worker, so the sim ran at the dev machine's full speed in every run.
+- The wave loaded the sim about half as much as Stage 8 did at the same enemy count: p99 1.5–1.7 ms at 5,000 enemies here, against 3.70 ms in Stage 8's push-past run. Spawning the wave's enemies around the player, as Stage 8 does, raised the event rate by a quarter but the step time barely. The cause was not found.
+- Stage 8 already failed provisionally at 2,000 enemies with its sim throttled. Until the reference device runs this wave, that is the better guide to the sim's budget.
 
 Two limits on the verdict matter more than the pass:
 - **The sim is the budget that breaks first, and its numbers here are optimistic.** Ramping past the bar, the sim step p99 first crossed 4 ms at about 11,900 enemies and stayed over it from about 13,400. That was at the dev machine's full speed. At 5,000 enemies its p99 is 1.5–1.6 ms here. If the step time scaled with a CPU four times slower, it would be about 6 ms, over the bar. So the reference-device rerun decides this stage, and the sim is the system to watch.
@@ -128,19 +133,40 @@ The ramp past the bar (`past`, 5 s windows, p99 per window; full table in `data/
 - The director's `decode` (0.2 MB/s) is the event list built per snapshot.
 - Typed-array backing stores and GPU objects are not visible to the sampling profiler.
 
+## Stage 12 rerun: a denser wave, a slower sim, and the fixes
+
+The Stage 12 review found that the wave added its enemies at the map edge (the sim's respawn rule), not in Stage 8's square of ±64 units around the player. Stage 12 changed that (`set_active` in `combat/src/shared.rs` now places new enemies like Stage 8's start; deaths still respawn at the edge in both). It added `simslow`, which makes the sim worker busy-wait (simslow − 1) × each step's time, as a stand-in for a slower CPU. Stage 8 measured its sim about 2× slower throttled on the main thread than unthrottled in a worker (p99 5.11 against 2.27–2.62 ms), so `simslow=2` was run. The build also had the Stage 12 fixes: the event-sound lead, the 64 nearest explosions and the dynamic-resolution hysteresis.
+
+Data: `data/stage11-dense/` and `data/stage11-dense-slow2/`, tables in `data/stage11-dense-tables.md` and `data/stage11-dense-slow2-tables.md`, log `data/stage11-dense.log`. Same machine and settings as above.
+
+| Run | Frames >20 ms | Pauses / jumps | Sim step p99 (worker) | Encode p99 | Main thread p99 | GPU p99 | Audio late | Events per step | Heap first → last minute (MB) |
+|---|---|---|---|---|---|---|---|---|---|
+| Dense wave, 4× (3 reps) | 10 [4–16] | 0 / 0 | 1.66 [1.52–1.75] | 1.44 [1.41–1.67] | 2.04 [2.01–2.40] | 6.23 [6.18–6.42] | 0 | 371 | 34.2 → 34.2 |
+| Dense past the bar, 4× | 9 | 0 / 0 | 3.71 | 1.64 | 2.61 | 5.83 | 0 | 579 | 35.1 → 35.1 |
+| Dense wave, 4×, simslow=2 | 2 | 0 / 0 | **3.03** | 1.38 | 1.86 | 6.30 | 0 | 371 | 35.2 → 35.1 |
+| Dense past the bar, 4×, simslow=2 | 7 | 0 / 0 | **6.10** | 1.29 | 2.00 | 6.52 | 0 | 579 | 35.2 → 34.9 |
+
+- Every pass bar held again, including at simslow=2: the sim's p99 with the stand-in slowdown was 3.03 ms at 5,000 enemies, under 4 ms. Past the bar, the per-window step time (measured inside WASM, without the busy-wait) passed 2 ms between about 6,900 and 8,900 enemies, so at simslow=2 the sim crosses 4 ms there. The ramp's "first break" column uses the WASM step time, so it does not show the slowdown.
+- The denser spawn raised events per step from 293 to 371 at the peak, not to Stage 8's level, and the sim's p99 from 1.54 to 1.66 ms. Why Stage 8's sim cost about twice as much at the same counts is open (see the findings).
+- **The heap no longer grows**: −0.05 MB/min over the wave, against +0.52 before. The first run's growth most likely came from the renderer's explosion list, which the Stage 12 fix replaced with a fixed ring. Allocations were not sampled again.
+- More frames went over 20 ms (4–16 against 3–5 per 18,000). They are single frames with no render-clock pause or jump.
+- Event sounds now fire early by the output pipeline delay, as Stage 10's `lead=-1`. Stage 11 does not measure the event-to-picture offset, so Stage 10's 9 ms median is the number for it.
+
 ## Findings for Stage 12
 
-- **P2: the sim is the first budget to break, and the dev machine could not slow it down.** Its p99 is 1.5–1.6 ms at 5,000 enemies at full speed. The reference-device rerun is the only real test. If it fails, Stage 8's fallback applies.
-- **P2: the renderer allocates about 2.5 MB/s in `render()` at the peak.** Move the per-frame arrays and lists to preallocated typed arrays. Stage 12's P1 fix for explosions (a fixed ring and a fixed-size nearest set) removes the explosion part of it.
+- **P2: the sim is the first budget to break, and the dev machine could not slow it down.** Its p99 is 1.5–1.7 ms at 5,000 enemies at full speed and 3.03 ms with simslow=2. The reference-device rerun is the only real test. If it fails, Stage 8's fallback applies.
+- **P2: the wave loads the sim about half as much as Stage 8 at the same enemy count**, even with Stage 8's spawn (p99 1.66 against 3.70 ms at 5,000 enemies, unthrottled worker). Candidates not yet checked: Stage 8 places all enemies at once while the wave adds them over 4 minutes, so its crowd is packed tighter around the player; and the wave allocates the sim for 20,000 enemies. Stage 11's sim verdict is unclear until this is explained or the reference device runs it.
+- **Fixed in Stage 12: the wave added enemies at the map edge**, not around the player as Stage 8 does (rerun above).
+- **P2: the renderer allocates about 2.5 MB/s in `render()` at the peak** (first run). Move the per-frame arrays and lists to preallocated typed arrays. Stage 12's explosion fix (a fixed ring and a fixed-size nearest set) removes the explosion part of it, and the heap stopped growing, but allocations were not sampled again.
 - **P2: the director's event decode allocates per snapshot** (0.2 MB/s). Decode into a reused buffer.
-- **P2: memory over a longer hold.** Run the wave for 30 minutes at a fixed 5,000 enemies to tell a slow leak from load growth.
+- **P2: memory over a longer hold.** The heap was flat after the Stage 12 fix, but only for 5 minutes. A 30-minute hold at 5,000 enemies would rule out a slow leak.
 - **P2: the wave carried half of Stage 8's event rate.** A rerun with more projectiles (`ppe=0.4`) would bring the effects to Stage 9's worst-case density together with everything else.
-- **P1, from Stage 10: event sounds are not fired early here.** Stage 11 used the director without the lead, so its event sounds land about one output latency (50–60 ms) after the picture. Stage 12 sets it on.
+- **P1, from Stage 10, fixed: event sounds were not fired early here.** The first run used the director without the lead, so its event sounds landed about one output latency (50–60 ms) after the picture. Stage 12 turned it on (`lead`, default −1, the measured pipeline delay), and the rerun above includes it.
 
 ## Rerun on the reference device
 
 1. Build and serve as in run 1's notes: `node scripts/build-wasm.mjs`, `node scripts/build-combat.mjs`, `node scripts/build-chunks.mjs`, `node node_modules/vite/bin/vite.js build`, then `node node_modules/vite/bin/vite.js preview --port 4173 --strictPort`. Nothing else may run on the device meanwhile.
 2. Use the device's built-in display at 60 Hz and its default audio output.
-3. Run `node scripts/run2/stage11.mjs --throttle 1 --out results/run-2/data/stage11-ref/`. It takes about 40 minutes. On the device, the sim worker and the audio thread run at the device's real speed, which this run could not show.
+3. Run `node scripts/run2/stage11.mjs --throttle 1 --out results/run-2/data/stage11-ref/`. It takes about 40 minutes. Do not pass `--extra simslow=…`: on the device the sim runs at its real speed. On the device, the sim worker and the audio thread run at the device's real speed, which this run could not show.
 4. Print the tables with `node scripts/run2/stage11-table.mjs results/run-2/data/stage11-ref/`.
 5. Pass: in all three `wave-r` runs, no pauses or jumps, 0 audio late renders and underruns, sim step p99 under 4 ms, encode p99 under 2 ms, and main thread plus GPU p99 under 10 ms. In `crash`, the look comes back in one rebuild, with snapshots and audio continuing. In `past`, record the first budget to cross its bar for two windows in a row.
