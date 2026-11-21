@@ -1,0 +1,16 @@
+== start 2026-11-22T04:35:08+08:00 build 0d445e6 + uncommitted stage 11
+2026-11-21T20:35:09.108Z wave-r1
+wave-r1: sim p99 1.54 | encode p99 1.38 | gpu p99 6.16 | frame p99 17.25 | pauses 0 jumps 0 | audio late 0 | main p99 1.91 | snap 117 KB | heap 35.9->38.0 MB | first break none 
+2026-11-21T20:40:17.270Z wave-r2
+wave-r2: sim p99 1.36 | encode p99 1.42 | gpu p99 6.20 | frame p99 17.24 | pauses 0 jumps 0 | audio late 0 | main p99 2.00 | snap 117 KB | heap 35.9->38.0 MB | first break encode@0s/350 
+2026-11-21T20:45:25.514Z wave-r3
+wave-r3: sim p99 1.60 | encode p99 1.42 | gpu p99 6.11 | frame p99 17.26 | pauses 0 jumps 0 | audio late 0 | main p99 2.03 | snap 117 KB | heap 36.0->38.2 MB | first break none 
+2026-11-21T20:50:33.657Z wave-cpu1
+wave-cpu1: sim p99 2.41 | encode p99 0.44 | gpu p99 6.48 | frame p99 17.02 | pauses 0 jumps 0 | audio late 0 | main p99 0.71 | snap 117 KB | heap 36.0->37.8 MB | first break sim@240s/5000 
+2026-11-21T20:55:40.912Z crash
+crash: sim p99 1.32 | encode p99 1.41 | gpu p99 5.83 | frame p99 17.25 | pauses 0 jumps 1 | audio late 0 | main p99 2.02 | snap 117 KB | heap 36.0->38.0 MB | first break pausesJumps@150s/3287 
+2026-11-21T21:00:49.109Z heap
+heap: sim p99 1.33 | encode p99 2.84 | gpu p99 6.16 | frame p99 17.27 | pauses 60 jumps 10 | audio late 0 | main p99 3.86 | snap 117 KB | heap 36.1->37.7 MB | first break encode@25s/839, gpu@295s/5000, pausesJumps@295s/5000 
+2026-11-21T21:05:57.517Z past
+past: sim p99 3.32 | encode p99 1.43 | gpu p99 6.07 | frame p99 17.25 | pauses 0 jumps 0 | audio late 0 | main p99 2.27 | snap 255 KB | heap 36.0->41.0 MB | first break encode@80s/3531, sim@255s/11875 
+== done 2026-11-22T05:11:05+08:00
