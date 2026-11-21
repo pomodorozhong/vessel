@@ -22,6 +22,7 @@ export default defineConfig({
         stage8: 'stage8.html',  // Stage 8: combat collision bench
         stage9: 'stage9.html',  // Run 2 Stage 9: the cel-shaded look
         stage10: 'stage10.html', // Stage 10: combat sound (run 2)
+        stage11: 'stage11.html', // Stage 11: everything at once (run 2)
         run2calib: 'run2-calib.html', // run 2: calibration loops for the allocation measurement (scripts/run2/heap.mjs)
       },
     },

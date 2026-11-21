@@ -437,6 +437,7 @@ impl Pool {
 pub struct Core {
     pub p: Params,
     pub n: usize,
+    pub n_cap: usize, // entities allocated at init; set_active moves n within it
     pub tick: u32,
     pub rng: Rng,
     pub a: Table,
@@ -606,6 +607,7 @@ impl Core {
         let mut core = Core {
             p: *p,
             n,
+            n_cap: n,
             tick: 0,
             rng,
             a,
@@ -943,6 +945,41 @@ impl Core {
         }
         self.player_hurt += dmg;
         self.a.flags[ps] |= FLAG_HIT;
+    }
+
+    /// Stage 11's wave: sets the live entity count (player + enemies), at most the count given at init. New enemies
+    /// enter at the map edge. Slots past the live count hold stale data from the table swap, so every field of a new
+    /// slot is set here. Shrinking keeps the player (moved into the last live slot if needed). The grid builds (A and C)
+    /// only: B's persistent order and Rapier's bodies are sized at init.
+    pub fn set_active(&mut self, n: usize) {
+        let n = n.min(self.n_cap).max(1);
+        if n < self.n {
+            let ps = self.player_slot;
+            if ps >= n {
+                self.b.put(0, &self.a, ps);
+                self.a.put(n - 1, &self.b, 0);
+                self.player_slot = n - 1;
+            }
+            self.n = n;
+            return;
+        }
+        for i in self.n..n {
+            let kind = i as u32 % KINDS;
+            let f = self.rng.unit() * 6.2831853;
+            let t = &mut self.a;
+            t.kind[i] = kind;
+            t.radius[i] = kind_radius(kind);
+            t.id[i] = i as u32; // never 0 (the player). A repeated id after a shrink only shares an AI think phase.
+            t.flags[i] = 0;
+            t.slow[i] = 1.0;
+            t.facing[i] = f;
+            t.pfacing[i] = f;
+            t.tfacing[i] = f;
+            self.respawn(i);
+        }
+        if n > self.n {
+            self.n = n;
+        }
     }
 
     /// Moves an enemy to a random free spot at the map edge with full health.
@@ -1401,6 +1438,11 @@ macro_rules! export_ffi {
         #[no_mangle]
         pub extern "C" fn step(move_x: f32, move_y: f32, buttons: u32) {
             sim().step(move_x, move_y, buttons);
+        }
+        /// Stage 11: the live enemy count, within the count given at init (grid builds only, see Core::set_active).
+        #[no_mangle]
+        pub extern "C" fn set_enemies(e: u32) {
+            sim().core.set_active(e as usize + 1);
         }
         /// Changes the target live projectile count (push-past sweeps). The pool capacity is fixed at init.
         #[no_mangle]
