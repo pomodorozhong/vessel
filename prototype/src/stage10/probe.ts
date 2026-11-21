@@ -2,7 +2,7 @@
 // recording a number never allocates on the JS heap. The bench harness (harness-bench.ts, loaded only at the end
 // of a run) reads them; nothing here computes statistics.
 export const CAP_FRAMES = 1 << 16;
-export const CAP_TRACK = 1 << 13;
+export const CAP_TRACK = 1 << 14;
 export const CAP_TS = 1 << 12;
 
 export const probe = {

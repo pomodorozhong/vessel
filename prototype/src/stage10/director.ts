@@ -7,7 +7,7 @@ import { EF_OWN, EF_TRACK, MUSIC_LAYERS, MUSIC_THRESH, SND } from './soundset';
 import type { Mixer } from './mixer';
 import { probe, track } from './probe';
 
-const RING = 64, MAXE = 4096, TRACK_EVERY = 16; // MAXE holds 2x Stage 8's busiest pass-load step; more is counted as overflow
+const RING = 64, MAXE = 4096, TRACK_FRAMES = 4; // MAXE holds 2x Stage 8's busiest pass-load step; more is counted as overflow. One event sound is tracked every TRACK_FRAMES frames (about 15 a second at 60 Hz), so the tracking buffer lasts the whole run at any event rate
 const STALE_STEPS = 8; // events older than this many steps when they come due (after a long stall) are skipped
 const clamp = (v: number, a: number, b: number) => (v < a ? a : v > b ? b : v);
 
@@ -20,7 +20,7 @@ export class Director {
   private u32 = new Uint32Array(this.bytes.buffer);
   private f32 = new Float32Array(this.bytes.buffer);
   private head = 0; private tail = 0;
-  private trackCount = 0;
+  private trackFrame = -1e9;
   // Recent event flashes for the picture: x, y, type, birth frame.
   flash = new Float32Array(256 * 4);
   flashHead = 0;
@@ -89,7 +89,7 @@ export class Director {
         pan = clamp(dx / 25, -1, 1) * 0.85; vol *= clamp(1.15 - d / 70, 0.15, 1);
       }
       let seq = -1;
-      if (++this.trackCount % TRACK_EVERY === 0) { seq = track(1, this.ringTick[s]); if (seq >= 0) flags |= EF_TRACK; }
+      if (frame - this.trackFrame >= TRACK_FRAMES) { this.trackFrame = frame; seq = track(1, this.ringTick[s]); if (seq >= 0) flags |= EF_TRACK; }
       m.push(sound, pan, vol, flags, seq);
       const fh = this.flashHead++ & 255; this.flash[fh * 4] = x; this.flash[fh * 4 + 1] = y; this.flash[fh * 4 + 2] = type; this.flash[fh * 4 + 3] = frame;
     }
