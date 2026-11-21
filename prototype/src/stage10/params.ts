@@ -5,7 +5,7 @@ const str = (k: string, d: string) => q.get(k) ?? d;
 
 export const params = {
   mixer: str('mixer', 'A'),          // A (Web Audio nodes) | B (AudioWorklet mixer)
-  rate: num('rate', 300),            // sound events per second in the scripted snapshot stream
+  rate: num('rate', 16400),          // sound events per second in the scripted snapshot stream (Stage 8's pass load)
   hz: num('hz', 30),                 // sim step rate of the scripted stream
   own: num('own', 8),                // scripted player shots per second (unmeasured; the driver's key presses are the measured ones)
   bench: str('bench', ''),           // '' | 'stage10'; a bench run ends by setting window.__result

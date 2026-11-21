@@ -7,7 +7,7 @@ import { EF_OWN, EF_TRACK, MUSIC_LAYERS, MUSIC_THRESH, SND } from './soundset';
 import type { Mixer } from './mixer';
 import { probe, track } from './probe';
 
-const RING = 64, MAXE = 256, TRACK_EVERY = 16;
+const RING = 64, MAXE = 4096, TRACK_EVERY = 16; // MAXE holds 2x Stage 8's busiest pass-load step; more is counted as overflow
 const STALE_STEPS = 8; // events older than this many steps when they come due (after a long stall) are skipped
 const clamp = (v: number, a: number, b: number) => (v < a ? a : v > b ? b : v);
 
