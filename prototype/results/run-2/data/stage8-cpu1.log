@@ -1,0 +1,47 @@
+== start 2026-11-21T15:53:22+08:00
+stage 8 driver: cpu1x, thread worker, dur 300s x 3, http://localhost:4173/vessel/, out C:\github\vessel\prototype\results\run-2\data\stage8
+main-A-e2000-p1000-cpu1x-300s-worker-r1 step med 0.645 p99 2.090 max 4.81 | live 1000 | ev/step 548 drop 0 | pass-through 0/0 | deaths/s 30 | mem 3.9->3.9 MB | late p99 14.2 | hidden false iso true 
+main-B-e2000-p1000-cpu1x-300s-worker-r1 step med 0.645 p99 2.115 max 4.03 | live 1000 | ev/step 500 drop 0 | pass-through 0/0 | deaths/s 28 | mem 3.9->3.9 MB | late p99 14.3 | hidden false iso true 
+main-C-e2000-p1000-cpu1x-300s-worker-r1 step med 0.625 p99 2.420 max 5.98 | live 1000 | ev/step 548 drop 0 | pass-through 0/0 | deaths/s 30 | mem 3.9->3.9 MB | late p99 14.4 | hidden false iso true 
+main-rapier-e2000-p1000-cpu1x-300s-worker-r1 step med 2.050 p99 5.845 max 22.43 | live 1000 | ev/step 492 drop 0 | pass-through 0/0 | deaths/s 29 | mem 5.6->10.7 MB | late p99 5.9 | hidden false iso true 
+main-A-e2000-p1000-cpu1x-300s-worker-r2 step med 0.645 p99 2.615 max 6.86 | live 1000 | ev/step 548 drop 0 | pass-through 0/0 | deaths/s 30 | mem 3.9->3.9 MB | late p99 14.4 | hidden false iso true 
+main-B-e2000-p1000-cpu1x-300s-worker-r2 step med 0.645 p99 2.270 max 4.34 | live 1000 | ev/step 500 drop 0 | pass-through 0/0 | deaths/s 28 | mem 3.9->3.9 MB | late p99 14.5 | hidden false iso true 
+main-C-e2000-p1000-cpu1x-300s-worker-r2 step med 0.645 p99 2.355 max 5.18 | live 1000 | ev/step 548 drop 0 | pass-through 0/0 | deaths/s 30 | mem 3.9->3.9 MB | late p99 14.5 | hidden false iso true 
+main-rapier-e2000-p1000-cpu1x-300s-worker-r2 step med 2.080 p99 6.495 max 11.39 | live 1000 | ev/step 492 drop 0 | pass-through 0/0 | deaths/s 29 | mem 5.6->10.7 MB | late p99 5.9 | hidden false iso true 
+main-A-e2000-p1000-cpu1x-300s-worker-r3 step med 0.675 p99 2.735 max 5.01 | live 1000 | ev/step 548 drop 0 | pass-through 0/0 | deaths/s 30 | mem 3.9->3.9 MB | late p99 14.4 | hidden false iso true 
+main-B-e2000-p1000-cpu1x-300s-worker-r3 step med 0.670 p99 2.730 max 5.91 | live 1000 | ev/step 500 drop 0 | pass-through 0/0 | deaths/s 28 | mem 3.9->3.9 MB | late p99 14.4 | hidden false iso true 
+main-C-e2000-p1000-cpu1x-300s-worker-r3 step med 0.710 p99 2.820 max 37.46 | live 1000 | ev/step 548 drop 0 | pass-through 0/0 | deaths/s 30 | mem 3.9->3.9 MB | late p99 14.5 | hidden false iso true 
+main-rapier-e2000-p1000-cpu1x-300s-worker-r3 step med 2.175 p99 6.330 max 21.39 | live 1000 | ev/step 492 drop 0 | pass-through 0/0 | deaths/s 29 | mem 5.6->10.7 MB | late p99 6.0 | hidden false iso true 
+done
+stage 8 driver: cpu1x, thread worker, dur 300s x 3, http://localhost:4173/vessel/, out C:\github\vessel\prototype\results\run-2\data\stage8
+push-A-e2000-p1000-cpu1x-60s-worker-r1 step med 0.680 p99 2.705 max 6.28 | live 1000 | ev/step 534 drop 0 | pass-through 0/0 | deaths/s 30 | mem 3.9->3.9 MB | late p99 14.4 | hidden false iso true 
+push-A-e2000-p2000-cpu1x-60s-worker-r1 step med 0.850 p99 3.500 max 4.58 | live 2000 | ev/step 935 drop 0 | pass-through 0/0 | deaths/s 30 | mem 4.1->4.1 MB | late p99 14.3 | hidden false iso true 
+push-A-e2000-p3000-cpu1x-60s-worker-r1 step med 0.915 p99 3.430 max 5.09 | live 3000 | ev/step 1598 drop 0 | pass-through 0/0 | deaths/s 25 | mem 4.1->4.1 MB | late p99 14.4 | hidden false iso true 
+push-A-e2000-p5000-cpu1x-60s-worker-r1 step med 1.195 p99 4.025 max 6.72 | live 5000 | ev/step 2303 drop 0 | pass-through 0/0 | deaths/s 31 | mem 4.2->4.2 MB | late p99 12.2 | hidden false iso true 
+push-A-e2000-p7500-cpu1x-60s-worker-r1 step med 1.525 p99 4.900 max 6.97 | live 7500 | ev/step 3883 drop 0 | pass-through 0/0 | deaths/s 29 | mem 4.3->4.3 MB | late p99 5.9 | hidden false iso true 
+skip (exists) push-A-e2000-p1000-cpu1x-60s-worker-r1
+push-A-e3000-p1000-cpu1x-60s-worker-r1 step med 0.825 p99 3.015 max 6.14 | live 1000 | ev/step 451 drop 0 | pass-through 0/0 | deaths/s 46 | mem 4.2->4.2 MB | late p99 14.6 | hidden false iso true 
+push-A-e5000-p1000-cpu1x-60s-worker-r1 step med 1.080 p99 3.695 max 4.86 | live 1000 | ev/step 398 drop 0 | pass-through 0/0 | deaths/s 77 | mem 4.6->4.6 MB | late p99 14.0 | hidden false iso true 
+push-A-e7500-p1000-cpu1x-60s-worker-r1 step med 1.635 p99 5.795 max 8.10 | live 1000 | ev/step 530 drop 0 | pass-through 0/0 | deaths/s 81 | mem 5.3->5.3 MB | late p99 6.0 | hidden false iso true 
+push-A-e10000-p1000-cpu1x-60s-worker-r1 step med 1.960 p99 5.830 max 8.74 | live 1000 | ev/step 527 drop 0 | pass-through 0/0 | deaths/s 114 | mem 5.8->5.8 MB | late p99 5.9 | hidden false iso true 
+push-B-e2000-p1000-cpu1x-60s-worker-r1 step med 0.685 p99 2.680 max 4.30 | live 1000 | ev/step 447 drop 0 | pass-through 0/0 | deaths/s 32 | mem 3.9->3.9 MB | late p99 14.3 | hidden false iso true 
+push-B-e2000-p2000-cpu1x-60s-worker-r1 step med 0.810 p99 3.295 max 6.36 | live 2000 | ev/step 909 drop 0 | pass-through 0/0 | deaths/s 32 | mem 4.1->4.1 MB | late p99 14.6 | hidden false iso true 
+push-B-e2000-p3000-cpu1x-60s-worker-r1 step med 0.915 p99 3.525 max 4.39 | live 3000 | ev/step 1397 drop 0 | pass-through 0/0 | deaths/s 31 | mem 4.1->4.1 MB | late p99 14.1 | hidden false iso true 
+push-B-e2000-p5000-cpu1x-60s-worker-r1 step med 1.220 p99 4.425 max 5.56 | live 5000 | ev/step 1914 drop 0 | pass-through 0/0 | deaths/s 33 | mem 4.2->4.2 MB | late p99 12.6 | hidden false iso true 
+push-B-e2000-p7500-cpu1x-60s-worker-r1 step med 1.545 p99 5.190 max 6.57 | live 7500 | ev/step 3299 drop 0 | pass-through 0/0 | deaths/s 31 | mem 4.3->4.3 MB | late p99 5.9 | hidden false iso true 
+skip (exists) push-B-e2000-p1000-cpu1x-60s-worker-r1
+push-B-e3000-p1000-cpu1x-60s-worker-r1 step med 0.815 p99 2.990 max 5.15 | live 1000 | ev/step 465 drop 0 | pass-through 0/0 | deaths/s 48 | mem 4.2->4.2 MB | late p99 14.0 | hidden false iso true 
+push-B-e5000-p1000-cpu1x-60s-worker-r1 step med 1.265 p99 4.285 max 6.72 | live 1000 | ev/step 521 drop 0 | pass-through 0/0 | deaths/s 73 | mem 4.6->4.6 MB | late p99 11.3 | hidden false iso true 
+push-B-e7500-p1000-cpu1x-60s-worker-r1 step med 2.090 p99 6.635 max 9.23 | live 1000 | ev/step 791 drop 0 | pass-through 0/0 | deaths/s 78 | mem 5.3->5.3 MB | late p99 5.9 | hidden false iso true 
+push-C-e2000-p1000-cpu1x-60s-worker-r1 step med 0.670 p99 2.705 max 4.94 | live 1000 | ev/step 534 drop 0 | pass-through 0/0 | deaths/s 30 | mem 3.9->3.9 MB | late p99 14.3 | hidden false iso true 
+push-C-e2000-p2000-cpu1x-60s-worker-r1 step med 0.790 p99 3.125 max 4.23 | live 2000 | ev/step 935 drop 0 | pass-through 0/0 | deaths/s 30 | mem 4.1->4.1 MB | late p99 13.9 | hidden false iso true 
+push-C-e2000-p3000-cpu1x-60s-worker-r1 step med 0.960 p99 3.250 max 4.43 | live 3000 | ev/step 1598 drop 0 | pass-through 0/0 | deaths/s 25 | mem 4.1->4.1 MB | late p99 14.3 | hidden false iso true 
+push-C-e2000-p5000-cpu1x-60s-worker-r1 step med 1.255 p99 4.640 max 5.78 | live 5000 | ev/step 2303 drop 0 | pass-through 0/0 | deaths/s 31 | mem 4.2->4.2 MB | late p99 12.6 | hidden false iso true 
+push-C-e2000-p7500-cpu1x-60s-worker-r1 step med 1.560 p99 5.125 max 7.36 | live 7500 | ev/step 3883 drop 0 | pass-through 0/0 | deaths/s 29 | mem 4.3->4.3 MB | late p99 5.9 | hidden false iso true 
+skip (exists) push-C-e2000-p1000-cpu1x-60s-worker-r1
+push-C-e3000-p1000-cpu1x-60s-worker-r1 step med 0.780 p99 2.710 max 4.97 | live 1000 | ev/step 451 drop 0 | pass-through 0/0 | deaths/s 46 | mem 4.2->4.2 MB | late p99 14.7 | hidden false iso true 
+push-C-e5000-p1000-cpu1x-60s-worker-r1 step med 1.065 p99 3.555 max 5.38 | live 1000 | ev/step 398 drop 0 | pass-through 0/0 | deaths/s 77 | mem 4.6->4.6 MB | late p99 12.6 | hidden false iso true 
+push-C-e7500-p1000-cpu1x-60s-worker-r1 step med 1.590 p99 5.260 max 7.11 | live 1000 | ev/step 530 drop 0 | pass-through 0/0 | deaths/s 81 | mem 5.3->5.3 MB | late p99 6.0 | hidden false iso true 
+push-C-e10000-p1000-cpu1x-60s-worker-r1 step med 1.880 p99 5.610 max 9.18 | live 1000 | ev/step 527 drop 0 | pass-through 0/0 | deaths/s 114 | mem 5.8->5.8 MB | late p99 5.9 | hidden false iso true 
+done
+== done 2026-11-21T17:23:16+08:00
