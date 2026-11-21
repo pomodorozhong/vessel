@@ -12,7 +12,8 @@ export const CHUNK = 8, CHUNKS = 32;                    // the grass field: 32 x
 export const CLUMPS_BASE = 192;                        // grass clumps per chunk at density 1 (3 per square unit)
 export const MAX_BUILDINGS = 512, TREES = 700;
 export const VAT_FRAMES = 32;
-export const EV_CAP = 8192, EXPL_CAP = 64, DMG_CAP = 96;
+// EXPL_CAP holds Stage 8's pass load: about 940 explosions/s, each drawn for 0.55 s, so about 520 alive.
+export const EV_CAP = 8192, EXPL_CAP = 1024, DMG_CAP = 96;
 export const MAX_ALIVE_POOL = 2_000_000;
 
 // Timer slots (one per pass) and how they group in the report.

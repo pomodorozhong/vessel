@@ -7,10 +7,13 @@ export const P9 = {
   // Load (the scripted stream, later the real combat sim)
   enemies: num('enemies', 2000),
   proj: num('proj', 1000),
-  shots: num('shots', 60),            // events per second
-  hits: num('hits', 150),
-  deaths: num('deaths', 40),
-  explosions: num('explosions', 10),
+  // Events per second, defaults from Stage 8's measured pass load (2,000 enemies, 1,000 projectiles: 264 shots,
+  // 251 hits, 31 explosions and 1 death per step at 30 Hz; results/run-2/stage-8.md). 12% of hits are explosive and
+  // add their own explosion, so 40 extra explosions per second make up Stage 8's 940.
+  shots: num('shots', 7920),
+  hits: num('hits', 7540),
+  deaths: num('deaths', 30),
+  explosions: num('explosions', 40),
   seed: num('seed', 1),
   hz: 30,
   // Look
