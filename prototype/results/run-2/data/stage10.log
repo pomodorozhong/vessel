@@ -1,0 +1,82 @@
+== start 2026-11-22T00:09:19+08:00 build ff7bf79
+2026-11-21T16:09:19.567Z A-r16400-stall rep 1 (300 s)
+  late 8, underruns 0, audio ms/frame p99 1.435, errors 2
+2026-11-21T16:14:30.624Z A-r16400-stall rep 2 (300 s)
+  late 9, underruns 0, audio ms/frame p99 1.425, errors 2
+2026-11-21T16:19:41.966Z A-r16400-stall rep 3 (300 s)
+  late 9, underruns 0, audio ms/frame p99 1.395, errors 2
+2026-11-21T16:24:53.215Z A-r32800-stall rep 1 (300 s)
+  late 13, underruns 0, audio ms/frame p99 1.770, errors 2
+2026-11-21T16:30:04.490Z A-r32800-stall rep 2 (300 s)
+  late 12, underruns 0, audio ms/frame p99 2.040, errors 2
+2026-11-21T16:35:15.645Z A-r32800-stall rep 3 (300 s)
+  late 11, underruns 0, audio ms/frame p99 1.970, errors 2
+2026-11-21T16:40:26.785Z A-r65600-stall rep 1 (300 s)
+  late 14, underruns 0, audio ms/frame p99 2.415, errors 2
+2026-11-21T16:45:37.969Z A-r65600-stall rep 2 (300 s)
+  late 17, underruns 0, audio ms/frame p99 2.440, errors 2
+2026-11-21T16:50:49.384Z A-r65600-stall rep 3 (300 s)
+  late 14, underruns 0, audio ms/frame p99 2.480, errors 2
+2026-11-21T16:56:00.812Z A-r16400-nostall rep 1 (300 s)
+  late 8, underruns 0, audio ms/frame p99 1.400, errors 2
+2026-11-21T17:01:12.197Z A-r16400-nostall rep 2 (300 s)
+  late 8, underruns 0, audio ms/frame p99 1.440, errors 2
+2026-11-21T17:06:23.453Z A-r16400-nostall rep 3 (300 s)
+  late 8, underruns 0, audio ms/frame p99 2.020, errors 2
+2026-11-21T17:11:34.446Z A-r16400-lead rep 1 (300 s)
+  late 8, underruns 0, audio ms/frame p99 1.250, errors 2
+2026-11-21T17:16:45.724Z A-r16400-lead rep 2 (300 s)
+  late 8, underruns 0, audio ms/frame p99 1.855, errors 2
+2026-11-21T17:21:57.059Z A-r16400-lead rep 3 (300 s)
+  late 8, underruns 0, audio ms/frame p99 1.375, errors 2
+2026-11-21T17:27:08.204Z A-heap rep 1 (80 s)
+  late 3, underruns 0, audio ms/frame p99 1.625, errors 2
+2026-11-21T17:28:39.644Z A-rec rep 1 (23 s)
+  late 0, underruns 0, audio ms/frame p99 1.430, errors 2
+2026-11-21T17:29:13.594Z A-validate-idle rep 1 (40 s)
+  late 0, underruns 0, audio ms/frame p99 0.380, errors 2
+2026-11-21T17:30:04.989Z A-validate-fg1 rep 1 (40 s)
+  late 10, underruns 53, audio ms/frame p99 1.465, errors 2
+2026-11-21T17:30:56.075Z A-validate-fg2 rep 1 (40 s)
+  late 8, underruns 564, audio ms/frame p99 1.475, errors 2
+2026-11-21T17:31:46.990Z B-r16400-stall rep 1 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.385, errors 2
+2026-11-21T17:36:58.792Z B-r16400-stall rep 2 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.390, errors 2
+2026-11-21T17:42:10.600Z B-r16400-stall rep 3 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.405, errors 2
+2026-11-21T17:47:22.907Z B-r32800-stall rep 1 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.590, errors 2
+2026-11-21T17:52:34.831Z B-r32800-stall rep 2 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.600, errors 2
+2026-11-21T17:57:46.573Z B-r32800-stall rep 3 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.585, errors 2
+2026-11-21T18:02:58.275Z B-r65600-stall rep 1 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.975, errors 2
+2026-11-21T18:08:10.224Z B-r65600-stall rep 2 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.890, errors 2
+2026-11-21T18:13:22.076Z B-r65600-stall rep 3 (300 s)
+  late 0, underruns 0, audio ms/frame p99 1.015, errors 2
+2026-11-21T18:18:34.127Z B-r16400-nostall rep 1 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.395, errors 2
+2026-11-21T18:23:45.896Z B-r16400-nostall rep 2 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.380, errors 2
+2026-11-21T18:28:57.821Z B-r16400-nostall rep 3 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.380, errors 2
+2026-11-21T18:34:09.711Z B-r16400-lead rep 1 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.400, errors 2
+2026-11-21T18:39:21.756Z B-r16400-lead rep 2 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.380, errors 2
+2026-11-21T18:44:33.631Z B-r16400-lead rep 3 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.390, errors 2
+2026-11-21T18:49:45.507Z B-heap rep 1 (80 s)
+  late 1, underruns 0, audio ms/frame p99 0.405, errors 2
+2026-11-21T18:51:17.214Z B-rec rep 1 (23 s)
+  late 0, underruns 0, audio ms/frame p99 0.380, errors 2
+2026-11-21T18:51:52.755Z B-validate-idle rep 1 (40 s)
+  late 0, underruns 0, audio ms/frame p99 0.195, errors 2
+2026-11-21T18:52:44.596Z B-validate-fg1 rep 1 (40 s)
+  late 39, underruns 52, audio ms/frame p99 0.380, errors 2
+2026-11-21T18:53:36.377Z B-validate-fg2 rep 1 (40 s)
+  late 7, underruns 511, audio ms/frame p99 0.410, errors 2
+== done 2026-11-22T02:54:28+08:00

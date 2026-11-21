@@ -1,0 +1,137 @@
+{
+ "name": "A-validate-fg1",
+ "rep": 1,
+ "result": {
+  "config": {
+   "mixer": "A",
+   "rate": 16400,
+   "hz": 30,
+   "own": 8,
+   "bench": "stage10",
+   "dur": 40,
+   "warmup": 10,
+   "stalls": 0,
+   "busy": 4,
+   "forceglitch": 1,
+   "record": 0,
+   "pool": 1,
+   "vol": 1,
+   "seed": 1,
+   "lag": 2,
+   "lead": 0,
+   "hint": "interactive"
+  },
+  "url": "http://localhost:4173/vessel/stage10.html?bench=stage10&mixer=A&rate=16400&dur=40&warmup=10&vol=1&busy=4&forceglitch=1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "measuredAt": "2026-11-21T17:30:55.690Z",
+  "audio": {
+   "sampleRate": 48000,
+   "baseLatencyMs": 10,
+   "outputLatencyMs": 64,
+   "state": "running",
+   "hasPlaybackStats": true,
+   "hasRenderCapacity": false,
+   "soundBytes": {
+    "sfx": 109980,
+    "music": 200452,
+    "manifest": 842,
+    "decodeMs": 118.16499996185303
+   }
+  },
+  "glitches": {
+   "detectorLate": 10,
+   "detectorLateSinceStart": 12,
+   "detectorMaxExcessMs": 58.66650390625,
+   "detectorIdleBandMs": 11.333251953125,
+   "playbackUnderrunEvents": 53,
+   "playbackUnderrunMs": 512.675,
+   "playbackStats": {
+    "underrunDuration": 0.62828,
+    "underrunEvents": 65,
+    "totalDuration": 49.76,
+    "averageLatency": 0.066055,
+    "minimumLatency": 0.02,
+    "maximumLatency": 0.069975
+   },
+   "injected": 10,
+   "masterPeak": 1.16910982131958,
+   "clippedSamples": 19955,
+   "renderCapacity": null
+  },
+  "latencyMs": {
+   "outputLatencyMs": 64,
+   "pipelineDelayMs": 77.83666666666278,
+   "inputToSound": {
+    "n": 0
+   },
+   "inputToSoundPlusOutputLatency": {
+    "n": 0
+   },
+   "eventSoundVsFrameSubmit": {
+    "n": 0
+   },
+   "eventSoundVsFrameSubmitPlusOutputLatency": {
+    "n": 0
+   },
+   "trackedMissing": 0,
+   "note": "input: event.timeStamp to the start of the sound; the sound start is a context time mapped to performance time with the getOutputTimestamp() pair (the pair describes the sample at the device, so the mapped time already includes the render-ahead and the output latency: currentTime minus contextTime is pipelineDelayMs). PlusOutputLatency adds ctx.outputLatency on top, as the plan words it, which double counts if the mapping already includes it (an upper bound). event offset: the same sound time minus the submit time of the frame that first showed the event tick (frame submit, not display); positive = sound after picture."
+  },
+  "mainThreadAudioMsPerFrame": {
+   "n": 2399,
+   "min": 0,
+   "median": 0.4050002098083496,
+   "p99": 1.4649999141693115,
+   "max": 3.419999837875366,
+   "mean": 0.4043184644532929
+  },
+  "frameMs": {
+   "n": 2399,
+   "min": 5.474999904632568,
+   "median": 16.65999984741211,
+   "p99": 17.130001068115234,
+   "max": 48.755001068115234,
+   "mean": 16.673670287130275
+  },
+  "frames": 2400,
+  "audioThread": null,
+  "voices": {
+   "perFrame": {
+    "n": 2400,
+    "min": 31,
+    "median": 39,
+    "p99": 40,
+    "max": 40,
+    "mean": 38.37375
+   },
+   "maxActive": 40
+  },
+  "eventsPerSec": {
+   "voicesStarted": 198.3143529947655,
+   "merged": 14187.799742975903,
+   "droppedByVoiceLimit": 6.498831834968367,
+   "droppedByTotalLimit": 15.397232347463516,
+   "stolen": 107.8806084604749,
+   "culledQuiet": 0,
+   "snapshotEventsDecoded": 18938.57079187307,
+   "playerInputSounds": 12.572740049958034
+  },
+  "eventsSkipped": {
+   "stale": 0,
+   "overCapacity": 0
+  },
+  "stalls": 0,
+  "seconds": 40.00719000005722,
+  "wallSeconds": 40.00719000005722,
+  "activeNow": 33,
+  "recording": null
+ },
+ "heap": null,
+ "recording": null,
+ "version": "Chrome/156.0.8078.73",
+ "errors": [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+  "Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "url": "http://localhost:4173/vessel/stage10.html?bench=stage10&mixer=A&rate=16400&dur=40&warmup=10&vol=1&busy=4&forceglitch=1",
+ "measuredAt": "2026-11-21T17:30:55.941Z"
+}

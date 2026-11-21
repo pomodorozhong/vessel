@@ -1,0 +1,270 @@
+{
+ "name": "A-heap",
+ "rep": 1,
+ "result": {
+  "config": {
+   "mixer": "A",
+   "rate": 16400,
+   "hz": 30,
+   "own": 8,
+   "bench": "stage10",
+   "dur": 80,
+   "warmup": 10,
+   "stalls": 0,
+   "busy": 4,
+   "forceglitch": 0,
+   "record": 0,
+   "pool": 1,
+   "vol": 1,
+   "seed": 1,
+   "lag": 2,
+   "lead": 0,
+   "hint": "interactive"
+  },
+  "url": "http://localhost:4173/vessel/stage10.html?bench=stage10&mixer=A&rate=16400&dur=80&warmup=10&vol=1&busy=4",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "measuredAt": "2026-11-21T17:28:38.874Z",
+  "audio": {
+   "sampleRate": 48000,
+   "baseLatencyMs": 10,
+   "outputLatencyMs": 64,
+   "state": "running",
+   "hasPlaybackStats": true,
+   "hasRenderCapacity": false,
+   "soundBytes": {
+    "sfx": 109980,
+    "music": 200452,
+    "manifest": 842,
+    "decodeMs": 106.17000007629395
+   }
+  },
+  "glitches": {
+   "detectorLate": 3,
+   "detectorLateSinceStart": 4,
+   "detectorMaxExcessMs": 69.333251953125,
+   "detectorIdleBandMs": 20.333251953125,
+   "playbackUnderrunEvents": 0,
+   "playbackUnderrunMs": 0,
+   "playbackStats": {
+    "underrunDuration": 0.060094999999999996,
+    "underrunEvents": 6,
+    "totalDuration": 89.40042,
+    "averageLatency": 0.06089,
+    "minimumLatency": 0.049935,
+    "maximumLatency": 0.062975
+   },
+   "injected": 0,
+   "masterPeak": 1.2827625274658203,
+   "clippedSamples": 38396,
+   "renderCapacity": null
+  },
+  "latencyMs": {
+   "outputLatencyMs": 64,
+   "pipelineDelayMs": 72.15200000000266,
+   "inputToSound": {
+    "n": 0
+   },
+   "inputToSoundPlusOutputLatency": {
+    "n": 0
+   },
+   "eventSoundVsFrameSubmit": {
+    "n": 0
+   },
+   "eventSoundVsFrameSubmitPlusOutputLatency": {
+    "n": 0
+   },
+   "trackedMissing": 0,
+   "note": "input: event.timeStamp to the start of the sound; the sound start is a context time mapped to performance time with the getOutputTimestamp() pair (the pair describes the sample at the device, so the mapped time already includes the render-ahead and the output latency: currentTime minus contextTime is pipelineDelayMs). PlusOutputLatency adds ctx.outputLatency on top, as the plan words it, which double counts if the mapping already includes it (an upper bound). event offset: the same sound time minus the submit time of the frame that first showed the event tick (frame submit, not display); positive = sound after picture."
+  },
+  "mainThreadAudioMsPerFrame": {
+   "n": 4565,
+   "min": 0,
+   "median": 0.2350001335144043,
+   "p99": 1.625,
+   "max": 4.329999923706055,
+   "mean": 0.43189156470659135
+  },
+  "frameMs": {
+   "n": 4565,
+   "min": 5.074999809265137,
+   "median": 16.665000915527344,
+   "p99": 17.2450008392334,
+   "max": 3475.860107421875,
+   "mean": 17.524633108329144
+  },
+  "frames": 4566,
+  "audioThread": null,
+  "voices": {
+   "perFrame": {
+    "n": 4566,
+    "min": 6,
+    "median": 39,
+    "p99": 40,
+    "max": 40,
+    "mean": 37.639290407358736
+   },
+   "maxActive": 40
+  },
+  "eventsPerSec": {
+   "voicesStarted": 183.9834184943205,
+   "merged": 13436.976492487209,
+   "droppedByVoiceLimit": 5.574497598401286,
+   "droppedByTotalLimit": 14.19872034032256,
+   "stolen": 98.30364038436349,
+   "culledQuiet": 0,
+   "snapshotEventsDecoded": 16233.174485141786,
+   "playerInputSounds": 11.086500829107491
+  },
+  "eventsSkipped": {
+   "stale": 60679,
+   "overCapacity": 0
+  },
+  "stalls": 0,
+  "seconds": 80.00721000003814,
+  "wallSeconds": 80.00721000003814,
+  "activeNow": 38,
+  "recording": null
+ },
+ "heap": {
+  "seconds": 60.018,
+  "targets": [
+   "browser ",
+   "page stage10.html?bench=stage10&mixer=A&rate=16400&dur=80&warmup=",
+   "other stage10.html?bench=stage10&mixer=A&rate=16400&dur=80&warmup=",
+   "other harness-sim.worker-CO4Nv31G.js"
+  ],
+  "sessions": {
+   "main": {
+    "bytesPerSecond": {
+     "game": 2814103.7022226667,
+     "harness": 689.8597087540404,
+     "internal": 2432.403612249658
+    },
+    "sampledBytes": {
+     "game": 168896876,
+     "harness": 41404,
+     "internal": 145988
+    },
+    "top": {
+     "game": [
+      [
+       "$ stage10-BmyBSRGm.js:1",
+       164721388
+      ],
+      [
+       "flush stage10-BmyBSRGm.js:1",
+       1193160
+      ],
+      [
+       "H.onmessage stage10-BmyBSRGm.js:1",
+       524668
+      ],
+      [
+       "rand stage10-BmyBSRGm.js:1",
+       433248
+      ],
+      [
+       "frame snapclock-BcKpjb7r.js:0",
+       341756
+      ],
+      [
+       "onSnapshot snapclock-BcKpjb7r.js:0",
+       307720
+      ],
+      [
+       "take snapclock-BcKpjb7r.js:0",
+       297204
+      ],
+      [
+       "onSnapshot stage10-BmyBSRGm.js:1",
+       270020
+      ]
+     ],
+     "harness": [
+      [
+       "c.port.onmessage harness-bench-DGpgjA89.js:0",
+       41404
+      ]
+     ],
+     "internal": [
+      [
+       "(V8 API) (no url):-1",
+       101180
+      ],
+      [
+       "(IDLE_EXTERNAL) (no url):-1",
+       41304
+      ],
+      [
+       "(anonymous) (no url):-1",
+       3504
+      ]
+     ]
+    },
+    "metrics": {
+     "start": {
+      "JSEventListeners": 3,
+      "Nodes": 34,
+      "JSHeapUsedSize": 1939744,
+      "JSHeapTotalSize": 4718592
+     },
+     "end": {
+      "JSEventListeners": 3,
+      "Nodes": 34,
+      "JSHeapUsedSize": 1513904,
+      "JSHeapTotalSize": 4718592
+     }
+    }
+   },
+   "worker0:harness-sim.worker-CO4Nv31G.js": {
+    "bytesPerSecond": {
+     "game": 0,
+     "harness": 3127892.3656236464,
+     "internal": 505.98153887167183
+    },
+    "sampledBytes": {
+     "game": 0,
+     "harness": 187729844,
+     "internal": 30368
+    },
+    "top": {
+     "game": [],
+     "harness": [
+      [
+       "p harness-sim.worker-CO4Nv31G.js:0",
+       187060728
+      ],
+      [
+       "self.onmessage harness-sim.worker-CO4Nv31G.js:0",
+       512916
+      ],
+      [
+       "(anonymous) harness-sim.worker-CO4Nv31G.js:0",
+       156200
+      ]
+     ],
+     "internal": [
+      [
+       "(V8 API) (no url):-1",
+       30368
+      ]
+     ]
+    },
+    "metrics": null
+   }
+  },
+  "totalBytesPerSecond": {
+   "game": 2814103.7022226667,
+   "harness": 3128582.2253324003,
+   "internal": 2938.38515112133
+  }
+ },
+ "recording": null,
+ "version": "Chrome/156.0.8078.73",
+ "errors": [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+  "Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "url": "http://localhost:4173/vessel/stage10.html?bench=stage10&mixer=A&rate=16400&dur=80&warmup=10&vol=1&busy=4",
+ "measuredAt": "2026-11-21T17:28:39.450Z"
+}

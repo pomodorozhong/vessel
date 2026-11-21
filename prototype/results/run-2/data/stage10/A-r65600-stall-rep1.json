@@ -1,0 +1,137 @@
+{
+ "name": "A-r65600-stall",
+ "rep": 1,
+ "result": {
+  "config": {
+   "mixer": "A",
+   "rate": 65600,
+   "hz": 30,
+   "own": 8,
+   "bench": "stage10",
+   "dur": 300,
+   "warmup": 10,
+   "stalls": 1,
+   "busy": 4,
+   "forceglitch": 0,
+   "record": 0,
+   "pool": 1,
+   "vol": 1,
+   "seed": 1,
+   "lag": 2,
+   "lead": 0,
+   "hint": "interactive"
+  },
+  "url": "http://localhost:4173/vessel/stage10.html?bench=stage10&mixer=A&rate=65600&dur=300&warmup=10&vol=1&busy=4&stalls=1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "measuredAt": "2026-11-21T16:45:37.533Z",
+  "audio": {
+   "sampleRate": 48000,
+   "baseLatencyMs": 10,
+   "outputLatencyMs": 56,
+   "state": "running",
+   "hasPlaybackStats": true,
+   "hasRenderCapacity": false,
+   "soundBytes": {
+    "sfx": 109980,
+    "music": 200452,
+    "manifest": 842,
+    "decodeMs": 113.99000000953674
+   }
+  },
+  "glitches": {
+   "detectorLate": 14,
+   "detectorLateSinceStart": 14,
+   "detectorMaxExcessMs": 68.66650390625,
+   "detectorIdleBandMs": 19.66650390625,
+   "playbackUnderrunEvents": 0,
+   "playbackUnderrunMs": 0,
+   "playbackStats": {
+    "underrunDuration": 0.055895,
+    "underrunEvents": 6,
+    "totalDuration": 309.16259499999995,
+    "averageLatency": 0.059054999999999996,
+    "minimumLatency": 0.056895,
+    "maximumLatency": 0.06098
+   },
+   "injected": 0,
+   "masterPeak": 1.3614815473556519,
+   "clippedSamples": 323328,
+   "renderCapacity": null
+  },
+  "latencyMs": {
+   "outputLatencyMs": 56,
+   "pipelineDelayMs": 66.7336666666074,
+   "inputToSound": {
+    "n": 0
+   },
+   "inputToSoundPlusOutputLatency": {
+    "n": 0
+   },
+   "eventSoundVsFrameSubmit": {
+    "n": 0
+   },
+   "eventSoundVsFrameSubmitPlusOutputLatency": {
+    "n": 0
+   },
+   "trackedMissing": 0,
+   "note": "input: event.timeStamp to the start of the sound; the sound start is a context time mapped to performance time with the getOutputTimestamp() pair (the pair describes the sample at the device, so the mapped time already includes the render-ahead and the output latency: currentTime minus contextTime is pipelineDelayMs). PlusOutputLatency adds ctx.outputLatency on top, as the plan words it, which double counts if the mapping already includes it (an upper bound). event offset: the same sound time minus the submit time of the frame that first showed the event tick (frame submit, not display); positive = sound after picture."
+  },
+  "mainThreadAudioMsPerFrame": {
+   "n": 17473,
+   "min": 0,
+   "median": 0.24499988555908203,
+   "p99": 2.4149999618530273,
+   "max": 6.859999656677246,
+   "mean": 0.6188516573293832
+  },
+  "frameMs": {
+   "n": 17473,
+   "min": 4.824999809265137,
+   "median": 16.665000915527344,
+   "p99": 17.264999389648438,
+   "max": 510.25,
+   "mean": 17.169344134699983
+  },
+  "frames": 17474,
+  "audioThread": null,
+  "voices": {
+   "perFrame": {
+    "n": 17474,
+    "min": 15,
+    "median": 40,
+    "p99": 40,
+    "max": 40,
+    "mean": 38.90431498225936
+   },
+   "maxActive": 40
+  },
+  "eventsPerSec": {
+   "voicesStarted": 293.06405514340986,
+   "merged": 55968.28483146008,
+   "droppedByVoiceLimit": 26.235537664021688,
+   "droppedByTotalLimit": 34.818501643802634,
+   "stolen": 209.69097629825998,
+   "culledQuiet": 0,
+   "snapshotEventsDecoded": 61072.39851776632,
+   "playerInputSounds": 10.386219713008712
+  },
+  "eventsSkipped": {
+   "stale": 64169,
+   "overCapacity": 646069
+  },
+  "stalls": 30,
+  "seconds": 300.0129100000858,
+  "wallSeconds": 300.0129100000858,
+  "activeNow": 40,
+  "recording": null
+ },
+ "heap": null,
+ "recording": null,
+ "version": "Chrome/156.0.8078.73",
+ "errors": [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+  "Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "url": "http://localhost:4173/vessel/stage10.html?bench=stage10&mixer=A&rate=65600&dur=300&warmup=10&vol=1&busy=4&stalls=1",
+ "measuredAt": "2026-11-21T16:45:37.783Z"
+}

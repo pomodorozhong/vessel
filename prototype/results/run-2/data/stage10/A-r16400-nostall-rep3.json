@@ -1,0 +1,137 @@
+{
+ "name": "A-r16400-nostall",
+ "rep": 3,
+ "result": {
+  "config": {
+   "mixer": "A",
+   "rate": 16400,
+   "hz": 30,
+   "own": 8,
+   "bench": "stage10",
+   "dur": 300,
+   "warmup": 10,
+   "stalls": 0,
+   "busy": 4,
+   "forceglitch": 0,
+   "record": 0,
+   "pool": 1,
+   "vol": 1,
+   "seed": 1,
+   "lag": 2,
+   "lead": 0,
+   "hint": "interactive"
+  },
+  "url": "http://localhost:4173/vessel/stage10.html?bench=stage10&mixer=A&rate=16400&dur=300&warmup=10&vol=1&busy=4",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "measuredAt": "2026-11-21T17:11:34.148Z",
+  "audio": {
+   "sampleRate": 48000,
+   "baseLatencyMs": 10,
+   "outputLatencyMs": 64,
+   "state": "running",
+   "hasPlaybackStats": true,
+   "hasRenderCapacity": false,
+   "soundBytes": {
+    "sfx": 109980,
+    "music": 200452,
+    "manifest": 842,
+    "decodeMs": 113.37999987602234
+   }
+  },
+  "glitches": {
+   "detectorLate": 8,
+   "detectorLateSinceStart": 8,
+   "detectorMaxExcessMs": 58,
+   "detectorIdleBandMs": 24,
+   "playbackUnderrunEvents": 0,
+   "playbackUnderrunMs": 0,
+   "playbackStats": {
+    "underrunDuration": 0.058070000000000004,
+    "underrunEvents": 6,
+    "totalDuration": 309.14610999999996,
+    "averageLatency": 0.06591,
+    "minimumLatency": 0.063855,
+    "maximumLatency": 0.067975
+   },
+   "injected": 0,
+   "masterPeak": 1.2148513793945312,
+   "clippedSamples": 148898,
+   "renderCapacity": null
+  },
+  "latencyMs": {
+   "outputLatencyMs": 64,
+   "pipelineDelayMs": 75.0216666666006,
+   "inputToSound": {
+    "n": 0
+   },
+   "inputToSoundPlusOutputLatency": {
+    "n": 0
+   },
+   "eventSoundVsFrameSubmit": {
+    "n": 0
+   },
+   "eventSoundVsFrameSubmitPlusOutputLatency": {
+    "n": 0
+   },
+   "trackedMissing": 0,
+   "note": "input: event.timeStamp to the start of the sound; the sound start is a context time mapped to performance time with the getOutputTimestamp() pair (the pair describes the sample at the device, so the mapped time already includes the render-ahead and the output latency: currentTime minus contextTime is pipelineDelayMs). PlusOutputLatency adds ctx.outputLatency on top, as the plan words it, which double counts if the mapping already includes it (an upper bound). event offset: the same sound time minus the submit time of the frame that first showed the event tick (frame submit, not display); positive = sound after picture."
+  },
+  "mainThreadAudioMsPerFrame": {
+   "n": 17993,
+   "min": 0,
+   "median": 0.41500020027160645,
+   "p99": 2.0199999809265137,
+   "max": 4.159999847412109,
+   "mean": 0.44029011282748315
+  },
+  "frameMs": {
+   "n": 17993,
+   "min": 4.835000038146973,
+   "median": 16.665000915527344,
+   "p99": 17.25,
+   "max": 54.005001068115234,
+   "mean": 16.67314150586094
+  },
+  "frames": 17994,
+  "audioThread": null,
+  "voices": {
+   "perFrame": {
+    "n": 17994,
+    "min": 31,
+    "median": 39,
+    "p99": 40,
+    "max": 40,
+    "mean": 38.433311103701236
+   },
+   "maxActive": 40
+  },
+  "eventsPerSec": {
+   "voicesStarted": 198.11755656113118,
+   "merged": 14238.905247681389,
+   "droppedByVoiceLimit": 6.38637299995167,
+   "droppedByTotalLimit": 14.462668291644205,
+   "stolen": 106.2317817752921,
+   "culledQuiet": 0,
+   "snapshotEventsDecoded": 15690.4318349846,
+   "playerInputSounds": 10.419520875704029
+  },
+  "eventsSkipped": {
+   "stale": 0,
+   "overCapacity": 0
+  },
+  "stalls": 0,
+  "seconds": 300.0137949998379,
+  "wallSeconds": 300.0137949998379,
+  "activeNow": 35,
+  "recording": null
+ },
+ "heap": null,
+ "recording": null,
+ "version": "Chrome/156.0.8078.73",
+ "errors": [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+  "Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "url": "http://localhost:4173/vessel/stage10.html?bench=stage10&mixer=A&rate=16400&dur=300&warmup=10&vol=1&busy=4",
+ "measuredAt": "2026-11-21T17:11:34.290Z"
+}
