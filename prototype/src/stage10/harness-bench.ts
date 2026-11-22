@@ -11,6 +11,7 @@ import { D_CLIP, D_HAS_PERF, D_IDLE_EXCESS, D_INJECT, D_LATE, D_MAX_EXCESS, D_PE
 interface Ctx { ctx: AudioContext; mixer: Mixer; params: Params; bank: SoundBank; detectorUrl: string }
 let c: Ctx;
 let base = new Float64Array(32), detBase = new Float64Array(16), statsBase: Record<string, number> = {};
+let evBase = { in: 0, stale: 0, overflow: 0, player: 0 };
 let recorder: MediaRecorder | null = null;
 const recChunks: Blob[] = [];
 let recDone: Promise<void> = Promise.resolve();
@@ -49,6 +50,8 @@ const playbackNow = (): Record<string, number> => {
 
 export function onBenchStart() {
   base = probe.mix.slice(); detBase = probe.det.slice(); statsBase = playbackNow();
+  // The director's counters run from the first snapshot; only the bench window is reported.
+  evBase = { in: probe.eventsIn, stale: probe.eventsStale, overflow: probe.eventsOverflow, player: probe.eventsPlayerIn };
   (c.ctx as any).playbackStats?.resetLatency?.();
   if (recorder) {
     recorder.start();
@@ -76,6 +79,9 @@ function perfOf(ctxT: number, near: number): number {
 
 export async function finish() {
   const { ctx, mixer, params } = c;
+  // The director's counters and the bench length, taken before waiting for the worklet (Stage 11's frame loop keeps pumping).
+  const evEnd = { in: probe.eventsIn, stale: probe.eventsStale, overflow: probe.eventsOverflow, player: probe.eventsPlayerIn };
+  const benchSecs = (performance.now() - probe.benchTime) / 1000;
   if (mixer.name === 'B') await new Promise((r) => setTimeout(r, 700)); // the worklet reports every ~0.35 s
   await recDone;
   const m = probe.mix, d = probe.det, f0 = probe.benchFrame, f1 = probe.nFrame;
@@ -137,9 +143,9 @@ export async function finish() {
     voices: { perFrame: summ(voices), maxActive: m[M_MAX_ACTIVE] },
     eventsPerSec: {
       voicesStarted: ev(M_STARTED), merged: ev(M_MERGED), droppedByVoiceLimit: ev(M_DROP_LIMIT), droppedByTotalLimit: ev(M_DROP_TOTAL), stolen: ev(M_STOLEN), culledQuiet: ev(M_CULLED),
-      snapshotEventsDecoded: probe.eventsIn / wallSecs, playerInputSounds: probe.eventsPlayerIn / wallSecs,
+      snapshotEventsDecoded: (evEnd.in - evBase.in) / benchSecs, playerInputSounds: (evEnd.player - evBase.player) / benchSecs,
     },
-    eventsSkipped: { stale: probe.eventsStale, overCapacity: probe.eventsOverflow },
+    eventsSkipped: { stale: evEnd.stale - evBase.stale, overCapacity: evEnd.overflow - evBase.overflow },
     stalls: probe.stalls, seconds: secs, wallSeconds: wallSecs,
     activeNow: m[M_ACTIVE],
     recording: (window as any).__recording ? { bytes: (window as any).__recording.bytes, mime: (window as any).__recording.mime } : null,
