@@ -107,6 +107,16 @@ impl Sim {
     /// moves, so past 16 moves per entity the sort falls back to a full sort (counted in `order_moves`).
     pub fn sort_order_by_x(&mut self) {
         let n = self.core.n;
+        // Stage 11's wave changes the live count between steps (Core::set_active): keep the order a permutation of
+        // the live slots. Shrinking drops the slots past n, growing appends the new ones (the sort below places them).
+        if self.order.len() != n {
+            let old = self.order.len();
+            if n < old {
+                self.order.retain(|&v| (v as usize) < n);
+            } else {
+                self.order.extend(old as u32..n as u32);
+            }
+        }
         let x = &self.core.a.x;
         let order = &mut self.order;
         let limit = 16 * n as u32;
@@ -771,6 +781,39 @@ mod tests {
             assert!(pairs > 100, "seed {seed}: the frozen state has too few overlapping pairs ({pairs}) to prove anything");
             assert!(cands >= pairs);
             println!("seed {seed}: {pairs} overlapping pairs, {cands} candidates, A = B = brute force");
+        }
+    }
+
+    /// Method B after Stage 11's live-count changes: the sweep over the persistent order must still find exactly the
+    /// brute-force pairs of the live slots, after shrinking (player moved) and after growing again.
+    #[test]
+    fn sweep_follows_set_active() {
+        let p = Params { method: 1, enemies: 3000, seed: 5, spawn: 24.0, proj_target: 0, proj_cap: 0, event_cap: 64, passes: 3, flags: 0 };
+        let mut sim = Sim::create(&p);
+        // Swap the player into slot 2500, so the first shrink takes the path that moves it into the last live slot.
+        {
+            let c = &mut sim.core;
+            c.b.put(0, &c.a, 0);
+            c.b.put(1, &c.a, 2500);
+            c.a.put(0, &c.b, 1);
+            c.a.put(2500, &c.b, 0);
+            c.player_slot = 2500;
+        }
+        for (k, live) in [1200usize, 400, 2800, 3001].into_iter().enumerate() {
+            sim.core.set_active(live);
+            for s in 0..5 {
+                let a = (k * 5 + s) as f32 * 0.1;
+                sim.step(a.cos(), a.sin(), 0);
+            }
+            let n = sim.core.n;
+            assert_eq!(n, live);
+            assert_eq!(sim.order.len(), n);
+            assert!(sim.order.iter().all(|&v| (v as usize) < n));
+            sim.sort_order_by_x();
+            sim.gather_sweep(CAND_MARGIN);
+            let brute = brute_pairs(&sim.core.a, n, CAND_MARGIN);
+            assert_eq!(id_pairs(&sim), brute, "live {live}");
+            assert!(!brute.is_empty());
         }
     }
 

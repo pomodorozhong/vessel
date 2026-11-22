@@ -949,8 +949,8 @@ impl Core {
 
     /// Stage 11's wave: sets the live entity count (player + enemies), at most the count given at init. New enemies
     /// enter at the map edge. Slots past the live count hold stale data from the table swap, so every field of a new
-    /// slot is set here. Shrinking keeps the player (moved into the last live slot if needed). The grid builds (A and C)
-    /// only: B's persistent order and Rapier's bodies are sized at init.
+    /// slot is set here. Shrinking keeps the player (moved into the last live slot if needed). Methods A, B and C (B's
+    /// persistent order follows the live count in `sort_order_by_x`); not the Rapier build, whose bodies are sized at init.
     pub fn set_active(&mut self, n: usize) {
         let n = n.min(self.n_cap).max(1);
         if n < self.n {
@@ -1456,7 +1456,7 @@ macro_rules! export_ffi {
         pub extern "C" fn step(move_x: f32, move_y: f32, buttons: u32) {
             sim().step(move_x, move_y, buttons);
         }
-        /// Stage 11: the live enemy count, within the count given at init (grid builds only, see Core::set_active).
+        /// Stage 11: the live enemy count, within the count given at init (not the Rapier build, see Core::set_active).
         #[no_mangle]
         pub extern "C" fn set_enemies(e: u32) {
             sim().core.set_active(e as usize + 1);
