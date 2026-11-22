@@ -37,7 +37,7 @@ async function boot() {
   }
   (window as any).__s10 = { ctx, mixer, bank, probe, params };
   director = new Director(mixer);
-  { const o = ctx.getOutputTimestamp(); director.leadSteps = (params.lead < 0 ? (ctx.currentTime - (o.contextTime ?? 0)) * 1000 : params.lead) * params.hz / 1000; }
+  director.setLead(params.lead, params.hz);
   clock = new SnapClock({ design: 'A', lag: params.lag, hz: params.hz, maxQueue: 3 }, (b) => worker.postMessage({ type: 'return', buffer: b }, [b]));
   worker = new Worker(new URL('./harness-sim.worker.ts', import.meta.url), { type: 'module' });
   worker.onmessage = (e) => {
@@ -80,6 +80,7 @@ function frame(t: number) {
   clock.frame(now2, dt);
   // Audio work for this frame.
   const a0 = performance.now();
+  director.measureLead(ctx);
   director.pump(clock.displayed, n);
   ownAcc += dt * params.own / 1000;
   while (ownAcc >= 1) { ownAcc -= 1; director.own(SND.shoot, -1); }

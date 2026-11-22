@@ -103,7 +103,7 @@ export async function finish() {
   const dlt = (i: number) => m[i] - base[i];
   const quantumMs = 128 / ctx.sampleRate * 1000;
   const audioThread = mixer.name === 'B' ? {
-    procMeanMs: dlt(M_PROC_MS) / bQuanta, loadMean: dlt(M_PROC_MS) / bQuanta / quantumMs, procMaxMsSinceStart: m[M_PROC_MAX], quantumMs,
+    procMeanMs: bQuanta > 0 ? dlt(M_PROC_MS) / bQuanta : null, loadMean: bQuanta > 0 ? dlt(M_PROC_MS) / bQuanta / quantumMs : null, procMaxMsSinceStart: m[M_PROC_MAX], quantumMs,
     histEdgesMs: HIST_EDGES, hist: Array.from({ length: 8 }, (_, k) => m[M_HIST + k] - base[M_HIST + k]), clockHasPerformanceNow: !!d[D_HAS_PERF],
     note: d[D_HAS_PERF] ? 'process() timed with performance.now() inside the worklet' : 'performance.now() is not available in the worklet scope: process() timed with Date.now() (1 ms steps), so the mean is unbiased but the histogram is coarse',
     extraBatches: (mixer as any).extraBatches ?? 0,

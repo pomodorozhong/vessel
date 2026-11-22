@@ -61,6 +61,7 @@ class Stage10Mixer extends AudioWorkletProcessor {
   private statsMsg = new Float64Array(21);
   private starts = new Float64Array(2 + 2 * 64);
   private nStarts = 0;
+  private batchOpen = false;
 
   constructor() {
     super();
@@ -84,13 +85,16 @@ class Stage10Mixer extends AudioWorkletProcessor {
   }
 
   private handleBatch(buf: ArrayBuffer, now: number) {
-    const f = new Float32Array(buf), n = f[0] | 0, p = this.policy;
-    p.begin(now);
+    // A negative count marks a chunk with more to follow: the policy batch stays open until the last chunk.
+    const f = new Float32Array(buf), more = f[0] < 0, n = Math.abs(f[0]) | 0, p = this.policy;
+    if (!this.batchOpen) { p.begin(now); this.batchOpen = true; }
     for (let i = 0; i < n; i++) {
       const o = 1 + i * EV_STRIDE, s = f[o] | 0;
       if (s >= MUSIC_CMD) this.mTarget[s - MUSIC_CMD] = f[o + 2];
       else p.push(s, f[o + 1], f[o + 2], f[o + 3] | 0, f[o + 4]);
     }
+    if (more) { this.port.postMessage(buf, [buf]); return; }
+    this.batchOpen = false;
     p.end(now);
     for (let i = 0; i < p.nSteal; i++) { const s = p.outSteal[i]; this.on[s] = 2; this.fade[s] = this.fadeTotal; }
     for (let i = 0; i < p.nStart; i++) {

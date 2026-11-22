@@ -35,6 +35,8 @@ Choices the plan left open, taken as defaults:
 - 40 voices in total, 64 voice slots, 8 ms steal fade.
 - `latencyHint: 'interactive'` (Chrome gave 10 ms base latency and 48–72 ms output latency on this machine's default output).
 - The pass rate is Stage 8's events at its pass load, 16,400 events/s. Run with 2× and 4× that rate for "past it".
+  - Correction after the PR review: the stream's per-step multiplier (2.2 on one step in ten, 0.8 on the rest) averaged 0.94, so every run in these tables carried about 6% fewer events than its label (r16400 ≈ 15,400 events/s, 2× ≈ 30,800, 4× ≈ 61,700), and the busy steps were 2.75× the quiet ones. The stream now uses 3 and 7/9, which average 1. The runs here were not repeated.
+  - Also found in the review: mixer B sent a frame's events in chunks of 512 and ran the voice policy once per chunk, so on busy steps it could stack more voices per sound than mixer A. The worklet now runs the policy once over all chunks of a frame. The B counters in these tables come from the old behaviour.
 - Main-thread stalls as in Stage 2: 100 ms and 500 ms alternately, every 10 s, 30 per five-minute run.
 - `--busy 4`: the frame callback busy-waits 4 ms on the clock (so throttling does not stretch it) as a stand-in for rendering and the snapshot hand-off. Stage 11 replaces it with the real renderer and sim.
 

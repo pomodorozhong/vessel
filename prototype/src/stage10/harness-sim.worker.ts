@@ -17,8 +17,9 @@ const pick = () => { let r = rnd(); for (const [t, w] of W) { if ((r -= w) < 0) 
 function step() {
   const buf = pool.pop() ?? new ArrayBuffer(v2SnapshotBytes(1, 0, MAXE));
   const u = new Uint32Array(buf), f = new Float32Array(buf), f64 = new Float64Array(buf, 56, 2);
-  // Events this step: the mean is rate / hz, with every tenth step three times as busy (waves of hits).
-  acc += rate / hz * (rnd() < 0.1 ? 2.2 : 0.8);
+  // Events this step: the mean is rate / hz, with one step in ten three times the mean (waves of hits) and the
+  // rest at 7/9 of it, so 0.1 * 3 + 0.9 * 7/9 = 1. (Before run 2's review this was 2.2 / 0.8, which averages 0.94.)
+  acc += rate / hz * (rnd() < 0.1 ? 3 : 7 / 9);
   let e = Math.min(MAXE, Math.floor(acc)); acc -= e;
   const px = 40 * Math.cos(tick * 0.01), py = 40 * Math.sin(tick * 0.01);
   u[0] = tick; u[1] = tick + 1; u[2] = 1; u[3] = 0; u[4] = 0; u[5] = e; u[6] = 0; u[7] = 0;

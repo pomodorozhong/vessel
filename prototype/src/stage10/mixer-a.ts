@@ -66,7 +66,7 @@ export class MixerA implements Mixer {
     for (let i = 0; i < p.nSteal; i++) {
       const s = p.outSteal[i], g = this.chainG[s];
       if (g) {
-        if (this.hasCancelHold) g.gain.cancelAndHoldAtTime(t); else g.gain.cancelScheduledValues(t);
+        if (this.hasCancelHold) g.gain.cancelAndHoldAtTime(t); else { g.gain.cancelScheduledValues(t); g.gain.setValueAtTime(g.gain.value, t); }
         g.gain.linearRampToValueAtTime(0, t + FADE_S);
       }
       try { this.src[s]?.stop(t + FADE_S + 0.002); } catch { /* already ended */ }
@@ -87,7 +87,7 @@ export class MixerA implements Mixer {
     }
     for (let i = 0; i < p.nDuck; i++) {
       const prm = this.bus[p.outDuckBus[i]].gain;
-      if (this.hasCancelHold) prm.cancelAndHoldAtTime(t); else prm.cancelScheduledValues(t);
+      if (this.hasCancelHold) prm.cancelAndHoldAtTime(t); else { prm.cancelScheduledValues(t); prm.setValueAtTime(prm.value, t); } // without the hold the next ramp would start from the last event before t
       prm.setTargetAtTime(p.outDuckTarget[i], t, DUCK_ATTACK_TC);
       prm.setTargetAtTime(1, t + p.outDuckHold[i], DUCK_RELEASE_TC);
     }

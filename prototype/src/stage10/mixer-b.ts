@@ -18,6 +18,7 @@ export class MixerB implements Mixer {
   private pool: ArrayBuffer[] = [];
   private cur: Float32Array | null = null;
   private n = 0;
+  private continued = false; // a full chunk of this frame's batch was sent and the worklet waits for the rest
   extraBatches = 0; // batches that had to allocate because the pool was empty
 
   private constructor(private ctx: AudioContext, node: AudioWorkletNode) {
@@ -58,15 +59,22 @@ export class MixerB implements Mixer {
     if (!this.cur) { const b = this.pool.pop(); if (!b) this.extraBatches++; this.cur = new Float32Array(b ?? new ArrayBuffer(BATCH_FLOATS * 4)); this.n = 0; }
     const f = this.cur, o = 1 + this.n * EV_STRIDE;
     f[o] = sound; f[o + 1] = pan; f[o + 2] = vol; f[o + 3] = flags; f[o + 4] = seq; f[o + 5] = 0;
-    if (++this.n === CAP_EVENTS) this.flush();
+    if (++this.n === CAP_EVENTS) this.send(true);
   }
 
+  // Ends the frame's batch. A batch larger than one chunk goes out as several chunks; every chunk but the last has
+  // a negative count, and the worklet runs the voice policy once over all of them, as mixer A does over the frame.
   flush() {
+    if (this.n === 0 && !this.continued) return;
+    this.send(false);
+  }
+
+  private send(more: boolean) {
+    if (!this.cur) { const b = this.pool.pop(); if (!b) this.extraBatches++; this.cur = new Float32Array(b ?? new ArrayBuffer(BATCH_FLOATS * 4)); this.n = 0; }
     const f = this.cur;
-    if (!f || this.n === 0) return;
-    f[0] = this.n;
+    f[0] = more ? -this.n : this.n;
     this.node.port.postMessage(f.buffer, [f.buffer]);
-    this.cur = null; this.n = 0;
+    this.cur = null; this.n = 0; this.continued = more;
   }
 
   private music = new Float32Array(MUSIC_LAYERS);

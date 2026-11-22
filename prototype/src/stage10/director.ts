@@ -31,6 +31,24 @@ export class Director {
   intensity = 0;
   playerX = 0; playerY = 0;
   leadSteps = 0; // events fire this many steps before the render clock reaches their tick
+  private leadPending = false; private leadHz = 0;
+
+  // lead >= 0: a fixed lead in ms. lead < 0: the output pipeline delay, measured by measureLead() once the context
+  // reports a real output timestamp (contextTime reads 0 until the output has started, and the lead would then be
+  // the context's age rather than its delay).
+  setLead(leadMs: number, hz: number) {
+    this.leadHz = hz; this.leadPending = leadMs < 0;
+    this.leadSteps = leadMs < 0 ? 0 : leadMs * hz / 1000;
+  }
+
+  // Called once a frame; does nothing once the delay is known.
+  measureLead(ctx: AudioContext) {
+    if (!this.leadPending) return;
+    const c = ctx.getOutputTimestamp().contextTime ?? 0;
+    if (c <= 0) return;
+    this.leadSteps = Math.max(0, ctx.currentTime - c) * this.leadHz;
+    this.leadPending = false;
+  }
 
   constructor(private mixer: Mixer) {}
 
