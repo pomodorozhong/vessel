@@ -186,6 +186,7 @@ function frame(t: number) {
   }
 }
 let lastTs = 0, clockAtEnd: Record<string, number> | null = null;
+let worldInfo = { maxBuildings: 0, obstacleBoxes: 0 };
 
 // Memory once a second: the JS heap (precise with --enable-precise-memory-info) and the clock's own counters.
 setInterval(() => { if (benchOn && !finished) rec.mem(performance.now(), (performance as any).memory?.usedJSHeapSize ?? NaN); }, 1000);
@@ -201,7 +202,7 @@ async function finish() {
   const h = await import('./harness11');
   (window as any).__result11 = h.summarize({
     config: P, sim: simResult, audio, clock: clockAtEnd,
-    deviceLosses, rebuilds, errors, render: renderer?.info() ?? null, truncated: (renderer as any)?.truncated ?? null,
+    deviceLosses, rebuilds, errors, world: { boxes: worldInfo.maxBuildings, obstacleBoxes: worldInfo.obstacleBoxes }, render: renderer?.info() ?? null, truncated: (renderer as any)?.truncated ?? null,
     lost: (window as any).__lost ?? null, recovered: (window as any).__recovered ?? null,
     gpu: gpu ? { info: gpu.info, timestamps: !!timer?.enabled } : null, ua: navigator.userAgent, isolated: crossOriginIsolated,
   });
@@ -237,18 +238,18 @@ async function main() {
   // Sim.
   const module = await WebAssembly.compileStreaming(fetch(combatUrl));
   worker = new Worker(new URL('./sim-worker.ts', import.meta.url), { type: 'module' });
-  const ready = await new Promise<{ world: Float32Array; maxEntities: number; maxProj: number }>((resolve) => {
+  const ready = await new Promise<{ world: Float32Array; maxEntities: number; maxProj: number; maxBuildings: number; obstacleBoxes: number }>((resolve) => {
     worker.onmessage = (e) => { if (e.data.type === 'ready') resolve(e.data); };
     worker.postMessage({ type: 'init', module, cfg: { mode: P.mode, start: P.start, peak: P.peak, ramp: P.ramp, past: P.past, cap: P.cap, projPerEnemy: P.projPerEnemy, method: P.method, passes: P.passes, hz: P.hz, seed: P.seed, warmup: P.warmup, dur: P.dur, simslow: P.simslow } });
   });
-  pendingWorld = ready.world;
+  pendingWorld = ready.world; worldInfo = ready;
   worker.onmessage = onWorkerMessage;
   clock = new SnapClock({ design: 'A', lag: P.lag, hz: P.hz, maxQueue: 4 }, release);
   // Renderer, sized for the sim's allocation. evRate sizes the particle spawn budget from Stage 8's event rates (as Stage 9).
   opts = {
     outline: P.outline, shadow: P.shadow, shadowRes: P.shadowres, grass: P.grass, bloom: !!P.bloom, overdraw: false,
     particles: P.particles, evRate: 7920 * 3 + 7540 * 6 + 30 * 24 + 40 * 96, ires: P.ires, cw: P.cw, ch: P.ch,
-    maxEntities: ready.maxEntities, maxProj: ready.maxProj, pitch: 58, dist: 34, fog: true, ui: true, tod: 0.45, daylen: 120, outlinePx: 2,
+    maxEntities: ready.maxEntities, maxProj: ready.maxProj, maxBuildings: ready.maxBuildings, pitch: 58, dist: 34, fog: true, ui: true, tod: 0.45, daylen: 120, outlinePx: 2,
   };
   try { await startGpu(); } catch (e) { showUnsupported(e instanceof GpuUnavailable ? e.message : String(e)); (window as any).__error = String(e); return; }
   rec.init(P.dur + 30);

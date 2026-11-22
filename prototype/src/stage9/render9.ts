@@ -17,6 +17,7 @@ export interface RenderOpts {
   outline: 'hull' | 'edge' | 'none'; shadow: 'map' | 'blob'; shadowRes: number; grass: number; bloom: boolean; overdraw: boolean;
   particles: number; evRate: number; ires: number; cw: number; ch: number; maxEntities: number; maxProj: number;
   pitch: number; dist: number; fog: boolean; ui: boolean; tod: number | 'auto'; daylen: number; outlinePx: number;
+  maxBuildings?: number; // building slots (default MAX_BUILDINGS); Stage 11 also sends the sim's map obstacles as boxes
 }
 
 const HDR: GPUTextureFormat = 'rgba16float';
@@ -63,7 +64,7 @@ export class Renderer9 {
   alive = 0; aliveSamples: number[] = [];
   odSamples: { mean: number; p99: number; max: number }[] = [];
   eventsDropped = 0;
-  truncated = { entities: 0, projectiles: 0 };   // snapshot contents that did not fit the buffers (must stay 0)
+  truncated = { entities: 0, projectiles: 0, buildings: 0 };   // snapshot and world contents that did not fit the buffers (must stay 0)
   limitsCheck: Record<string, unknown> = {};
   spawnScale = 1;
   triangles = 0;
@@ -71,7 +72,7 @@ export class Renderer9 {
   private device: GPUDevice; private gpu: Gpu; private o: RenderOpts; private timer: PassTimer;
   private meshes!: MeshSet;
   private sh!: ReturnType<typeof shaders>;
-  private edge: boolean; private map: boolean; private maxN: number; private S = 0; private n = 0;
+  private edge: boolean; private map: boolean; private maxN: number; private maxB: number; private S = 0; private n = 0;
   private cx = 128; private cy = 128;
   // buffers
   private vbuf!: GPUBuffer; private ibuf!: GPUBuffer; private frameBuf!: GPUBuffer; private instanceBuf!: GPUBuffer; private visibleBuf!: GPUBuffer; private listBuf!: GPUBuffer;
@@ -112,6 +113,7 @@ export class Renderer9 {
   private constructor(gpu: Gpu, timer: PassTimer, o: RenderOpts) {
     this.gpu = gpu; this.device = gpu.device; this.timer = timer; this.o = o;
     this.edge = o.outline === 'edge'; this.map = o.shadow === 'map'; this.maxN = o.maxEntities;
+    this.maxB = o.maxBuildings ?? MAX_BUILDINGS;
     this.spawnScale = o.particles > 0 && o.evRate > 0 ? o.particles / (o.evRate * 1.1) : 0;
   }
 
@@ -125,12 +127,12 @@ export class Renderer9 {
     const ST = GPUBufferUsage.STORAGE, CD = GPUBufferUsage.COPY_DST;
 
     // Static instances: building slots (filled from the world message) then trees. Same 32-byte layout as the snapshot's entities.
-    const S = this.S = MAX_BUILDINGS + TREES, total = S + this.maxN;
+    const S = this.S = this.maxB + TREES, total = S + this.maxN;
     const st = new ArrayBuffer(S * 32), sf = new Float32Array(st), su = new Uint32Array(st);
     let seed = 777;
     const rnd = () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 4294967296; };
     for (let i = 0; i < TREES; i++) {
-      const o8 = (MAX_BUILDINGS + i) * 8, x = 2 + rnd() * 252, y = 2 + rnd() * 252, r = 0.55 + rnd() * 0.4, a = rnd() * 6.28;
+      const o8 = (this.maxB + i) * 8, x = 2 + rnd() * 252, y = 2 + rnd() * 252, r = 0.55 + rnd() * 0.4, a = rnd() * 6.28;
       sf[o8] = sf[o8 + 2] = x; sf[o8 + 1] = sf[o8 + 3] = y; sf[o8 + 4] = sf[o8 + 5] = a; su[o8 + 6] = K_TREE; sf[o8 + 7] = r;
     }
     this.instanceBuf = buf(total * 32, ST | CD);
@@ -139,7 +141,7 @@ export class Renderer9 {
     // Visible lists: camera lists per kind, shadow-caster lists per kind, blob, dynamic, aura.
     const caps = new Array<number>(NL).fill(1);
     for (let k = 0; k < NK; k++) {
-      const cap = k < 17 ? this.maxN : k === K_BUILDING ? MAX_BUILDINGS : k === K_TREE ? TREES : 1;
+      const cap = k < 17 ? this.maxN : k === K_BUILDING ? this.maxB : k === K_TREE ? TREES : 1;
       caps[k] = cap; caps[L_SHADOW + k] = this.map ? cap : 1;
     }
     caps[L_BLOB] = total; caps[L_DYN] = this.maxN; caps[L_AURA] = this.maxN;
@@ -359,8 +361,9 @@ export class Renderer9 {
 
   // ------------------------------------------------------------------ data in
   setWorld(boxes: Float32Array) {
-    const n = Math.min(boxes.length / 5, MAX_BUILDINGS);
-    const h = new Float32Array(MAX_BUILDINGS * 8), hu = new Uint32Array(h.buffer);
+    const n = Math.min(boxes.length / 5, this.maxB);
+    if (boxes.length / 5 > this.maxB) this.truncated.buildings = Math.max(this.truncated.buildings, boxes.length / 5 - this.maxB);
+    const h = new Float32Array(this.maxB * 8), hu = new Uint32Array(h.buffer);
     for (let i = 0; i < n; i++) {
       const x0 = boxes[i * 5], y0 = boxes[i * 5 + 1], x1 = boxes[i * 5 + 2], y1 = boxes[i * 5 + 3], on = boxes[i * 5 + 4];
       const hx = (x1 - x0) / 2, hy = (y1 - y0) / 2, o8 = i * 8, thin = Math.min(hx, hy) < 0.75;

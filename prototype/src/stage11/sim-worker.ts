@@ -20,6 +20,31 @@ let stepMs: Float32Array, copyMs: Float32Array, postMs: Float32Array, lateMs: Fl
 let wakes = 0, catchupSteps = 0, droppedSteps = 0, worldMsgs = 0, poolMisses = 0;
 let memStart = 0;
 
+// The map obstacles (blocked bit 0: the border, scattered cells and wall lines) never change, but the building list does not
+// hold them, so the renderer would draw none of the walls the sim collides with. They are merged once into rectangles (greedy:
+// widest run, then as many rows down as stay fully blocked) and appended after the buildings in every world message, so the
+// building indices that EV_WALL_* carry stay valid.
+const GRID = 256;
+let obstacles: Float32Array = new Float32Array(0);
+function obstacleBoxes(blocked: Uint8Array): Float32Array {
+  const used = new Uint8Array(GRID * GRID), out: number[] = [];
+  const free = (x: number, y: number) => (blocked[y * GRID + x] & 1) !== 0 && !used[y * GRID + x];
+  for (let y = 0; y < GRID; y++) for (let x = 0; x < GRID; x++) {
+    if (!free(x, y)) continue;
+    let w = 1; while (x + w < GRID && free(x + w, y)) w++;
+    let h = 1;
+    for (; y + h < GRID; h++) { let ok = true; for (let k = 0; k < w; k++) if (!free(x + k, y + h)) { ok = false; break; } if (!ok) break; }
+    for (let j = 0; j < h; j++) used.fill(1, (y + j) * GRID + x, (y + j) * GRID + x + w);
+    out.push(x, y, x + w, y + h, 1);
+  }
+  return Float32Array.from(out);
+}
+function worldBoxes(): Float32Array {
+  const w = new Float32Array(blen + obstacles.length);
+  w.set(new Float32Array(mem.buffer, bptr, blen)); w.set(obstacles, blen);
+  return w;
+}
+
 function waveEnemies(t: number): number {
   const c = cfg;
   if (t <= 0) return c.start;
@@ -52,7 +77,7 @@ function stepOnce(due: number) {
   const t2 = performance.now();
   f64[0] = performance.timeOrigin + t2; // step end as the main thread sees it: when it was sent
   let world: Float32Array | null = null;
-  if (u[7] & 1) { world = new Float32Array(mem.buffer, bptr, blen).slice(); worldMsgs++; }
+  if (u[7] & 1) { world = worldBoxes(); worldMsgs++; }
   scope.postMessage({ type: 'snapshot', buffer: buf, world, enemies }, world ? [buf, world.buffer] : [buf]);
   const t3 = performance.now();
   if (n < cap) {
@@ -97,12 +122,14 @@ scope.onmessage = async (e: MessageEvent) => {
     ex.init(cfg.method, cfg.cap, cfg.seed, 64, 200, projCap, 32768, cfg.passes, 0);
     ex.set_enemies(cfg.start);
     ptr = ex.snapshot_ptr(); bptr = ex.buildings_ptr(); blen = ex.buildings_len();
+    obstacles = obstacleBoxes(new Uint8Array(mem.buffer, ex.blocked_ptr(), GRID * GRID));
     memStart = mem.buffer.byteLength;
     cap = Math.ceil((cfg.warmup + cfg.dur + 30) * cfg.hz);
     stepMs = new Float32Array(cap); copyMs = new Float32Array(cap); postMs = new Float32Array(cap); lateMs = new Float32Array(cap);
     bytes = new Uint32Array(cap); enemiesRec = new Uint32Array(cap); projRec = new Uint32Array(cap); eventsRec = new Uint32Array(cap);
     // The first world message: the static buildings.
-    scope.postMessage({ type: 'ready', world: new Float32Array(mem.buffer, bptr, blen).slice(), maxEntities: cfg.cap + 1, maxProj: projCap });
+    const world = worldBoxes();
+    scope.postMessage({ type: 'ready', world, maxEntities: cfg.cap + 1, maxProj: projCap, maxBuildings: world.length / 5, obstacleBoxes: obstacles.length / 5 });
   } else if (d.type === 'start') {
     running = true; next = performance.now(); loop();
   } else if (d.type === 'return') {
