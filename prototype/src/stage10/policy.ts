@@ -152,8 +152,23 @@ export class VoicePolicy {
   }
 
   private steal(v: number, now: number) {
-    this.perSound[this.vSound[v]]--; this.active--; this.vState[v] = 2; this.vEnd[v] = now + FADE_S + END_MARGIN_S;
-    this.outSteal[this.nSteal++] = v; this.stolen++;
+    this.perSound[this.vSound[v]]--; this.active--; this.stolen++;
+    // A voice admitted earlier in this same batch has not reached the mixer yet: the mixers apply steals before
+    // starts, so a steal of it would be lost and the voice would play in full. Cancel its start instead and give
+    // the slot back at once (nothing is sounding in it).
+    for (let i = 0; i < this.nStart; i++) {
+      if (this.outSlot[i] !== v) continue;
+      this.started--;
+      for (let k = i + 1; k < this.nStart; k++) {
+        this.outSlot[k - 1] = this.outSlot[k]; this.outSound[k - 1] = this.outSound[k]; this.outTake[k - 1] = this.outTake[k];
+        this.outGain[k - 1] = this.outGain[k]; this.outPan[k - 1] = this.outPan[k]; this.outRate[k - 1] = this.outRate[k]; this.outSeq[k - 1] = this.outSeq[k];
+      }
+      this.nStart--;
+      this.vState[v] = 0; this.freeStack[this.nFree++] = v;
+      return;
+    }
+    this.vState[v] = 2; this.vEnd[v] = now + FADE_S + END_MARGIN_S;
+    this.outSteal[this.nSteal++] = v;
   }
   private oldestOf(sound: number) {
     let best = -1, t = Infinity;
