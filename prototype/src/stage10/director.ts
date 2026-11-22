@@ -2,7 +2,7 @@
 // Snapshot events are copied out of each snapshot when it arrives (so a snapshot the render clock drops under a
 // stall still has its sounds played) and fired when the render clock shows their tick, which is when the picture
 // shows them. Nothing here allocates per event.
-import { EV_DEATH, EV_EXPLOSION, EV_HIT, EV_PICKUP, EV_PLAYER_HURT, EV_SHOT, EV_WALL_BUILT, EV_WALL_REMOVED, V2_ENTITY_BYTES, V2_EVENT_BYTES, V2_HEADER_BYTES, V2_PROJECTILE_BYTES } from '../run2/protocol';
+import { EV_DEATH, EV_EXPLOSION, EV_HIT, EV_PICKUP, EV_PLAYER_HURT, EV_SHOT, EV_WALL_BUILT, EV_WALL_REMOVED, V2_ENTITY_BYTES, V2_EVENT_BYTES, V2_HEADER_BYTES, V2_PROJECTILE_BYTES, isLargeKind } from '../run2/protocol';
 import { EF_OWN, EF_TRACK, MUSIC_LAYERS, MUSIC_THRESH, SND } from './soundset';
 import type { Mixer } from './mixer';
 import { probe, track } from './probe';
@@ -91,8 +91,9 @@ export class Director {
       let sound = -1, vol = 1, flags = 0;
       switch (type) {
         case EV_SHOT: if (owner === 0) continue; sound = SND.eshoot; vol = 0.6; break; // the player's own shots already played from input
-        case EV_HIT: if (kind >= 4 || val >= 8) { sound = SND.hit_b; vol = clamp(0.5 + val * 0.04, 0.4, 1.1); } else { sound = SND.hit_s; vol = clamp(0.45 + val * 0.05, 0.3, 1); } break;
-        case EV_DEATH: if (kind >= 4) { sound = SND.death_b; vol = 1; } else { sound = SND.death_s; vol = 0.8; } break;
+        // Big hit: a large enemy (the sim's kinds 7 and 15) or a heavy blow. A wall or building hit (kind 255) is a small impact.
+        case EV_HIT: if (isLargeKind(kind) || val >= 8) { sound = SND.hit_b; vol = clamp(0.5 + val * 0.04, 0.4, 1.1); } else { sound = SND.hit_s; vol = clamp(0.45 + val * 0.05, 0.3, 1); } break;
+        case EV_DEATH: if (isLargeKind(kind)) { sound = SND.death_b; vol = 1; } else { sound = SND.death_s; vol = 0.8; } break;
         case EV_EXPLOSION: sound = SND.explosion; vol = clamp(val / 5, 0.6, 1.3); break;
         case EV_PICKUP: sound = SND.pickup; vol = 0.7; break;
         case EV_PLAYER_HURT: sound = SND.hurt; flags = EF_OWN; break;

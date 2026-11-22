@@ -2,7 +2,7 @@
 // layout at a fixed rate, with a configurable number of events per second, until the real sim is ready.
 // Entities and projectiles are not generated (N = 1, P = 0): the mixer only needs the header and the event section.
 // Buffers come back from the main thread through a pool, as in Stage 2.
-import { EV_DEATH, EV_EXPLOSION, EV_HIT, EV_PICKUP, EV_PLAYER_HURT, EV_SHOT, EV_WALL_BUILT, EV_WALL_REMOVED, V2_ENTITY_BYTES, V2_EVENT_BYTES, V2_HEADER_BYTES, v2SnapshotBytes } from '../run2/protocol';
+import { EV_DEATH, EV_EXPLOSION, EV_HIT, EV_PICKUP, EV_PLAYER_HURT, EV_SHOT, EV_WALL_BUILT, EV_WALL_REMOVED, KIND_COUNT, V2_ENTITY_BYTES, V2_EVENT_BYTES, V2_HEADER_BYTES, v2SnapshotBytes } from '../run2/protocol';
 
 const MAXE = 8192; // holds 4x Stage 8's busiest step at the pass load (1,816 events)
 let rate = 300, hz = 30, seed = 1, tick = 0, acc = 0, t0 = 0;
@@ -11,6 +11,7 @@ let s = 1;
 const rnd = () => { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return (s >>> 0) / 4294967296; };
 // Event mix: Stage 8's measured pass load (results/run-2/stage-8.md: per step 264 shots, 251 hits, 31 explosions, 1 death),
 // plus a few pickups, wall events and player hurts so every sound plays. 10% of shots are the player's own.
+// Enemy kinds are numbered as the sim numbers them (0-15, kinds 7 and 15 large), so big hits and deaths come at its ratio.
 const W = [[EV_SHOT, 0.480], [EV_HIT, 0.456], [EV_DEATH, 0.002], [EV_EXPLOSION, 0.056], [EV_PICKUP, 0.003], [EV_WALL_BUILT, 0.0005], [EV_WALL_REMOVED, 0.0005], [EV_PLAYER_HURT, 0.002]] as const;
 const pick = () => { let r = rnd(); for (const [t, w] of W) { if ((r -= w) < 0) return t; } return EV_HIT; };
 
@@ -29,7 +30,7 @@ function step() {
   const eo = V2_HEADER_BYTES; f[eo / 4] = px; f[eo / 4 + 1] = py; f[eo / 4 + 2] = px; f[eo / 4 + 3] = py;
   const o = (V2_HEADER_BYTES + V2_ENTITY_BYTES) / 4;
   for (let i = 0; i < e; i++) {
-    const type = pick(), kind = Math.floor(rnd() * 7), owner = type === EV_SHOT ? (rnd() < 0.1 ? 0 : 1) : 0;
+    const type = pick(), kind = Math.floor(rnd() * KIND_COUNT), owner = type === EV_SHOT ? (rnd() < 0.1 ? 0 : 1) : 0;
     const val = type === EV_HIT ? 1 + rnd() * rnd() * 14 : type === EV_EXPLOSION ? 2 + rnd() * 4 : 0;
     const b = o + i * (V2_EVENT_BYTES / 4);
     u[b] = type | (kind << 8) | (owner << 16);

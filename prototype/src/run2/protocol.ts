@@ -39,6 +39,13 @@ export const FLAG_SHOOTER = 1 << 1;
 export const FLAG_AURA = 1 << 2;
 export const FLAG_LARGE = 1 << 3;
 
+// Event kinds, as the combat sim (prototype/combat/src/shared.rs) numbers them: enemy kinds 0-15, the player 16,
+// and 255 for an EV_HIT on a wall or building. Kinds 7 and 15 are large (shared.rs `is_large`).
+export const KIND_COUNT = 16;
+export const KIND_PLAYER = 16;
+export const KIND_WALL = 255;
+export const isLargeKind = (k: number) => k < KIND_COUNT && k % 8 === 7;
+
 export const EV_SHOT = 0;
 export const EV_HIT = 1;
 export const EV_DEATH = 2;
