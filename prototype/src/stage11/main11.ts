@@ -45,7 +45,7 @@ function onWorkerMessage(e: MessageEvent) {
   const h = new Float32Array(b, 0, 32), u = new Uint32Array(b, 0, 8), f64 = new Float64Array(b, 56, 2);
   if (m.world) pendingWorld = m.world;
   lastEnemies = m.enemies;
-  director.onSnapshot(b);
+  director?.onSnapshot(b); // no director until audio has started (on the first click or key press outside the bench)
   clock.onSnapshot(b, t0);
   if (!gpu) snapsDuringOutage++;
   rec.snap(t0, performance.timeOrigin + t0 - f64[0], h[18], u[4], u[5], m.enemies, (u[7] & 1) !== 0);
@@ -88,14 +88,14 @@ function onGpuSample(ms: Float64Array, mask: number) {
 }
 
 // ---------------------------------------------------------------- audio
-let ctx: AudioContext, mixer: Mixer, director: Director;
+let ctx: AudioContext | null = null, mixer: Mixer | null = null, director: Director | null = null;
 let harness10: typeof import('../stage10/harness-bench') | null = null;
 let inputAudioMs = 0, inputTs = -1;
 
 function installInput() {
   // Space = shoot, F = dash, as in Stage 10. The player's own sounds play straight from input.
   addEventListener('keydown', (e) => {
-    if (e.repeat) return;
+    if (e.repeat || !director) return;
     const a0 = performance.now();
     if (e.code === 'Space') director.own(SND.shoot, e.timeStamp);
     else if (e.code === 'KeyF') director.own(SND.dash, e.timeStamp);
@@ -115,7 +115,7 @@ const overlay = new Overlay(() => {
   return [
     `frame ${fmt(f.med)} ms p99 ${fmt(f.p99)}   cpu ${fmt(c.med)} p99 ${fmt(c.p99)}   gpu ${fmt(g.med)} p99 ${fmt(g.p99)}`,
     `wave  ${P.mode}  enemies ${lastEnemies}  pauses ${clock?.pauses ?? 0} jumps ${clock?.jumps ?? 0}  queue ${clock?.queueLength ?? 0}`,
-    `audio mixer ${mixer?.name ?? '-'}  voices ${probe.mix[6]}  late ${probe.det[D_LATE]}   gpu losses ${deviceLosses} rebuilds ${rebuilds}`,
+    `${mixer ? `audio mixer ${mixer.name}  voices ${probe.mix[6]}  late ${probe.det[D_LATE]}` : 'audio off (click or press a key)'}   gpu losses ${deviceLosses} rebuilds ${rebuilds}`,
   ];
 });
 
@@ -156,10 +156,13 @@ function frame(t: number) {
   // 3. Audio.
   const a0 = performance.now();
   const n = probe.nFrame;
-  director.pump(clock.displayed, n);
-  director.updateMusic(a0);
-  mixer.poll();
-  if (a0 - lastTs > 500 && probe.nTs < probe.tsCtx.length) { lastTs = a0; const o = ctx.getOutputTimestamp(); probe.tsCtx[probe.nTs] = o.contextTime ?? 0; probe.tsPerf[probe.nTs++] = o.performanceTime ?? 0; }
+  if (director && mixer && ctx) {
+    director.measureLead(ctx);
+    director.pump(clock.displayed, n);
+    director.updateMusic(a0);
+    mixer.poll();
+  }
+  if (ctx && a0 - lastTs > 500 && probe.nTs < probe.tsCtx.length) { lastTs = a0; const o = ctx.getOutputTimestamp(); probe.tsCtx[probe.nTs] = o.contextTime ?? 0; probe.tsPerf[probe.nTs++] = o.performanceTime ?? 0; }
   const audio = performance.now() - a0 + inputAudioMs; inputAudioMs = 0;
   // 4. UI (the debug overlay's DOM text; the game's HUD, health bars and damage numbers are drawn by the renderer's UI pass).
   const i0 = performance.now();
@@ -205,19 +208,32 @@ async function finish() {
 }
 
 // ---------------------------------------------------------------- start
-async function main() {
-  // Audio first: an AudioContext needs a user gesture, which the bench replaces with --autoplay-policy.
-  ctx = new AudioContext({ latencyHint: 'interactive' });
-  const bank = await loadSounds(ctx, import.meta.env.BASE_URL + 'stage10/');
-  mixer = P.mixer === 'A' ? new MixerA(ctx, bank, true, P.vol) : await MixerB.create(ctx, bank, workletUrl, P.vol);
-  if (ctx.state !== 'running') await ctx.resume();
+// An AudioContext only runs after a user gesture, and in a strict browser its resume() stays pending until one,
+// so nothing else waits for audio. The bench launches Chrome with --autoplay-policy=no-user-gesture-required and
+// starts audio first, so the harness is set up before the run; a player starts it with the first click or key press.
+async function startAudio() {
+  const c = new AudioContext({ latencyHint: 'interactive' });
+  const resumed = c.state === 'running' ? Promise.resolve() : c.resume(); // asked for inside the gesture
+  const bank = await loadSounds(c, import.meta.env.BASE_URL + 'stage10/');
+  const m = P.mixer === 'A' ? new MixerA(c, bank, true, P.vol) : await MixerB.create(c, bank, workletUrl, P.vol);
+  await resumed;
   if (P.bench) {
     harness10 = await import('../stage10/harness-bench');
-    await harness10.setup({ ctx, mixer, params: { ...p10, mixer: P.mixer, record: 0, forceglitch: 0, vol: P.vol, warmup: P.warmup, bench: 'stage11' }, bank, detectorUrl });
+    await harness10.setup({ ctx: c, mixer: m, params: { ...p10, mixer: P.mixer, record: 0, forceglitch: 0, vol: P.vol, warmup: P.warmup, bench: 'stage11' }, bank, detectorUrl });
   }
-  director = new Director(mixer);
+  const d = new Director(m);
   // Fire snapshot events early by the output pipeline delay so they line up with the frame that shows them (Stage 10, lead=-1).
-  { const o = ctx.getOutputTimestamp(); director.leadSteps = (P.lead < 0 ? Math.max(0, ctx.currentTime - (o.contextTime ?? 0)) * 1000 : P.lead) * P.hz / 1000; }
+  d.setLead(P.lead, P.hz);
+  m.start();
+  ctx = c; mixer = m; director = d; // the frame loop and the input handler use audio from here on
+}
+
+async function main() {
+  if (P.bench) await startAudio();
+  else {
+    const go = () => { removeEventListener('pointerdown', go); removeEventListener('keydown', go); startAudio().catch((e) => { (window as any).__audioError = String(e); console.error(e); }); };
+    addEventListener('pointerdown', go); addEventListener('keydown', go);
+  }
   // Sim.
   const module = await WebAssembly.compileStreaming(fetch(combatUrl));
   worker = new Worker(new URL('./sim-worker.ts', import.meta.url), { type: 'module' });
@@ -236,7 +252,6 @@ async function main() {
   };
   try { await startGpu(); } catch (e) { showUnsupported(e instanceof GpuUnavailable ? e.message : String(e)); (window as any).__error = String(e); return; }
   rec.init(P.dur + 30);
-  mixer.start();
   installInput();
   worker.postMessage({ type: 'start' });
   benchFrom = performance.now() + P.warmup * 1000;
