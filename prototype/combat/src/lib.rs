@@ -790,7 +790,7 @@ mod tests {
     fn sweep_follows_set_active() {
         let p = Params { method: 1, enemies: 3000, seed: 5, spawn: 24.0, proj_target: 0, proj_cap: 0, event_cap: 64, passes: 3, flags: 0 };
         let mut sim = Sim::create(&p);
-        // Swap the player into slot 2500, so the first shrink takes the path that moves it into the last live slot.
+        // Swap the player into slot 2500, past the first shrink's live count, so the shrink has to move it.
         {
             let c = &mut sim.core;
             c.b.put(0, &c.a, 0);
@@ -814,6 +814,38 @@ mod tests {
             let brute = brute_pairs(&sim.core.a, n, CAND_MARGIN);
             assert_eq!(id_pairs(&sim), brute, "live {live}");
             assert!(!brute.is_empty());
+        }
+    }
+
+    /// Stage 11 inits with the cap and shrinks to the wave's start. Method A's table is sorted by cell at init, so the
+    /// shrink must keep a sample spread over the spawn square, not the lowest rows, and must keep the player.
+    #[test]
+    fn shrink_keeps_a_spread_sample() {
+        for method in [0u32, 1, 2] {
+            let p = Params { method, enemies: 20000, seed: 1, spawn: 64.0, proj_target: 0, proj_cap: 0, event_cap: 64, passes: 3, flags: 0 };
+            let mut sim = Sim::create(&p);
+            sim.core.set_active(301);
+            let c = &sim.core;
+            assert_eq!(c.n, 301);
+            assert_eq!(c.a.kind[c.player_slot], PLAYER_KIND);
+            assert_eq!((0..c.n).filter(|&i| c.a.kind[i] == PLAYER_KIND).count(), 1);
+            let centre = (GRID / 2) as f32;
+            let (mut below, mut above) = (0, 0);
+            let (mut ymin, mut ymax) = (f32::MAX, f32::MIN);
+            for i in (0..c.n).filter(|&i| i != c.player_slot) {
+                let y = c.a.y[i];
+                ymin = ymin.min(y);
+                ymax = ymax.max(y);
+                if y < centre { below += 1 } else { above += 1 }
+            }
+            assert!(ymax - ymin > 100.0, "method {method}: kept enemies span only y {ymin}..{ymax}");
+            assert!(below > 100 && above > 100, "method {method}: {below} below and {above} above the player");
+            // The sim still steps and stays consistent after the shrink.
+            for k in 0..10 {
+                let a = k as f32 * 0.1;
+                sim.step(a.cos(), a.sin(), 0);
+            }
+            assert_eq!(sim.core.a.kind[sim.core.player_slot], PLAYER_KIND);
         }
     }
 

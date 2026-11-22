@@ -948,17 +948,21 @@ impl Core {
     }
 
     /// Stage 11's wave: sets the live entity count (player + enemies), at most the count given at init. New enemies
-    /// enter at the map edge. Slots past the live count hold stale data from the table swap, so every field of a new
-    /// slot is set here. Shrinking keeps the player (moved into the last live slot if needed). Methods A, B and C (B's
-    /// persistent order follows the live count in `sort_order_by_x`); not the Rapier build, whose bodies are sized at init.
+    /// enter around the player (see below). Slots past the live count hold stale data from the table swap, so every
+    /// field of a new slot is set here. Shrinking keeps the player and a random sample of the enemies, where they are.
+    /// Methods A, B and C (B's persistent order follows the live count in `sort_order_by_x`); not the Rapier build,
+    /// whose bodies are sized at init.
     pub fn set_active(&mut self, n: usize) {
         let n = n.min(self.n_cap).max(1);
         if n < self.n {
-            let ps = self.player_slot;
-            if ps >= n {
-                self.b.put(0, &self.a, ps);
-                self.a.put(n - 1, &self.b, 0);
-                self.player_slot = n - 1;
+            // Not simply the first n slots: methods A and C keep the table sorted by cell, so those are the lowest map
+            // rows. Stage 11 inits with the cap and shrinks to the wave's start, which left every enemy in one thin band.
+            let old = self.n;
+            self.swap_slots(0, self.player_slot);
+            self.player_slot = 0;
+            for k in 1..n {
+                let j = k + self.rng.next() as usize % (old - k);
+                self.swap_slots(k, j);
             }
             self.n = n;
             return;
@@ -997,6 +1001,17 @@ impl Core {
         if n > self.n {
             self.n = n;
         }
+    }
+
+    /// Swaps two entity slots of the live table (through the spare table, which only holds stale data between steps).
+    fn swap_slots(&mut self, i: usize, j: usize) {
+        if i == j {
+            return;
+        }
+        self.b.put(0, &self.a, i);
+        self.b.put(1, &self.a, j);
+        self.a.put(i, &self.b, 1);
+        self.a.put(j, &self.b, 0);
     }
 
     /// Moves an enemy to a random free spot at the map edge with full health.
