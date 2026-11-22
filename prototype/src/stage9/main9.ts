@@ -45,8 +45,11 @@ interface Snap { buf: ArrayBuffer; world: Float32Array | null }
 let worker: Worker;
 const queue: Snap[] = [];
 let cur: Snap | null = null, curStart = 0, changed = false;
-let lastWorld: Float32Array | null = null;
+let lastWorld: Float32Array | null = null, pendingWorld: Float32Array | null = null;
 let held = 0;
+// Takes the next snapshot off the queue. A world change it carries is kept until the next upload, so a snapshot
+// that is skipped in a catch-up or dropped from a long queue does not lose a building change.
+const take = () => { const s = queue.shift()!; if (s.world) pendingWorld = s.world; return s; };
 
 async function startStream() {
   worker = new Worker(new URL('./stream-worker.ts', import.meta.url), { type: 'module' });
@@ -155,14 +158,14 @@ function raf(t: number) {
   if (!benchOn && P.bench && t0 >= benchFrom) { benchOn = true; benchStart = t0; }
 
   // Snapshot playback: show the current snapshot, interpolating over one 30 Hz step, then move to the next.
-  if (!cur && queue.length >= 2) { cur = queue.shift()!; curStart = t0; changed = true; }
-  while (cur && queue.length && t0 - curStart >= STEP_MS) { cur = queue.shift()!; curStart += STEP_MS; if (t0 - curStart > 3 * STEP_MS) curStart = t0; changed = true; }
-  while (queue.length > 5) queue.shift();
+  if (!cur && queue.length >= 2) { cur = take(); curStart = t0; changed = true; }
+  while (cur && queue.length && t0 - curStart >= STEP_MS) { cur = take(); curStart += STEP_MS; if (t0 - curStart > 3 * STEP_MS) curStart = t0; changed = true; }
+  while (queue.length > 5) take();
   let encode = 0;
   if (gpu && timer && renderer && cur) {
     if (changed || needUpload) {
-      if (cur.world) lastWorld = cur.world;
-      if (needUpload && lastWorld) renderer.setWorld(lastWorld); else if (changed && cur.world) renderer.setWorld(cur.world);
+      if (pendingWorld) { lastWorld = pendingWorld; pendingWorld = null; renderer.setWorld(lastWorld); }
+      else if (needUpload && lastWorld) renderer.setWorld(lastWorld);
       renderer.setSnapshot(cur.buf); changed = false; needUpload = false;
     }
     const a = Math.min(1, (t0 - curStart) / STEP_MS);
