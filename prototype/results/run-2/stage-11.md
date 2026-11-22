@@ -17,7 +17,7 @@ Why the sim half is unclear (found in the Stage 12 review, see "Stage 12 rerun" 
 
 Two limits on the verdict matter more than the pass:
 - **The sim is the budget that breaks first, and its numbers here are optimistic.** Ramping past the bar, the sim step p99 first crossed 4 ms at about 11,900 enemies and stayed over it from about 13,400. That was at the dev machine's full speed. At 5,000 enemies its p99 is 1.5–1.6 ms here. If the step time scaled with a CPU four times slower, it would be about 6 ms, over the bar. So the reference-device rerun decides this stage, and the sim is the system to watch.
-- **The wave carried about half of Stage 8's event rate.** The sim produced a mean 293 events per step (about 8,800 a second) at 5,000 enemies, against Stage 8's 16,400 a second at its pass load. The scripted player and the projectile target (0.2 per enemy) set it. Stage 10 measured the mixer at 16,400 events a second and up to 4× that, so the audio side is covered, but the renderer's effects ran at about half the density of Stage 9's worst case.
+- **The wave carried about half of Stage 8's event rate.** The sim produced a mean 293 events per step (about 8,800 a second) at 5,000 enemies, against Stage 8's 16,400 a second at its pass load. The scripted player and the projectile target (0.2 per enemy) set it. Stage 10 measured the mixer at about 15,400 events a second and up to 4× that, so the audio side is covered, but the renderer's effects ran at about half the density of Stage 9's worst case.
 
 Fallback: **not applied**. If the reference-device run fails, the first system over its budget applies its own stage's fallback. Going by this run, that is the sim (Stage 8: fewer passes, a lower enemy cap, or a cheaper pair finding at the peak).
 
