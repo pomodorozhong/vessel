@@ -22,7 +22,8 @@ export const probe = {
   mix: new Float64Array(32),
   det: new Float64Array(16),
   eventsIn: 0, eventsStale: 0, eventsOverflow: 0, // snapshot events decoded / skipped as stale / lost to the per-snapshot capacity
-  eventsPlayerIn: 0,
+  eventsPlayerIn: 0, // player sounds from key presses
+  eventsPlayerSim: 0, // steps whose player shots (fired by the sim) played a shoot voice
   stalls: 0,
   benchFrame: 0, benchTime: 0,
   rcLoad: new Float32Array(1024), rcPeak: new Float32Array(1024), rcUnder: new Float32Array(1024), nRc: 0, // AudioRenderCapacity updates

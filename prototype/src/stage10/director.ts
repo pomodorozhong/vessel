@@ -84,13 +84,14 @@ export class Director {
 
   private decode(s: number, frame: number): number {
     const m = this.mixer, u = this.u32, f = this.f32, px = this.ringPx[s], py = this.ringPy[s], n = this.ringN[s];
+    let playerShots = 0;
     for (let i = 0; i < n; i++) {
       const b = (s * MAXE + i) * 4, packed = u[b], type = packed & 0xff, kind = (packed >>> 8) & 0xff, owner = (packed >>> 16) & 0xff;
       const x = f[b + 1], y = f[b + 2], val = f[b + 3];
       probe.eventsIn++;
       let sound = -1, vol = 1, flags = 0;
       switch (type) {
-        case EV_SHOT: if (owner === 0) continue; sound = SND.eshoot; vol = 0.6; break; // the player's own shots already played from input
+        case EV_SHOT: if (owner === 0) { playerShots++; continue; } sound = SND.eshoot; vol = 0.6; break; // the player's shots play as one voice after the loop
         // Big hit: a large enemy (the sim's kinds 7 and 15) or a heavy blow. A wall or building hit (kind 255) is a small impact.
         case EV_HIT: if (isLargeKind(kind) || val >= 8) { sound = SND.hit_b; vol = clamp(0.5 + val * 0.04, 0.4, 1.1); } else { sound = SND.hit_s; vol = clamp(0.45 + val * 0.05, 0.3, 1); } break;
         case EV_DEATH: if (isLargeKind(kind)) { sound = SND.death_b; vol = 1; } else { sound = SND.death_s; vol = 0.8; } break;
@@ -112,6 +113,10 @@ export class Director {
       m.push(sound, pan, vol, flags, seq);
       const fh = this.flashHead++ & 255; this.flash[fh * 4] = x; this.flash[fh * 4 + 1] = y; this.flash[fh * 4 + 2] = type; this.flash[fh * 4 + 3] = frame;
     }
+    // The sim fires the player's weapon itself (held fire, most of the shots at Stage 8's load), while a key press
+    // comes only now and then. A step with player shots plays one shoot voice, so the weapon is heard at the sim's rate
+    // (one voice per step) instead of only on key presses; the key presses still play their own sound through own().
+    if (playerShots > 0) { probe.eventsPlayerSim++; m.push(SND.shoot, 0, 1, EF_OWN, -1); }
     return n;
   }
 
