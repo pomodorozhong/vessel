@@ -39,6 +39,8 @@ jobs:
             ~/.cargo/git
             prototype/sim/target
             prototype/chunks/target
+            prototype/combat/target
+            prototype/combat-rapier/target
             prototype/stage5/tools/bc7tool/target
           key: rust-${{ runner.os }}-${{ hashFiles('prototype/rust-toolchain.toml', 'prototype/**/Cargo.lock', 'prototype/**/Cargo.toml') }}
       - name: Install
