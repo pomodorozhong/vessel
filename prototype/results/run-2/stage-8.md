@@ -4,7 +4,11 @@ Hypothesis: the single sim thread handles combat (2,000 enemies, 1,000 live proj
 
 Verdict: **provisional fail**. With Chrome's 4× CPU throttling (this run's stand-in for the reference device; no reference device was available), the pass load misses the bar with every pair-finding method: p99 4.58 ms (B), 4.98 ms (C), 5.11 ms (A) against 4 ms, median of 3 five-minute runs each. On the dev machine without throttling, with the sim in a worker as the game would run it, the same load passes: p99 2.27–2.62 ms. No projectile passed through anything with A, B or C (0 in 3.9 million checked sweeps per method). Rapier 2D fails on its own: 3.2× slower and 7 missed hits.
 
+Found in the PR review, verdict unchanged: a miss on the reference device may be timing jitter more than cost. In this stage's browser-worker runs the p99 is 3.2–4.1× the median (pass load: p99 2.09–2.82 ms, median 0.625–0.710 ms, 12 runs). Stepping the same `combat.wasm` in Node at the same load gives a p99 of 0.89–0.92 ms, about 1.7× its median (see the P2 under "Problems in this measurement"). The rerun on the device runs the sim in a worker, where this tail showed. The throttled main-thread runs that set this verdict do not show it: their p99 is 1.6–2.0× the median (median 2.61–2.81 ms), close to Node's ratio, so under the 4× stand-in the miss looks like cost.
+
 Fallback recorded, **not applied** (it applies only if a reference-device run confirms the failure, see "How it runs"): A, B and C are within each other's spread at the pass load, so there is no faster method to take; keep A (run 1's grid, the simplest). Then, in this order, cut the crowd-pushing passes (3 now), the live projectile count, and how often area effects are checked. If that does not fit, follow Stage 1's fallback (cut the entity target or the step rate; then reconsider the host for a multithreaded sim). Rapier 2D did not win, so the physics decision stays.
+- Note (PR review): the fallback cuts work, which lowers the median. If the p99 is set by timing jitter rather than by the step's cost, it may not bring the p99 under 4 ms. Tell the two apart on the reference device first (step 6 under "Rerun on the reference device").
+- Note (PR review): "A, B and C are within each other's spread" was measured through the same tail, so it says the tail hides any difference, not that the methods cost the same. In Node at the pass load their medians are 0.52–0.53 ms and their p99s 0.89–0.92 ms, so the three still look alike there.
 
 ## What was built
 
@@ -109,13 +113,29 @@ Push past the bar, 60 s runs, one run per point, method A (B and C are within a 
 | dev machine (worker) | enemies, at 1,000 projectiles | 5,000 (p99 3.70 ms) | 7,500 (5.80 ms) |
 | dev machine, throttled 4× | either | none: the pass load is already over | 2,000 enemies, 1,000 projectiles |
 
-So on the dev machine the headroom is about 3× the projectiles or 2.5× the enemies of the pass load. Throttled, nothing at or above the pass load fits. The throttled sweep stops one point past the first failure, which here is the starting point, so it did not search *below* the pass load (P2).
+So on the dev machine the headroom is about 3× the projectiles or 2.5× the enemies of the pass load. These points were measured through the same browser-worker tail as the pass load (at 5,000 enemies: median 1.08 ms, p99 3.70 ms; in Node, median 0.91 ms, p99 1.42 ms; see the P2 below), so where 4 ms breaks may say more about the tail than about the cost. Throttled, nothing at or above the pass load fits. The throttled sweep stops one point past the first failure, which here is the starting point, so it did not search *below* the pass load (P2).
 
 ## Problems in this measurement (rated as in Stage 12)
 
 - P2: Rapier 2D at 5,000 and 10,000 enemies ran 60 s × 1 instead of 300 s × 3, because at 4× it runs up to 30× slower than real time. Its loss is 3× to 7× at every load, far outside any spread, so the verdict would stand.
 - P2: "step start late" sits at a p99 of about 130 ms in every throttled run and about 14 ms unthrottled. It is a sawtooth from the test driver, not the sim. The driver's `setTimeout` loop runs at most one step per wake-up, so lateness builds up until it passes 4 periods (133 ms) and the driver drops the lost time. The step-time numbers are measured inside the step and are not affected, but the effective rate under throttling was somewhat below 30 Hz and was not recorded. Stage 11's driver has to catch up instead.
 - P2: the throttled push-past sweep did not look below the pass load, so the throttled limit (the load that does fit at 4×) is unmeasured.
+- P2, found in the PR review: the browser-worker p99s carry a tail that the sim's own work does not. Stage 11's wave showed about half this stage's p99 at 5,000 enemies (1.5–1.7 against 3.70 ms), which was first read as Stage 11 loading the sim less. A Node run of the built `combat.wasm` with this stage's and Stage 11's init arguments and scripted player (`scripts/run2/stage8-node.mjs`, data in `data/stage8-node/`) shows the per-step work is the same:
+
+  | Where | Load | Step median (ms) | p95 | p99 |
+  |---|---|---|---|---|
+  | Node, full speed | 5,000 enemies, 1,000 projectiles, A, 5–65 s | 0.91 (0.91–0.93) | 1.10 (1.06–1.13) | 1.42 (1.36–1.47) |
+  | Node, full speed | Stage 11's wave, cap 20,000, 60 s hold at 5,000 | 0.97 (0.96–0.97) | 1.24 (1.16–1.28) | 1.57 (1.40–1.70) |
+  | Node, full speed | Stage 11's wave, cap 5,000, 60 s hold at 5,000 | 0.95 (0.94–1.00) | 1.17 (1.10–1.33) | 1.52 (1.43–1.60) |
+  | Node, full speed | 2,000 enemies, 1,000 projectiles, 5–305 s: A / B / C | 0.53 / 0.52 / 0.53 | 0.68 / 0.68 / 0.69 | 0.92 / 0.90 / 0.89 |
+  | Node, paced to 30 Hz | 5,000 enemies, 1,000 projectiles, A, 5–65 s (3 runs) | 1.68 (1.52–1.88) | 3.82 (3.53–3.92) | 4.57 (4.37–4.66) |
+  | dev machine (worker) | `push-A-e5000-p1000-cpu1x-60s-worker-r1` | 1.08 | 2.82 | 3.70 |
+  | dev machine (worker) | pass load, A, B, C (all 9 main runs and 3 push runs) | 0.625–0.710 | 1.36–2.045 | 2.09–2.82 |
+
+  The Node rows are median (min–max) over 5 runs each (A / B / C rows: medians only; their min–max are 0.87–0.95 ms for the p99), at commit `9669f12`, Node 22.19.0, on a 13th Gen Intel Core i7-13700 with 64 GB. That is the dev machine's CPU model, but it is not confirmed to be the same machine. Steps ran back to back, without 30 Hz pacing. The sim changed after this stage's runs (built at `f52a8f9`), so the Node rows compare loads with each other, not with the browser rows one to one.
+  - In the browser the median is about 1.2× Node's, here and in Stage 11 (1.08 against 0.91 ms; Stage 11: 0.75 against 0.61 ms). The p99 is about 2.6× Node's here and about 1.1× in Stage 11 (1.54 against 1.38 ms over its whole wave). So the gap is a tail in this stage's browser-worker timing, which neither Node nor Stage 11's in-browser windows show.
+  - The cause is not proven. A likely one: this stage's worker does about 1 ms of work every 33 ms on an otherwise idle page, so Windows parks it on efficiency cores or at low clock speeds, while Stage 11's busy page keeps the cores up. One check points that way: the same Node run, paced to 30 Hz with a sleep between steps instead of stepping back to back, showed a tail like the browser's and a higher median (1.68 and 4.57 ms against 0.91 and 1.42 ms, 3 runs, same machine). It does not show which part (core parking, clock speed, timer wake-up) causes it.
+  - The throttled main-thread rows, which set the verdict, do not show this tail: their p99 is 1.6–2.0× their median at the pass load, against 3.2–4.1× in the worker and about 1.7× in Node. Their miss looks like cost under the 4× stand-in. The tail matters for the reference-device rerun, which runs the sim in a worker.
 - Bias in the Rapier comparison, pointing against Rapier: it runs a real solver (contact manifolds, islands) where A, B and C do positional pushes, so it does more work per pair. It also has 3 corner misses that A, B and C do not. Its broad phase and query pipeline were used as documented, with no tuning beyond the integration parameters.
 
 ## Rerun on the reference device
@@ -127,5 +147,10 @@ From `prototype/`, on the reference laptop (Chrome, 1080p, plugged in, nothing e
 3. Main load, sim in a worker, no throttling: `node scripts/run2/stage8.mjs --throttle 1 --thread worker --series main --methods A,B,C,rapier --out results/run-2/data/stage8-ref`. That is 36 runs of 5 min each, about 3.5 h; add `--only "e2000-p1000-"` for the pass load alone (12 runs, about 1 h).
 4. Pass-through check and limits: `node scripts/run2/stage8.mjs --throttle 1 --thread worker --series check,push --out results/run-2/data/stage8-ref`.
 5. Tables: `node scripts/run2/stage8-table.mjs --dir results/run-2/data/stage8-ref --out results/run-2/data/stage8-ref-tables.md`.
+6. Before applying the fallback, tell a cost miss from a jitter miss (added in the PR review):
+   - Record the p99/median ratio of every run. On the dev machine it was 3.2–4.1 in the browser worker at the pass load and about 1.7 in Node (`data/stage8-node/`).
+   - Run `node scripts/run2/stage8-node.mjs` on the device. It steps the same `combat.wasm` without a browser.
+   - Rerun the pass load in the worker once with a busy page next to it (for example Stage 11's page in another window) and once under Windows' high-performance power plan.
+   - If the p99 falls under 4 ms there while the median stays about the same, the miss is jitter, and cutting work (the fallback) may not fix it. If the median itself is high, the miss is cost, and the fallback applies.
 
 The verdict is a pass if A, B or C has a p99 under 4 ms at `e2000-p1000` in all three repetitions, with 0 pass-throughs. A fail applies the fallback above.

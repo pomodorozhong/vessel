@@ -3,12 +3,12 @@
 Hypothesis: our own small mixer on Web Audio plays dense combat sound (hundreds of sound events per second, dozens of voices at once) without glitches and in time with the picture, while the main thread is busy rendering, with little main-thread cost.
 
 Verdict: **provisional pass with mixer B (the AudioWorklet mixer); mixer A fails**. No reference device was available, so every number below is from the dev machine, with the page under Chrome's 4× CPU throttling and 4 ms of busy main thread per frame standing in for rendering.
-- **Glitches**: B had none in any five-minute run: 0 late renders and 0 underruns at about Stage 8's pass rate (labelled 16,400 events/s, really about 15,400; see the correction below), at 2× and 4× that, with and without Stage 2's 100 ms and 500 ms main-thread stalls. A had 8–17 late renders per run, with or without stalls, so its glitches come from its own main-thread work, not from the stalls.
+- **Glitches**: B had none in any five-minute run: 0 late renders and 0 underruns at about Stage 8's pass rate (labelled 16,400 events/s, really about 15,400; see the correction below), at 2× and 4× that (the 4× runs lost about 3.4% of their events to the director's per-snapshot cap; see the corrections under "Choices"), with and without Stage 2's 100 ms and 500 ms main-thread stalls. A had 8–17 late renders per run, with or without stalls, so its glitches come from its own main-thread work, not from the stalls.
 - **Main-thread cost**: B costs median 0.02 ms and p99 0.39 ms [0.385–0.405] per frame at the pass rate with stalls, under the 0.5 ms bar. A costs median 0.23–0.41 ms and p99 1.40 ms [1.40–1.44], over the bar.
 - **Latency**: **provisional pass with the picture lead on**. The player's own sound reached the speaker a median 59–75 ms after the key press, as the browser's output timestamp maps it. That mapping already includes the device's output latency, which was 48–64 ms here, so the mixer's own share is about 5–20 ms, inside the 30 ms bar. Event sounds started a median 57–75 ms after the frame that shows them was submitted, which is about one output latency late and over the one-frame bar. With the events fired early by the measured pipeline delay (`lead=-1`), B's offset fell to a median 9.1 ms [8.9–10.6] and A's to 24.5 ms. B's p99 with the lead is 28 ms [23.5–29.0], so the tail is still about 1.7 frames. The time from frame submit to the picture on screen was not measured, so the true offset to the picture is somewhat smaller than these numbers.
 - **The audio thread is not throttled.** Chrome throttles the page's main thread only, so B's worklet ran at the dev machine's full speed. Its load was 1.3% of each 2.67 ms quantum, which leaves a wide margin even on a CPU four times slower, but the reference-device rerun must confirm it.
 
-Mixer design: **B wins**, which the plan's fallback asks for when A glitches. A also clips: its `DynamicsCompressorNode` set up as a limiter is not a brickwall, so the master peaked at 1.20–1.36 and 147,000–328,000 samples per run were clipped (0.5–1.1% of them). B's look-ahead limiter held the master at its ceiling of 0.891 (−1 dBFS), with no clipped samples.
+Mixer design: **B wins**, which the plan's fallback asks for when A glitches. A also clips: its `DynamicsCompressorNode` set up as a limiter is not a brickwall, so the master peaked at 1.20–1.36 and 147,000–328,000 samples per run were clipped (0.5–1.1% of them). These clipping figures were measured before later changes to which sounds play, and may not hold at the current commit; see "Code changes after these runs". B's look-ahead limiter held the master at its ceiling of 0.891 (−1 dBFS), with no clipped samples.
 
 Fallback: **not needed for B**. The voice limits were never what failed: both mixers ran at their total limit of 40 voices for nearly the whole run without B glitching.
 
@@ -37,8 +37,26 @@ Choices the plan left open, taken as defaults:
 - The pass rate is Stage 8's events at its pass load, 16,400 events/s. Run with 2× and 4× that rate for "past it".
   - Correction after the PR review: the stream's per-step multiplier (2.2 on one step in ten, 0.8 on the rest) averaged 0.94, so every run in these tables carried about 6% fewer events than its label (r16400 ≈ 15,400 events/s, 2× ≈ 30,800, 4× ≈ 61,700), and the busy steps were 2.75× the quiet ones. The stream now uses 3 and 7/9, which average 1. The runs here were not repeated.
   - Also found in the review: mixer B sent a frame's events in chunks of 512 and ran the voice policy once per chunk, so on busy steps it could stack more voices per sound than mixer A. The worklet now runs the policy once over all chunks of a frame. The B counters in these tables come from the old behaviour.
+  - Also found after the review: the director keeps at most 4,096 events of a snapshot (`MAXE` in `director.ts`) and counts the rest in `eventsSkipped.overCapacity` without playing them. At 4× a busy step carried about 4,810 events (65,600 / 30 × 2.2), so every 4× run skipped events: 646,069 in each A run and 646,784 in each B run, about 2,100 a second and 3.4% of the events the stream sent. The counts include the 10 s warm-up, because the counters then ran from the first snapshot. So the 4× runs carried roughly 59,600 events/s into the mixer, not the 61,700 above. The pass-rate and 2× runs skipped none. With the corrected stream (busy steps 3× the mean), a busy 4× step would carry about 6,560 events and the cap would cut more: about 11% of the events, by the code, not measured. `MAXE` is unchanged; raising it is on the list before the reference-device rerun.
 - Main-thread stalls as in Stage 2: 100 ms and 500 ms alternately, every 10 s, 30 per five-minute run.
 - `--busy 4`: the frame callback busy-waits 4 ms on the clock (so throttling does not stretch it) as a stand-in for rendering and the snapshot hand-off. Stage 11 replaces it with the real renderer and sim.
+
+## Code changes after these runs
+
+The runs in this file used the build at `ff7bf79` (the latency reruns `78941f7`, the `--busy 0` reruns Stage 11's build), all from before the PR review. Later commits changed which sounds play and how voices are counted. **The runs were not repeated.**
+- `d85615d`: a hit or death is "large" by the sim's own kinds (7 and 15, `isLargeKind` in `src/run2/protocol.ts`) instead of `kind >= 4`. During the runs the harness drew kinds 0–6, so 3 in 7 hits were on a "large" kind. A hit with a value of 8 or more also plays big, which is about 15% of the harness's hits. So about 52% of hits played `hit_b` (3/7 + 4/7 × 0.15), and 3 in 7 deaths played `death_b`. The same commit makes the harness draw kinds 0–15, so at the current commit about 26% of hits (1/8 + 7/8 × 0.15) and 1 in 8 deaths play big. Big sounds are on the big bus at priority 2 and duck the music and the small effects.
+- `43171bb`: a sim step with any player shots now plays one `shoot` voice (priority 3, big bus). The harness has player shots in about every step, so this adds about 30 voices a second that none of these runs had.
+- `02234d8` and `1912631`: a voice stolen in the same batch it was admitted in is now cancelled instead of played in full, and such a cancel no longer counts in `stolen`.
+
+What this affects:
+- Mixer A's master peak of 1.20–1.36 and its 147,000–328,000 clipped samples per run, the main loudness argument against A. Fewer big hits lower the level into A's compressor and the extra `shoot` voices raise it, so whether A still clips, and by how much, is not known.
+- The started, merged, dropped and stolen voice numbers in the tables, for both mixers.
+
+What it most likely does not affect:
+- A's late renders against B's zero probably still hold. They come from A's main-thread node work (A had late renders with `--busy 0` too), not from which sounds play.
+- The latency numbers measure timing, not which sound plays, so they probably still hold too.
+
+The r16400 A and B stall runs should be rerun at the current commit on the reference device before these clipping and voice numbers are quoted again (see "Rerun on the reference device").
 
 ## How it was measured
 
@@ -69,6 +87,7 @@ Raw results: `data/stage10/*.json` and `data/stage10-latency/*.json`, tables in 
 
 - "Max excess" is the largest delay of a render quantum past its due time. With nothing wrong, it stays in an idle band of about 11–13 ms (B) or 18–24 ms (A, whose main-thread node work delays the detector's own messages). A late render is one over the idle band plus a margin.
 - `playbackStats` counted 7–8 underruns in each run, all before the bench started (while the page loaded). None happened during a measured run.
+- The 4× rows lost about 3.4% of their events to the director's per-snapshot cap (646,069 per A run, 646,784 per B run; see the corrections under "Choices"). The master peak and clipped-sample columns predate the changes in "Code changes after these runs".
 
 The detector checks (40 s each, pass rate):
 
@@ -98,7 +117,7 @@ Rerun after the tracking fix: pass rate, 300 s × 3 repetitions each, in `data/s
 
 - "Input to sound" runs from the key event's timestamp to the moment the first sample of the player's sound reaches the output, mapped through `AudioContext.getOutputTimestamp()`. Chrome's mapping includes the device's output latency, so the numbers move with it: the runs with 64 ms output latency are the slow ones. The generated tables also show a "+outLat" column that adds `outputLatency` once more; it counts the latency twice and is shown only for comparison.
 - "Event sound after frame submit" runs from the `requestAnimationFrame` in which the render clock reached the event's tick to the event's first sample at the output.
-- The lead fires each snapshot's events `currentTime − getOutputTimestamp().contextTime` earlier (about one output latency, measured at start). It moves the event sounds, not the player's own sounds, which still play straight from the key press.
+- The lead fires each snapshot's events `currentTime − getOutputTimestamp().contextTime` earlier (about one output latency, measured at start: once, from the first valid output timestamp; see the P2 under "Findings for Stage 12"). It moves the event sounds, not the player's own sounds, which still play straight from the key press.
 - The lead and the stalls work together: events fired early still come from the snapshot ring, so a 500 ms stall skips the same stale events as without the lead.
 - The output latency was 48–64 ms, high for Windows' shared-mode audio, and it varied between runs of the same settings. The reference-device rerun must report its own.
 - Every run logged two 404s for resource loads; they are in the JSON files and were not looked into further.
@@ -117,7 +136,7 @@ Rerun after the tracking fix: pass rate, 300 s × 3 repetitions each, in `data/s
 | B, 4×, stalls | 0.175 | 0.975 [0.890–1.015] | 4.44 | 17.2 |
 
 - Main-thread audio time is everything the frame spends in the director and the mixer: decoding the snapshot's events, the voice policy (A only), node creation and scheduling (A) or filling and posting a batch (B), and the music update. Key-press handling is added to the next frame.
-- B's p99 is under the 0.5 ms bar at the pass rate and over it at 2× (0.59 ms) and 4× (0.98 ms). The cost there is decoding and distance-culling the events on the main thread, which grows with the event rate.
+- B's p99 is under the 0.5 ms bar at the pass rate and over it at 2× (0.59 ms) and 4× (0.98 ms). The cost there is decoding and distance-culling the events on the main thread, which grows with the event rate. The 4× runs decoded about 3.4% fewer events than the stream sent (the cap above), so if anything their cost is slightly low.
 - B's `process()` took 0.034 ms [0.032–0.036] on average per 2.67 ms quantum, a load of 1.3%, at the pass rate. At 4× it took 0.040 ms. `performance.now()` is not available in the worklet scope, so it was timed with `Date.now()` (1 ms steps). The mean is unbiased, but the per-quantum maximum is not measurable.
 - `AudioRenderCapacity` is not available in this Chrome.
 
@@ -130,7 +149,8 @@ Rerun after the tracking fix: pass rate, 300 s × 3 repetitions each, in `data/s
 
 - Stacking does nearly all the work: of 15,600 events a second, about 14,100 merge into a louder copy of a sound already starting in the same batch. About 200 voices a second actually start.
 - Of the events the director sees, those more than 70 units from the player are not played at all, before the mixer.
-- Both mixers sit at the 40-voice limit almost all the time. At 4× the rate, B drops 263 events a second at the total limit and steals 431 voices a second, still without glitches.
+- Both mixers sit at the 40-voice limit almost all the time. At 4× the rate, B drops 263 events a second at the total limit and steals 431 voices a second, still without glitches. Those 4× runs lost about 3.4% of their events to the director's cap before the mixer.
+- All voice numbers here come from the director and voice policy before the changes in "Code changes after these runs".
 - After the 500 ms stalls, events more than 8 steps old when they came due were skipped instead of played in a burst: 13,800–17,600 per run with stalls, about 0.3% of the events.
 
 ### Allocations (60 s at the pass rate, bytes per second)
@@ -155,8 +175,13 @@ The recordings (`media/stage10/A-rec.webm`, `B-rec.webm`) are 15 s of the master
 - **P2: voices always at the limit.** 40 voices are enough to avoid glitches, but the mix at the pass rate is saturated. A sound designer should tune the per-sound limits and priorities against real sounds.
 - **P2: the detector counts late quanta, not glitches**, so B's count after a forced 50 ms block is 3–4 per block. Report it as quanta.
 - **P2: the audio thread could not be throttled**, so B's audio-thread margin is unverified on a slower CPU.
+- **P2: the lead is measured once.** `Director.measureLead` takes the first valid output timestamp and never updates it. If that first reading lands while the output pipeline is still filling, or the player later switches output device (Bluetooth headphones at about 150 ms, for example), event sounds stay early or late by the difference for the rest of the session. Stage 11 uses the same director. The real implementation should take the median over about the first second and measure again on `devicechange`. Not changed in the prototype.
 
 ## Rerun on the reference device
+
+Before the rerun:
+- Raise `MAXE` in `src/stage10/director.ts` (4,096 now) so the 4× rate is not truncated. The harness worker allows 8,192, and a busy 4× step with the corrected stream carries about 6,560 events. Check that `eventsSkipped.overCapacity` is 0 in every run.
+- Run at the current commit, so the results include the changes in "Code changes after these runs". The r16400 A and B stall runs are the ones A's clipping figures rest on.
 
 1. Build and serve the prototype as in run 1's notes: `node scripts/build-wasm.mjs`, `node scripts/build-combat.mjs`, `node scripts/build-chunks.mjs`, `node node_modules/vite/bin/vite.js build`, then `node node_modules/vite/bin/vite.js preview --port 4173 --strictPort`. Nothing else may run on the device meanwhile.
 2. Use the device's built-in speakers or a wired headset as the default output, at 48 kHz.
