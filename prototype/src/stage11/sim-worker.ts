@@ -69,7 +69,7 @@ function stepOnce(due: number) {
   // Copy the used part of the snapshot into a pooled buffer and send it.
   const used = ex.snapshot_used() as number;
   let buf = pool.pop();
-  if (!buf || buf.byteLength < used) { if (buf) poolMisses++; buf = new ArrayBuffer(Math.max(used, 1 << 20)); }
+  if (!buf || buf.byteLength < used) { poolMisses++; buf = new ArrayBuffer(Math.max(used, 1 << 20)); } // an empty pool or a buffer too small: both allocate
   new Uint8Array(buf, 0, used).set(new Uint8Array(mem.buffer, ptr, used));
   const f64 = new Float64Array(buf, 56, 2);
   f64[1] = performance.timeOrigin + due;

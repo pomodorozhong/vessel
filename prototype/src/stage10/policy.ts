@@ -152,7 +152,7 @@ export class VoicePolicy {
   }
 
   private steal(v: number, now: number) {
-    this.perSound[this.vSound[v]]--; this.active--; this.stolen++;
+    this.perSound[this.vSound[v]]--; this.active--;
     // A voice admitted earlier in this same batch has not reached the mixer yet: the mixers apply steals before
     // starts, so a steal of it would be lost and the voice would play in full. Cancel its start instead and give
     // the slot back at once (nothing is sounding in it).
@@ -167,6 +167,7 @@ export class VoicePolicy {
       this.vState[v] = 0; this.freeStack[this.nFree++] = v;
       return;
     }
+    this.stolen++; // only a voice that was sounding counts as stolen; a cancelled start above does not
     this.vState[v] = 2; this.vEnd[v] = now + FADE_S + END_MARGIN_S;
     this.outSteal[this.nSteal++] = v;
   }
