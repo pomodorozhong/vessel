@@ -61,9 +61,15 @@ let opts: RenderOpts;
 async function startGpu() {
   const g = await initGpu(canvas);
   g.device.addEventListener('uncapturederror', (e) => { const msg = (e as GPUUncapturedErrorEvent).error.message; if (errors.length < 20) errors.push(msg); });
-  const t = new PassTimer(g.device, g.features.timestamp);
-  t.onSample = onGpuSample;
-  const r = await Renderer9.create(g, t, opts);
+  let t: PassTimer, r: Renderer9;
+  try {
+    t = new PassTimer(g.device, g.features.timestamp);
+    t.onSample = onGpuSample;
+    r = await Renderer9.create(g, t, opts);
+  } catch (e) {
+    g.device.destroy(); // no lost handler is attached yet, so a failed rebuild would leak this device on every retry
+    throw e;
+  }
   gpu = g; timer = t; renderer = r;
   needWorld = true;
   rebuilds++;
