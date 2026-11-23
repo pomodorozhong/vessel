@@ -15,6 +15,7 @@ vessel 的故事背景是雅拉世界的「神權之戰」。這個資料夾收�
 | [elf-history.md](elf-history.md) | 精靈史：誕生、航離期、菲亞海頓期、流離期到神權之戰 |
 | [races/](races/README.md) | 種族：人類、精靈、永庭族、龍族、門戍族、神罩、異械、狂戰族 |
 | [game-mapping.md](game-mapping.md) | 設定對應到遊戲的部分：玩家身分、祭壇、奇觀 |
+| [gameplay-notes.md](gameplay-notes.md) | 討論中提過的玩法想法，尚未定案 |
 | [glossary.md](glossary.md) | 名詞表 |
 | [open-questions.md](open-questions.md) | 還沒決定的項目 |
 
