@@ -133,7 +133,7 @@ impl Sim {
             }
             order[j] = v;
             if moves > limit {
-                order.sort_unstable_by(|&p, &q| x[p as usize].partial_cmp(&x[q as usize]).unwrap());
+                order.sort_unstable_by(|&p, &q| x[p as usize].total_cmp(&x[q as usize])); // total_cmp: a NaN must not panic (panic = abort)
                 moves = u32::MAX;
                 break;
             }
