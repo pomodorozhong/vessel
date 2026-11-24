@@ -12,6 +12,7 @@ vessel 的故事背景是雅拉世界的「神權之戰」。這個資料夾收�
 | [divine-war.md](divine-war.md) | 神權之戰：起因、萬軍神歌、規則、過程、結算與加冕 |
 | [cosmology.md](cosmology.md) | 宇宙結構與創世的細節、戰前就存在的重要地點 |
 | [timeline.md](timeline.md) | 從創世到七環大陸成形的時間軸，每件事標註狀態 |
+| [eras.md](eras.md) | 時代標籤與各時代設定：三個標籤欄位、九個階段、每個階段有什麼與沒有什麼 |
 | [elf-history.md](elf-history.md) | 精靈史：誕生、航離期、菲亞海頓期、流離期到神權之戰 |
 | [races/](races/README.md) | 種族：人類、精靈、永庭族、龍族、門戍族、神罩、異械、狂戰族 |
 | [game-mapping.md](game-mapping.md) | 設定對應到遊戲的部分：玩家身分、祭壇、奇觀 |
