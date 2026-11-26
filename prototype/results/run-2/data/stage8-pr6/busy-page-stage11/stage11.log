@@ -1,0 +1,2 @@
+2026-11-25T15:01:42.240Z wave-r1
+wave-r1: sim p99 2.35 | encode p99 0.43 | gpu p99 5.03 | frame p99 17.00 | pauses 0 jumps 0 | audio late 0 | main p99 0.64 | snap 119 KB | heap 35.5->35.5 MB | first break sim@245s/5000 

@@ -1,0 +1,19 @@
+2026-11-25T14:25:10.623Z A-r16400-stall rep 1 (300 s)
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+  late 40, underruns 0, audio ms/frame p99 1.410, errors 2
+2026-11-25T14:30:21.809Z A-r16400-stall rep 2 (300 s)
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+  late 10, underruns 0, audio ms/frame p99 2.175, errors 2
+2026-11-25T14:35:32.736Z A-r16400-stall rep 3 (300 s)
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+  late 10, underruns 0, audio ms/frame p99 1.405, errors 2
+2026-11-25T14:40:43.958Z B-r16400-stall rep 1 (300 s)
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+  late 0, underruns 0, audio ms/frame p99 0.405, errors 2
+2026-11-25T14:45:55.975Z B-r16400-stall rep 2 (300 s)
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+  late 0, underruns 0, audio ms/frame p99 0.405, errors 2
+2026-11-25T14:51:07.800Z B-r16400-stall rep 3 (300 s)
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+  late 0, underruns 0, audio ms/frame p99 0.410, errors 2
+exit 0

@@ -1,0 +1,20 @@
+== start 2026-11-22T05:39:31+08:00 build 8c57e5a + uncommitted stage 12 fixes (dense wave spawn, simslow, lead, P1 look fixes)
+2026-11-21T21:39:36.449Z wave-r1
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+wave-r1: sim p99 1.52 | encode p99 1.41 | gpu p99 6.18 | frame p99 17.25 | pauses 0 jumps 0 | audio late 0 | main p99 2.01 | snap 118 KB | heap 35.2->35.1 MB | first break encode@145s/3189 
+2026-11-21T21:44:44.931Z wave-r2
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+wave-r2: sim p99 1.66 | encode p99 1.44 | gpu p99 6.42 | frame p99 17.26 | pauses 0 jumps 0 | audio late 0 | main p99 2.04 | snap 118 KB | heap 34.2->34.2 MB | first break encode@160s/3483 
+2026-11-21T21:49:53.319Z wave-r3
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+wave-r3: sim p99 1.75 | encode p99 1.67 | gpu p99 6.23 | frame p99 17.30 | pauses 0 jumps 0 | audio late 0 | main p99 2.40 | snap 118 KB | heap 34.2->34.2 MB | first break encode@25s/839 
+2026-11-21T21:55:01.832Z past
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+past: sim p99 3.71 | encode p99 1.64 | gpu p99 5.83 | frame p99 17.26 | pauses 0 jumps 0 | audio late 0 | main p99 2.61 | snap 252 KB | heap 35.1->35.1 MB | first break encode@0s/398, sim@260s/12127 
+2026-11-21T22:00:10.532Z wave-r1
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+wave-r1: sim p99 3.03 | encode p99 1.38 | gpu p99 6.30 | frame p99 17.22 | pauses 0 jumps 0 | audio late 0 | main p99 1.86 | snap 118 KB | heap 35.2->35.1 MB | first break none 
+2026-11-21T22:05:18.746Z past
+worker throttle failed: Protocol error (Emulation.setCPUThrottlingRate): Operation is only supported for pages, not workers
+past: sim p99 6.10 | encode p99 1.29 | gpu p99 6.52 | frame p99 17.24 | pauses 0 jumps 0 | audio late 0 | main p99 2.00 | snap 252 KB | heap 35.2->34.9 MB | first break sim@265s/12375 
+== done 2026-11-22T06:10:28+08:00

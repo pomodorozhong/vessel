@@ -1,0 +1,50 @@
+// Stage 10 test harness: a scripted stand-in for Stage 8's combat sim. It posts snapshots in the run 2 (v2)
+// layout at a fixed rate, with a configurable number of events per second, until the real sim is ready.
+// Entities and projectiles are not generated (N = 1, P = 0): the mixer only needs the header and the event section.
+// Buffers come back from the main thread through a pool, as in Stage 2.
+import { EV_DEATH, EV_EXPLOSION, EV_HIT, EV_PICKUP, EV_PLAYER_HURT, EV_SHOT, EV_WALL_BUILT, EV_WALL_REMOVED, KIND_COUNT, V2_ENTITY_BYTES, V2_EVENT_BYTES, V2_HEADER_BYTES, v2SnapshotBytes } from '../run2/protocol';
+
+const MAXE = 8192; // holds 4x Stage 8's busiest step at the pass load (1,816 events)
+let rate = 300, hz = 30, seed = 1, tick = 0, acc = 0, t0 = 0;
+const pool: ArrayBuffer[] = [];
+let s = 1;
+const rnd = () => { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; return (s >>> 0) / 4294967296; };
+// Event mix: Stage 8's measured pass load (results/run-2/stage-8.md: per step 264 shots, 251 hits, 31 explosions, 1 death),
+// plus a few pickups, wall events and player hurts so every sound plays. 10% of shots are the player's own.
+// Enemy kinds are numbered as the sim numbers them (0-15, kinds 7 and 15 large), so big hits and deaths come at its ratio.
+const W = [[EV_SHOT, 0.480], [EV_HIT, 0.456], [EV_DEATH, 0.002], [EV_EXPLOSION, 0.056], [EV_PICKUP, 0.003], [EV_WALL_BUILT, 0.0005], [EV_WALL_REMOVED, 0.0005], [EV_PLAYER_HURT, 0.002]] as const;
+const pick = () => { let r = rnd(); for (const [t, w] of W) { if ((r -= w) < 0) return t; } return EV_HIT; };
+
+function step() {
+  const buf = pool.pop() ?? new ArrayBuffer(v2SnapshotBytes(1, 0, MAXE));
+  const u = new Uint32Array(buf), f = new Float32Array(buf), f64 = new Float64Array(buf, 56, 2);
+  // Events this step: the mean is rate / hz, with one step in ten three times the mean (waves of hits) and the
+  // rest at 7/9 of it, so 0.1 * 3 + 0.9 * 7/9 = 1. (Before run 2's review this was 2.2 / 0.8, which averages 0.94.)
+  acc += rate / hz * (rnd() < 0.1 ? 3 : 7 / 9);
+  let e = Math.min(MAXE, Math.floor(acc)); acc -= e;
+  const px = 40 * Math.cos(tick * 0.01), py = 40 * Math.sin(tick * 0.01);
+  u[0] = tick; u[1] = tick + 1; u[2] = 1; u[3] = 0; u[4] = 0; u[5] = e; u[6] = 0; u[7] = 0;
+  f[8] = px; f[9] = py; f[10] = px; f[11] = py; f[12] = 1; u[13] = 0;
+  f64[0] = performance.timeOrigin + performance.now(); f64[1] = performance.timeOrigin + t0 + (tick + 1) * 1000 / hz;
+  // The one entity: the player.
+  const eo = V2_HEADER_BYTES; f[eo / 4] = px; f[eo / 4 + 1] = py; f[eo / 4 + 2] = px; f[eo / 4 + 3] = py;
+  const o = (V2_HEADER_BYTES + V2_ENTITY_BYTES) / 4;
+  for (let i = 0; i < e; i++) {
+    const type = pick(), kind = Math.floor(rnd() * KIND_COUNT), owner = type === EV_SHOT ? (rnd() < 0.1 ? 0 : 1) : 0;
+    const val = type === EV_HIT ? 1 + rnd() * rnd() * 14 : type === EV_EXPLOSION ? 2 + rnd() * 4 : 0;
+    const b = o + i * (V2_EVENT_BYTES / 4);
+    u[b] = type | (kind << 8) | (owner << 16);
+    f[b + 1] = px + (rnd() + rnd() + rnd() - 1.5) * 40; f[b + 2] = py + (rnd() + rnd() + rnd() - 1.5) * 40; f[b + 3] = val;
+  }
+  tick++;
+  (self as any).postMessage({ type: 'snapshot', buffer: buf }, [buf]);
+}
+
+self.onmessage = (e: MessageEvent) => {
+  const d = e.data;
+  if (d.type === 'start') {
+    rate = d.rate; hz = d.hz; seed = d.seed; s = (seed * 2654435761) >>> 0 || 1; t0 = performance.now();
+    // Drift-corrected timer: wake every few ms and emit every step that is due.
+    setInterval(() => { const now = performance.now(); while (t0 + tick * 1000 / hz <= now) step(); }, 4);
+  } else if (d.type === 'return') pool.push(d.buffer);
+};

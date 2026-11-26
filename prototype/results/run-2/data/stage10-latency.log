@@ -1,0 +1,38 @@
+== start 2026-11-22T03:01:20+08:00 build ff7bf79 + uncommitted tracking fix
+2026-11-21T19:01:20.393Z A-r16400-stall rep 1 (300 s)
+  late 22, underruns 0, audio ms/frame p99 2.005, errors 2
+2026-11-21T19:06:31.827Z A-r16400-stall rep 2 (300 s)
+  late 7, underruns 0, audio ms/frame p99 1.800, errors 2
+2026-11-21T19:11:43.306Z A-r16400-stall rep 3 (300 s)
+  late 8, underruns 0, audio ms/frame p99 1.445, errors 2
+2026-11-21T19:16:54.465Z A-r16400-nostall rep 1 (300 s)
+  late 8, underruns 0, audio ms/frame p99 1.980, errors 2
+2026-11-21T19:22:05.465Z A-r16400-nostall rep 2 (300 s)
+  late 19, underruns 0, audio ms/frame p99 1.600, errors 2
+2026-11-21T19:27:16.633Z A-r16400-nostall rep 3 (300 s)
+  late 7, underruns 0, audio ms/frame p99 1.850, errors 2
+2026-11-21T19:32:27.664Z A-r16400-lead rep 1 (300 s)
+  late 7, underruns 0, audio ms/frame p99 1.405, errors 2
+2026-11-21T19:37:39.103Z A-r16400-lead rep 2 (300 s)
+  late 9, underruns 0, audio ms/frame p99 1.585, errors 2
+2026-11-21T19:42:50.449Z A-r16400-lead rep 3 (300 s)
+  late 9, underruns 0, audio ms/frame p99 1.415, errors 2
+2026-11-21T19:48:01.434Z B-r16400-stall rep 1 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.385, errors 2
+2026-11-21T19:53:13.165Z B-r16400-stall rep 2 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.390, errors 2
+2026-11-21T19:58:25.144Z B-r16400-stall rep 3 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.390, errors 2
+2026-11-21T20:03:37.001Z B-r16400-nostall rep 1 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.360, errors 2
+2026-11-21T20:08:49.194Z B-r16400-nostall rep 2 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.390, errors 2
+2026-11-21T20:14:00.975Z B-r16400-nostall rep 3 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.385, errors 2
+2026-11-21T20:19:13.127Z B-r16400-lead rep 1 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.405, errors 2
+2026-11-21T20:24:44.271Z B-r16400-lead rep 2 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.385, errors 2
+2026-11-21T20:29:56.395Z B-r16400-lead rep 3 (300 s)
+  late 0, underruns 0, audio ms/frame p99 0.375, errors 2
+== done 2026-11-22T04:35:08+08:00

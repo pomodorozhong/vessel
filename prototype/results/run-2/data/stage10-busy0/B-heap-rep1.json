@@ -1,0 +1,321 @@
+{
+ "name": "B-heap",
+ "rep": 1,
+ "result": {
+  "config": {
+   "mixer": "B",
+   "rate": 16400,
+   "hz": 30,
+   "own": 8,
+   "bench": "stage10",
+   "dur": 80,
+   "warmup": 10,
+   "stalls": 0,
+   "busy": 0,
+   "forceglitch": 0,
+   "record": 0,
+   "pool": 1,
+   "vol": 1,
+   "seed": 1,
+   "lag": 2,
+   "lead": 0,
+   "hint": "interactive"
+  },
+  "url": "http://localhost:4173/vessel/stage10.html?bench=stage10&mixer=B&rate=16400&dur=80&warmup=10&vol=1&busy=0",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "measuredAt": "2026-11-21T21:15:08.048Z",
+  "audio": {
+   "sampleRate": 48000,
+   "baseLatencyMs": 10,
+   "outputLatencyMs": 72.00000000000001,
+   "state": "running",
+   "hasPlaybackStats": true,
+   "hasRenderCapacity": false,
+   "soundBytes": {
+    "sfx": 109980,
+    "music": 200452,
+    "manifest": 842,
+    "decodeMs": 110.59499979019165
+   }
+  },
+  "glitches": {
+   "detectorLate": 0,
+   "detectorLateSinceStart": 0,
+   "detectorMaxExcessMs": 12,
+   "detectorIdleBandMs": 12,
+   "playbackUnderrunEvents": 0,
+   "playbackUnderrunMs": 0,
+   "playbackStats": {
+    "underrunDuration": 0.06777,
+    "underrunEvents": 7,
+    "totalDuration": 90.50916000000001,
+    "averageLatency": 0.07173,
+    "minimumLatency": 0.06981,
+    "maximumLatency": 0.073
+   },
+   "injected": 0,
+   "masterPeak": 0.8910000920295715,
+   "clippedSamples": 0,
+   "renderCapacity": null
+  },
+  "latencyMs": {
+   "outputLatencyMs": 72.00000000000001,
+   "pipelineDelayMs": 82.12733333331812,
+   "inputToSound": {
+    "n": 161,
+    "min": 70.57500003814494,
+    "median": 76.96900001906761,
+    "p99": 82.48800004768418,
+    "max": 82.80000011444281,
+    "mean": 77.11884056549347
+   },
+   "inputToSoundPlusOutputLatency": {
+    "n": 161,
+    "min": 142.57500003814494,
+    "median": 148.9690000190676,
+    "p99": 154.48800004768418,
+    "max": 154.8000001144428,
+    "mean": 149.11884056549349
+   },
+   "eventSoundVsFrameSubmit": {
+    "n": 1054,
+    "min": 70.31599994278076,
+    "median": 78.22400005722011,
+    "p99": 81.58833332380891,
+    "max": 81.95099986648711,
+    "mean": 77.52352719293533
+   },
+   "eventSoundVsFrameSubmitPlusOutputLatency": {
+    "n": 1054,
+    "min": 142.31599994278076,
+    "median": 150.2240000572201,
+    "p99": 153.5883333238089,
+    "max": 153.9509998664871,
+    "mean": 149.52352719293526
+   },
+   "trackedMissing": 123,
+   "note": "input: event.timeStamp to the start of the sound; the sound start is a context time mapped to performance time with the getOutputTimestamp() pair (the pair describes the sample at the device, so the mapped time already includes the render-ahead and the output latency: currentTime minus contextTime is pipelineDelayMs). PlusOutputLatency adds ctx.outputLatency on top, as the plan words it, which double counts if the mapping already includes it (an upper bound). event offset: the same sound time minus the submit time of the frame that first showed the event tick (frame submit, not display); positive = sound after picture."
+  },
+  "mainThreadAudioMsPerFrame": {
+   "n": 4798,
+   "min": 0,
+   "median": 0.039999961853027344,
+   "p99": 0.5950000286102295,
+   "max": 2.0350000858306885,
+   "mean": 0.12251563025494823
+  },
+  "frameMs": {
+   "n": 4798,
+   "min": 1.4399998188018799,
+   "median": 16.655000686645508,
+   "p99": 17.200000762939453,
+   "max": 79.08999633789062,
+   "mean": 16.673651526897537
+  },
+  "frames": 4799,
+  "audioThread": {
+   "procMeanMs": 0.03538797669491525,
+   "loadMean": 0.01327049126059322,
+   "procMaxMsSinceStart": 1,
+   "quantumMs": 2.6666666666666665,
+   "histEdgesMs": [
+    0.05,
+    0.1,
+    0.2,
+    0.5,
+    1,
+    1.5,
+    2.67
+   ],
+   "hist": [
+    29139,
+    0,
+    0,
+    0,
+    1069,
+    0,
+    0,
+    0
+   ],
+   "clockHasPerformanceNow": false,
+   "note": "performance.now() is not available in the worklet scope: process() timed with Date.now() (1 ms steps), so the mean is unbiased but the histogram is coarse",
+   "extraBatches": 6
+  },
+  "voices": {
+   "perFrame": {
+    "n": 4799,
+    "min": 10,
+    "median": 40,
+    "p99": 40,
+    "max": 40,
+    "mean": 38.9920816836841
+   },
+   "maxActive": 40
+  },
+  "eventsPerSec": {
+   "voicesStarted": 211.40922934322035,
+   "merged": 13999.449649099577,
+   "droppedByVoiceLimit": 6.74076403601695,
+   "droppedByTotalLimit": 23.53681144067797,
+   "stolen": 122.21514168432203,
+   "culledQuiet": 0,
+   "snapshotEventsDecoded": 16787.092881381275,
+   "playerInputSounds": 11.17334283191083
+  },
+  "eventsSkipped": {
+   "stale": 3827,
+   "overCapacity": 0
+  },
+  "stalls": 0,
+  "seconds": 80.55466666666666,
+  "wallSeconds": 80.72785500001908,
+  "activeNow": 36,
+  "recording": null
+ },
+ "heap": {
+  "seconds": 60.491,
+  "targets": [
+   "browser ",
+   "page stage10.html?bench=stage10&mixer=B&rate=16400&dur=80&warmup=",
+   "other stage10.html?bench=stage10&mixer=B&rate=16400&dur=80&warmup=",
+   "other harness-sim.worker-CO4Nv31G.js"
+  ],
+  "sessions": {
+   "main": {
+    "bytesPerSecond": {
+     "game": 56560.1494437189,
+     "harness": 699.5420806400953,
+     "internal": 3419.5500157048155
+    },
+    "sampledBytes": {
+     "game": 3421380,
+     "harness": 42316,
+     "internal": 206852
+    },
+    "top": {
+     "game": [
+      [
+       "n.port.onmessage director-mRIsY6cu.js:0",
+       776220
+      ],
+      [
+       "F.x.onmessage stage10-D-6McjUL.js:1",
+       511552
+      ],
+      [
+       "L stage10-D-6McjUL.js:1",
+       444212
+      ],
+      [
+       "onSnapshot snapclock-BcKpjb7r.js:0",
+       369676
+      ],
+      [
+       "frame snapclock-BcKpjb7r.js:0",
+       332148
+      ],
+      [
+       "take snapclock-BcKpjb7r.js:0",
+       295596
+      ],
+      [
+       "onSnapshot director-mRIsY6cu.js:0",
+       271528
+      ],
+      [
+       "decode director-mRIsY6cu.js:0",
+       135060
+      ]
+     ],
+     "harness": [
+      [
+       "c.port.onmessage harness-bench-DLjXM6aw.js:0",
+       42316
+      ]
+     ],
+     "internal": [
+      [
+       "(V8 API) (no url):-1",
+       160592
+      ],
+      [
+       "(IDLE_EXTERNAL) (no url):-1",
+       43452
+      ],
+      [
+       "(anonymous) (no url):-1",
+       2808
+      ]
+     ]
+    },
+    "metrics": {
+     "start": {
+      "JSEventListeners": 4,
+      "Nodes": 36,
+      "JSHeapUsedSize": 1863772,
+      "JSHeapTotalSize": 3407872
+     },
+     "end": {
+      "JSEventListeners": 4,
+      "Nodes": 36,
+      "JSHeapUsedSize": 1648972,
+      "JSHeapTotalSize": 3407872
+     }
+    }
+   },
+   "worker0:harness-sim.worker-CO4Nv31G.js": {
+    "bytesPerSecond": {
+     "game": 0,
+     "harness": 2907129.192772479,
+     "internal": 420.88905787637833
+    },
+    "sampledBytes": {
+     "game": 0,
+     "harness": 175855152,
+     "internal": 25460
+    },
+    "top": {
+     "game": [],
+     "harness": [
+      [
+       "p harness-sim.worker-CO4Nv31G.js:0",
+       175213548
+      ],
+      [
+       "self.onmessage harness-sim.worker-CO4Nv31G.js:0",
+       490232
+      ],
+      [
+       "(anonymous) harness-sim.worker-CO4Nv31G.js:0",
+       151372
+      ]
+     ],
+     "internal": [
+      [
+       "(V8 API) (no url):-1",
+       25328
+      ],
+      [
+       "(IDLE) (no url):-1",
+       132
+      ]
+     ]
+    },
+    "metrics": null
+   }
+  },
+  "totalBytesPerSecond": {
+   "game": 56560.1494437189,
+   "harness": 2907828.734853119,
+   "internal": 3840.439073581194
+  }
+ },
+ "recording": null,
+ "version": "Chrome/156.0.8078.73",
+ "errors": [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+  "Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "url": "http://localhost:4173/vessel/stage10.html?bench=stage10&mixer=B&rate=16400&dur=80&warmup=10&vol=1&busy=0",
+ "measuredAt": "2026-11-21T21:15:08.175Z"
+}

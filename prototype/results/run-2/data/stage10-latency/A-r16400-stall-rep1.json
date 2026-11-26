@@ -1,0 +1,157 @@
+{
+ "name": "A-r16400-stall",
+ "rep": 1,
+ "result": {
+  "config": {
+   "mixer": "A",
+   "rate": 16400,
+   "hz": 30,
+   "own": 8,
+   "bench": "stage10",
+   "dur": 300,
+   "warmup": 10,
+   "stalls": 1,
+   "busy": 4,
+   "forceglitch": 0,
+   "record": 0,
+   "pool": 1,
+   "vol": 1,
+   "seed": 1,
+   "lag": 2,
+   "lead": 0,
+   "hint": "interactive"
+  },
+  "url": "http://localhost:4173/vessel/stage10.html?bench=stage10&mixer=A&rate=16400&dur=300&warmup=10&vol=1&busy=4&stalls=1",
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "measuredAt": "2026-11-21T19:06:31.277Z",
+  "audio": {
+   "sampleRate": 48000,
+   "baseLatencyMs": 10,
+   "outputLatencyMs": 56,
+   "state": "running",
+   "hasPlaybackStats": true,
+   "hasRenderCapacity": false,
+   "soundBytes": {
+    "sfx": 109980,
+    "music": 200452,
+    "manifest": 842,
+    "decodeMs": 111.59500002861023
+   }
+  },
+  "glitches": {
+   "detectorLate": 22,
+   "detectorLateSinceStart": 22,
+   "detectorMaxExcessMs": 114,
+   "detectorIdleBandMs": 24,
+   "playbackUnderrunEvents": 0,
+   "playbackUnderrunMs": 0,
+   "playbackStats": {
+    "underrunDuration": 0.060025,
+    "underrunEvents": 6,
+    "totalDuration": 309.16673,
+    "averageLatency": 0.053535,
+    "minimumLatency": 0.050935,
+    "maximumLatency": 0.06498000000000001
+   },
+   "injected": 0,
+   "masterPeak": 1.3009746074676514,
+   "clippedSamples": 146680,
+   "renderCapacity": null
+  },
+  "latencyMs": {
+   "outputLatencyMs": 56,
+   "pipelineDelayMs": 61.82266666661462,
+   "inputToSound": {
+    "n": 612,
+    "min": 52.59900005722011,
+    "median": 58.929000019066734,
+    "p99": 68.2003333238099,
+    "max": 74.49433338102244,
+    "mean": 59.16301034758364
+   },
+   "inputToSoundPlusOutputLatency": {
+    "n": 612,
+    "min": 108.59900005722011,
+    "median": 114.92900001906673,
+    "p99": 124.2003333238099,
+    "max": 130.49433338102244,
+    "mean": 115.16301034758365
+   },
+   "eventSoundVsFrameSubmit": {
+    "n": 3871,
+    "min": 48.73099996185192,
+    "median": 56.640333180723246,
+    "p99": 62.28266654268373,
+    "max": 71.18700005719438,
+    "mean": 56.819379917022644
+   },
+   "eventSoundVsFrameSubmitPlusOutputLatency": {
+    "n": 3871,
+    "min": 104.73099996185192,
+    "median": 112.64033318072325,
+    "p99": 118.28266654268373,
+    "max": 127.18700005719438,
+    "mean": 112.81937991702235
+   },
+   "trackedMissing": 403,
+   "note": "input: event.timeStamp to the start of the sound; the sound start is a context time mapped to performance time with the getOutputTimestamp() pair (the pair describes the sample at the device, so the mapped time already includes the render-ahead and the output latency: currentTime minus contextTime is pipelineDelayMs). PlusOutputLatency adds ctx.outputLatency on top, as the plan words it, which double counts if the mapping already includes it (an upper bound). event offset: the same sound time minus the submit time of the frame that first showed the event tick (frame submit, not display); positive = sound after picture."
+  },
+  "mainThreadAudioMsPerFrame": {
+   "n": 17476,
+   "min": 0,
+   "median": 0.2350001335144043,
+   "p99": 2.004999876022339,
+   "max": 5.440000057220459,
+   "mean": 0.4402514881388114
+  },
+  "frameMs": {
+   "n": 17476,
+   "min": 5.045000076293945,
+   "median": 16.670000076293945,
+   "p99": 17.295000076293945,
+   "max": 514.7349853515625,
+   "mean": 17.165413137075966
+  },
+  "frames": 17477,
+  "audioThread": null,
+  "voices": {
+   "perFrame": {
+    "n": 17477,
+    "min": 11,
+    "median": 38,
+    "p99": 40,
+    "max": 40,
+    "mean": 38.02494707329633
+   },
+   "maxActive": 40
+  },
+  "eventsPerSec": {
+   "voicesStarted": 190.34724447797424,
+   "merged": 14189.574282732905,
+   "droppedByVoiceLimit": 6.066366381527889,
+   "droppedByTotalLimit": 13.122683760480932,
+   "stolen": 100.79834381526642,
+   "culledQuiet": 0,
+   "snapshotEventsDecoded": 15627.329780501746,
+   "playerInputSounds": 10.382819383768886
+  },
+  "eventsSkipped": {
+   "stale": 18478,
+   "overCapacity": 0
+  },
+  "stalls": 30,
+  "seconds": 300.01485000014304,
+  "wallSeconds": 300.01485000014304,
+  "activeNow": 36,
+  "recording": null
+ },
+ "heap": null,
+ "recording": null,
+ "version": "Chrome/156.0.8078.73",
+ "errors": [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)",
+  "Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "url": "http://localhost:4173/vessel/stage10.html?bench=stage10&mixer=A&rate=16400&dur=300&warmup=10&vol=1&busy=4&stalls=1",
+ "measuredAt": "2026-11-21T19:06:31.570Z"
+}

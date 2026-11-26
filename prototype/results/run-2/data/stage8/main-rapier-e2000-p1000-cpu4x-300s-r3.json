@@ -1,0 +1,337 @@
+{
+ "name": "main-rapier-e2000-p1000-cpu4x-300s-r3",
+ "thread": "main",
+ "check": false,
+ "sweep": true,
+ "rep": 3,
+ "series": "main",
+ "method": "rapier",
+ "enemies": 2000,
+ "proj": 1000,
+ "dur": 300,
+ "result": {
+  "config": {
+   "method": "rapier",
+   "enemies": 2000,
+   "proj": 1000,
+   "passes": 3,
+   "dur": 300,
+   "warmup": 5,
+   "seed": 1,
+   "spawn": 64,
+   "check": false,
+   "sweep": true,
+   "hz": 30,
+   "evcap": 32768,
+   "projcap": 0
+  },
+  "thread": "main",
+  "steps": 9000,
+  "stepMs": {
+   "n": 9000,
+   "mean": 9.357499443425073,
+   "median": 9.039999961853027,
+   "p95": 12.78499984741211,
+   "p99": 17.094999313354492,
+   "max": 29.415000915527344,
+   "min": 4.845000267028809
+  },
+  "wallStepMs": {
+   "n": 9000,
+   "mean": 9.376602775255838,
+   "median": 9.050000190734863,
+   "p95": 12.8149995803833,
+   "p99": 17.114999771118164,
+   "max": 29.420000076293945,
+   "min": 4.855000019073486
+  },
+  "lateMs": {
+   "n": 9000,
+   "mean": 64.69215462438514,
+   "median": 68.24166870117188,
+   "p95": 122.30833435058594,
+   "p99": 130.7550048828125,
+   "max": 133.32000732421875,
+   "min": 0
+  },
+  "phases": {
+   "pairFinding": {
+    "n": 9000,
+    "mean": 4.85007889172766,
+    "median": 4.630000114440918,
+    "p95": 6.650000095367432,
+    "p99": 8.430000305175781,
+    "max": 19.614999771118164,
+    "min": 2.43999981880188,
+    "share": 0.5183092898964056
+   },
+   "exactChecks": {
+    "n": 9000,
+    "mean": 0,
+    "median": 0,
+    "p95": 0,
+    "p99": 0,
+    "max": 0,
+    "min": 0,
+    "share": 0
+   },
+   "crowdPushing": {
+    "n": 9000,
+    "mean": 0,
+    "median": 0,
+    "p95": 0,
+    "p99": 0,
+    "max": 0,
+    "min": 0,
+    "share": 0
+   },
+   "projectiles": {
+    "n": 9000,
+    "mean": 3.162244446436564,
+    "median": 3.0149998664855957,
+    "p95": 4.944999694824219,
+    "p99": 7.125,
+    "max": 11.369999885559082,
+    "min": 0.7850000858306885,
+    "share": 0.33793690991437614
+   },
+   "areaEffects": {
+    "n": 9000,
+    "mean": 0.5192250001430512,
+    "median": 0.4249999523162842,
+    "p95": 0.8399999141693115,
+    "p99": 1.309999942779541,
+    "max": 3.634999990463257,
+    "min": 0.09999990463256836,
+    "share": 0.055487580125679614
+   },
+   "flowField": {
+    "n": 9000,
+    "mean": 0.30430333235528734,
+    "median": 0.40000009536743164,
+    "p95": 0.6050000190734863,
+    "p99": 0.9749999046325684,
+    "max": 1.8250000476837158,
+    "min": 0,
+    "share": 0.03251972753993613
+   },
+   "ai": {
+    "n": 9000,
+    "mean": 0.1465450001557668,
+    "median": 0.18499994277954102,
+    "p95": 0.21500015258789062,
+    "p99": 0.4250001907348633,
+    "max": 1.7649998664855957,
+    "min": 0.014999866485595703,
+    "share": 0.0156607009214128
+   },
+   "integrateSort": {
+    "n": 9000,
+    "mean": 0.258552223417494,
+    "median": 0.21499991416931152,
+    "p95": 0.4100000858306885,
+    "p99": 0.7599999904632568,
+    "max": 1.6099998950958252,
+    "min": 0.034999847412109375,
+    "share": 0.027630482371993344
+   },
+   "snapshotWrite": {
+    "n": 9000,
+    "mean": 0.10616999922858344,
+    "median": 0.1700000762939453,
+    "p95": 0.18500018119812012,
+    "p99": 0.24500012397766113,
+    "max": 1.7849998474121094,
+    "min": 0.014999866485595703,
+    "share": 0.011345979753510156
+   },
+   "obstacles": {
+    "n": 9000,
+    "mean": 0.006433333184983995,
+    "median": 0,
+    "p95": 0.005000114440917969,
+    "p99": 0.15999984741210938,
+    "max": 0.6050000190734863,
+    "min": 0,
+    "share": 0.0006875055909839561
+   },
+   "buildingUpdates": {
+    "n": 9000,
+    "mean": 0.003947223080529107,
+    "median": 0,
+    "p95": 0.005000114440917969,
+    "p99": 0.1549999713897705,
+    "max": 0.6150000095367432,
+    "min": 0,
+    "share": 0.0004218245594770057
+   },
+   "referenceCheck": {
+    "n": 9000,
+    "mean": 0,
+    "median": 0,
+    "p95": 0,
+    "p99": 0,
+    "max": 0,
+    "min": 0
+   }
+  },
+  "liveProjectiles": {
+   "n": 9000,
+   "mean": 1000,
+   "median": 1000,
+   "p95": 1000,
+   "p99": 1000,
+   "max": 1000,
+   "min": 1000
+  },
+  "events": {
+   "total": {
+    "n": 9000,
+    "mean": 492.052,
+    "median": 443,
+    "p95": 858,
+    "p99": 1257,
+    "max": 1323,
+    "min": 228
+   },
+   "shot": {
+    "n": 9000,
+    "mean": 238.96344444444443,
+    "median": 216,
+    "p95": 411,
+    "p99": 594,
+    "max": 633,
+    "min": 109
+   },
+   "hit": {
+    "n": 9000,
+    "mean": 224.068,
+    "median": 201,
+    "p95": 399,
+    "p99": 589,
+    "max": 628,
+    "min": 89
+   },
+   "death": {
+    "n": 9000,
+    "mean": 0.9607777777777777,
+    "median": 0,
+    "p95": 4,
+    "p99": 7,
+    "max": 27,
+    "min": 0
+   },
+   "explosion": {
+    "n": 9000,
+    "mean": 27.92188888888889,
+    "median": 25,
+    "p95": 51,
+    "p99": 75,
+    "max": 87,
+    "min": 5
+   },
+   "pickup": {
+    "n": 9000,
+    "mean": 0.09666666666666666,
+    "median": 0,
+    "p95": 1,
+    "p99": 2,
+    "max": 8,
+    "min": 0
+   },
+   "wallBuilt": {
+    "n": 9000,
+    "mean": 0.016666666666666666,
+    "median": 0,
+    "p95": 0,
+    "p99": 1,
+    "max": 1,
+    "min": 0
+   },
+   "wallRemoved": {
+    "n": 9000,
+    "mean": 0.01633333333333333,
+    "median": 0,
+    "p95": 0,
+    "p99": 1,
+    "max": 1,
+    "min": 0
+   },
+   "playerHurt": {
+    "n": 9000,
+    "mean": 0.008222222222222223,
+    "median": 0,
+    "p95": 0,
+    "p99": 0,
+    "max": 1,
+    "min": 0
+   }
+  },
+  "droppedEvents": {
+   "total": 0,
+   "stepsWithDrops": 0,
+   "max": 0
+  },
+  "passThroughs": {
+   "total": 0,
+   "falseHits": 0,
+   "grazes": 0,
+   "checked": 0,
+   "checkEnabled": false,
+   "sweep": true
+  },
+  "pairs": {
+   "tested": 0,
+   "candidates": 0,
+   "hit": 830.4044444444445
+  },
+  "orderMoves": {
+   "n": 9000,
+   "mean": 0,
+   "median": 0,
+   "p95": 0,
+   "p99": 0,
+   "max": 0,
+   "min": 0
+  },
+  "deaths": {
+   "inWindow": 8647,
+   "perSecond": 28.823333333333334
+  },
+  "projectileOutcomes": {
+   "shots": 2150671,
+   "hits": 2016688,
+   "hitsEnemy": 20607,
+   "hitsWall": 1996005,
+   "hitsPlayer": 76,
+   "explosions": 251297
+  },
+  "snapshotBytes": {
+   "n": 9000,
+   "mean": 96032.832,
+   "median": 95248,
+   "p95": 101888,
+   "p99": 108272,
+   "max": 109328,
+   "min": 91808
+  },
+  "worldChanges": 150,
+  "flowRebuilds": 1483,
+  "wasmMemory": {
+   "start": 5832704,
+   "end": 11206656
+  },
+  "checksum": 496596.0616390705,
+  "url": "http://localhost:4173/vessel/stage8.html?method=rapier&enemies=2000&proj=1000&dur=300&warmup=5&thread=main&check=0&sweep=1&evcap=32768",
+  "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "crossOriginIsolated": true,
+  "hidden": false
+ },
+ "version": "Chrome/156.0.8078.73",
+ "errors": [
+  "Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "url": "http://localhost:4173/vessel/stage8.html?method=rapier&enemies=2000&proj=1000&dur=300&warmup=5&thread=main&check=0&sweep=1&evcap=32768",
+ "throttleRate": 4,
+ "measuredAt": "2026-11-21T06:31:33.466Z"
+}

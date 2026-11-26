@@ -1,0 +1,1392 @@
+{
+ "name": "crash",
+ "result": {
+  "config": {
+   "mode": "wave",
+   "start": 300,
+   "peak": 5000,
+   "ramp": 240,
+   "past": 3000,
+   "cap": 20000,
+   "projPerEnemy": 0.2,
+   "method": 0,
+   "passes": 3,
+   "hz": 30,
+   "seed": 1,
+   "outline": "hull",
+   "shadow": "map",
+   "shadowres": 2048,
+   "grass": 1,
+   "bloom": 1,
+   "particles": 10000,
+   "ires": 1080,
+   "cw": 1920,
+   "ch": 1080,
+   "mixer": "B",
+   "vol": 1,
+   "lag": 2,
+   "bench": "stage11",
+   "dur": 300,
+   "warmup": 5,
+   "overlay": 0,
+   "window": 5
+  },
+  "sim": {
+   "steps": 9001,
+   "stepMs": {
+    "n": 9001,
+    "mean": 0.7120164425793443,
+    "median": 0.7000000476837158,
+    "p99": 1.3249998092651367,
+    "max": 3.134999990463257
+   },
+   "copyMs": {
+    "n": 9001,
+    "mean": 0.009775580968900252,
+    "median": 0.009999990463256836,
+    "p99": 0.02500009536743164,
+    "max": 0.1399998664855957
+   },
+   "postMs": {
+    "n": 9001,
+    "mean": 0.018922339544178657,
+    "median": 0.015000104904174805,
+    "p99": 0.04999995231628418,
+    "max": 0.16499996185302734
+   },
+   "lateMs": {
+    "n": 9001,
+    "mean": 2.9268624688982885,
+    "median": 1.4483333826065063,
+    "p99": 14.4399995803833,
+    "max": 16.448333740234375
+   },
+   "snapshotBytes": {
+    "n": 9001,
+    "mean": 119858.27352516387,
+    "median": 124320,
+    "p99": 199312,
+    "max": 201376
+   },
+   "projectiles": {
+    "n": 9001,
+    "mean": 632.3377402510832,
+    "median": 648,
+    "p99": 1000,
+    "max": 1000
+   },
+   "events": {
+    "n": 9001,
+    "mean": 292.730585490501,
+    "median": 259,
+    "p99": 947,
+    "max": 1076
+   },
+   "enemies": {
+    "n": 9001,
+    "mean": 3119.952449727808,
+    "median": 3238,
+    "p99": 5000,
+    "max": 5000
+   },
+   "wakes": 12350,
+   "catchupSteps": 0,
+   "droppedSteps": 0,
+   "worldMsgs": 153,
+   "poolMisses": 0,
+   "wasmMemory": {
+    "start": 8716288,
+    "end": 8716288
+   }
+  },
+  "audio": {
+   "config": {
+    "mixer": "B",
+    "rate": 16400,
+    "hz": 30,
+    "own": 8,
+    "bench": "stage11",
+    "dur": 300,
+    "warmup": 5,
+    "stalls": 0,
+    "busy": 0,
+    "forceglitch": 0,
+    "record": 0,
+    "pool": 1,
+    "vol": 1,
+    "seed": 1,
+    "lag": 2,
+    "lead": 0,
+    "hint": "interactive"
+   },
+   "url": "http://localhost:4173/vessel/stage11.html?bench=stage11&dur=300&overlay=0&vol=1",
+   "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+   "measuredAt": "2026-11-21T21:00:48.363Z",
+   "audio": {
+    "sampleRate": 48000,
+    "baseLatencyMs": 10,
+    "outputLatencyMs": 64,
+    "state": "running",
+    "hasPlaybackStats": true,
+    "hasRenderCapacity": false,
+    "soundBytes": {
+     "sfx": 109980,
+     "music": 200452,
+     "manifest": 842,
+     "decodeMs": 102.13499999046326
+    }
+   },
+   "glitches": {
+    "detectorLate": 0,
+    "detectorLateSinceStart": 0,
+    "detectorMaxExcessMs": 19.333251953125,
+    "detectorIdleBandMs": 19.333251953125,
+    "playbackUnderrunEvents": 0,
+    "playbackUnderrunMs": 0,
+    "playbackStats": {
+     "underrunDuration": 0.06424500000000001,
+     "underrunEvents": 7,
+     "totalDuration": 306.64090999999996,
+     "averageLatency": 0.06836,
+     "minimumLatency": 0.065875,
+     "maximumLatency": 0.069975
+    },
+    "injected": 0,
+    "masterPeak": 0.8910000920295715,
+    "clippedSamples": 0,
+    "renderCapacity": null
+   },
+   "latencyMs": {
+    "outputLatencyMs": 64,
+    "pipelineDelayMs": 79.77499999998372,
+    "inputToSound": {
+     "n": 629,
+     "min": 67.09699999046279,
+     "median": 73.72833312355215,
+     "p99": 79.71499987602328,
+     "max": 80.16900010489917,
+     "mean": 73.85912877049786
+    },
+    "inputToSoundPlusOutputLatency": {
+     "n": 629,
+     "min": 131.0969999904628,
+     "median": 137.72833312355215,
+     "p99": 143.71499987602328,
+     "max": 144.16900010489917,
+     "mean": 137.85912877049788
+    },
+    "eventSoundVsFrameSubmit": {
+     "n": 4486,
+     "min": 66.61000000953209,
+     "median": 73.14899986653472,
+     "p99": 79.7489998760575,
+     "max": 80.35300003815792,
+     "mean": 72.87263486374263
+    },
+    "eventSoundVsFrameSubmitPlusOutputLatency": {
+     "n": 4486,
+     "min": 130.6100000095321,
+     "median": 137.14899986653472,
+     "p99": 143.7489998760575,
+     "max": 144.35300003815792,
+     "mean": 136.87263486374286
+    },
+    "trackedMissing": 0,
+    "note": "input: event.timeStamp to the start of the sound; the sound start is a context time mapped to performance time with the getOutputTimestamp() pair (the pair describes the sample at the device, so the mapped time already includes the render-ahead and the output latency: currentTime minus contextTime is pipelineDelayMs). PlusOutputLatency adds ctx.outputLatency on top, as the plan words it, which double counts if the mapping already includes it (an upper bound). event offset: the same sound time minus the submit time of the frame that first showed the event tick (frame submit, not display); positive = sound after picture."
+   },
+   "mainThreadAudioMsPerFrame": {
+    "n": 17988,
+    "min": 0,
+    "median": 0.015000104904174805,
+    "p99": 0.3600001335144043,
+    "max": 1.614999771118164,
+    "mean": 0.060612630891831734
+   },
+   "frameMs": {
+    "n": 17988,
+    "min": 1.5999999046325684,
+    "median": 16.655000686645508,
+    "p99": 17.2450008392334,
+    "max": 628.1950073242188,
+    "mean": 16.71760840337224
+   },
+   "frames": 17989,
+   "audioThread": {
+    "procMeanMs": 0.02404050794551646,
+    "loadMean": 0.009015190479568672,
+    "procMaxMsSinceStart": 1,
+    "quantumMs": 2.6666666666666665,
+    "histEdgesMs": [
+     0.05,
+     0.1,
+     0.2,
+     0.5,
+     1,
+     1.5,
+     2.67
+    ],
+    "hist": [
+     110057,
+     0,
+     0,
+     0,
+     2711,
+     0,
+     0,
+     0
+    ],
+    "clockHasPerformanceNow": false,
+    "note": "performance.now() is not available in the worklet scope: process() timed with Date.now() (1 ms steps), so the mean is unbiased but the histogram is coarse",
+    "extraBatches": 0
+   },
+   "voices": {
+    "perFrame": {
+     "n": 17989,
+     "min": 9,
+     "median": 20,
+     "p99": 31,
+     "max": 34,
+     "mean": 19.7774751236867
+    },
+    "maxActive": 35
+   },
+   "eventsPerSec": {
+    "voicesStarted": 97.55759612656072,
+    "merged": 4426.026221977866,
+    "droppedByVoiceLimit": 0.22612797956867195,
+    "droppedByTotalLimit": 0,
+    "stolen": 73.04931363507377,
+    "culledQuiet": 0,
+    "snapshotEventsDecoded": 8781.389832563322,
+    "playerInputSounds": 2.131391579077081
+   },
+   "eventsSkipped": {
+    "stale": 3736,
+    "overCapacity": 0
+   },
+   "stalls": 0,
+   "seconds": 300.7146666666667,
+   "wallSeconds": 300.7424850001335,
+   "activeNow": 10,
+   "recording": null
+  },
+  "clock": {
+   "pauses": 0,
+   "jumps": 1,
+   "frames": 17947,
+   "dropped": 19,
+   "gaps": 0,
+   "maxQueue": 4,
+   "snapshots": 9001
+  },
+  "deviceLosses": 1,
+  "rebuilds": 2,
+  "errors": [],
+  "render": {
+   "internal": [
+    1920,
+    1080
+   ],
+   "staticInstances": 1212,
+   "dynamic": 5001,
+   "visible": 273,
+   "shadowCasters": 1813,
+   "blobs": 273,
+   "dynVisible": 232,
+   "auras": 13,
+   "grassChunks": 50,
+   "grassClumps": 9600,
+   "alive": 6521,
+   "poolCap": 11500,
+   "spawnScale": 0.0859075547287966,
+   "triangles": 12696,
+   "limits": {
+    "maxStorageBufferBindingSize": 134217728,
+    "maxBufferSize": 268435456,
+    "maxTextureDimension2D": 8192,
+    "instanceBufferBytes": 678816,
+    "visibleBufferBytes": 2974700,
+    "particlePoolBytes": 552000,
+    "particlePoolCap": 11500,
+    "eventsCap": 8192,
+    "projectilesCap": 4000,
+    "shadowRes": 2048,
+    "maxStorageBuffersPerShaderStage": 8
+   },
+   "eventsDropped": 0,
+   "truncated": {
+    "entities": 0,
+    "projectiles": 0
+   },
+   "shadowRes": 2048
+  },
+  "truncated": {
+   "entities": 0,
+   "projectiles": 0
+  },
+  "lost": {
+   "reason": "unknown",
+   "message": "A valid external Instance reference no longer exists.",
+   "at": 157040.12000012398
+  },
+  "recovered": {
+   "at": 157660.7350001335,
+   "attempt": 0,
+   "snapshotsDuringOutage": 20
+  },
+  "gpu": {
+   "info": {
+    "vendor": "nvidia",
+    "architecture": "ampere",
+    "device": "0x2544",
+    "description": "NVIDIA GeForce RTX 3060"
+   },
+   "timestamps": true
+  },
+  "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+  "isolated": true,
+  "url": "http://localhost:4173/vessel/stage11.html?bench=stage11&dur=300&overlay=0&vol=1",
+  "frames": {
+   "frameMs": {
+    "n": 17946,
+    "mean": 16.717726789389143,
+    "median": 16.655000686645508,
+    "p99": 17.2450008392334,
+    "max": 628.1950073242188
+   },
+   "framesOver20ms": 7,
+   "framesOver34ms": 5,
+   "count": 17947
+  },
+  "mainThread": {
+   "total": {
+    "n": 17947,
+    "mean": 1.0025068246309303,
+    "median": 0.9950001239776611,
+    "p99": 2.0199999809265137,
+    "max": 4.494999885559082
+   },
+   "snapshotReceive": {
+    "n": 17947,
+    "mean": 0.008161530651713824,
+    "median": 0,
+    "p99": 0.16499996185302734,
+    "max": 1.5799999237060547
+   },
+   "snapshotUpload": {
+    "n": 17947,
+    "mean": 0.11122081687193086,
+    "median": 0.014999866485595703,
+    "p99": 0.5750000476837158,
+    "max": 1.6150000095367432
+   },
+   "encode": {
+    "n": 17947,
+    "mean": 0.6880963393863001,
+    "median": 0.619999885559082,
+    "p99": 1.4149999618530273,
+    "max": 3.5749998092651367
+   },
+   "audio": {
+    "n": 17947,
+    "mean": 0.06073299189985393,
+    "median": 0.015000104904174805,
+    "p99": 0.3600001335144043,
+    "max": 1.614999771118164
+   },
+   "ui": {
+    "n": 17947,
+    "mean": 0.016614475243336153,
+    "median": 0,
+    "p99": 0.3600001335144043,
+    "max": 1.755000114440918
+   },
+   "other": {
+    "n": 17947,
+    "mean": 0.1258422012295093,
+    "median": 0.16499996185302734,
+    "p99": 0.5099999904632568,
+    "max": 2.0450000762939453
+   },
+   "note": "per frame; snapshotReceive is the onmessage handling between frames (director copy + clock queue), outside the frame total; ui is the debug overlay DOM only (HUD, health bars and damage numbers are GPU passes)"
+  },
+  "gpuMs": {
+   "n": 17934,
+   "mean": 3.4252035536035668,
+   "median": 3.6659200191497803,
+   "p99": 5.82860803604126,
+   "max": 10.392640113830566
+  },
+  "gpuSamples": 17934,
+  "memory": {
+   "heapStartMB": 34.93314170837402,
+   "heapEndMB": 41.13259696960449,
+   "heapMaxMB": 41.210554122924805,
+   "samples": 300,
+   "heapSlopeMBPerMin": 0.5699568131697392,
+   "heapFirstMinMedianMB": 35.99987983703613,
+   "heapLastMinMedianMB": 37.98879432678223
+  },
+  "handoff": {
+   "transitMs": {
+    "n": 9001,
+    "mean": 0.5749683411912565,
+    "median": 0.125,
+    "p99": 8.735107421875,
+    "max": 168.89501953125
+   },
+   "snapshots": 9001,
+   "worldMessages": 151,
+   "simStepMsSeenByPage": {
+    "n": 9001,
+    "mean": 0.709056216125395,
+    "median": 0.695000171661377,
+    "p99": 1.3199999332427979,
+    "max": 3.134999990463257
+   },
+   "projectiles": {
+    "n": 9001,
+    "mean": 632.3377402510832,
+    "median": 648,
+    "p99": 1000,
+    "max": 1000
+   },
+   "events": {
+    "n": 9001,
+    "mean": 292.730585490501,
+    "median": 259,
+    "p99": 947,
+    "max": 1076
+   }
+  },
+  "inputToSubmitMs": {
+   "n": 626,
+   "mean": 10.503889766364052,
+   "median": 9.555000305175781,
+   "p99": 17.774999618530273,
+   "max": 617.6199951171875
+  },
+  "inputSamples": 626,
+  "windows": [
+   {
+    "t": 0,
+    "enemies": 349,
+    "projectiles": 200,
+    "events": 60.75496688741722,
+    "simP99": 0.6949999332427979,
+    "encodeP99": 1.8350000381469727,
+    "cpuP99": 2.055000066757202,
+    "gpuP99": 5.805056095123291,
+    "frameP99": 17.354999542236328,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 5,
+    "enemies": 448,
+    "projectiles": 200,
+    "events": 73.98666666666666,
+    "simP99": 0.5850000381469727,
+    "encodeP99": 1.260000228881836,
+    "cpuP99": 1.8199999332427979,
+    "gpuP99": 4.490240097045898,
+    "frameP99": 17.489999771118164,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 10,
+    "enemies": 545,
+    "projectiles": 200,
+    "events": 106.95333333333333,
+    "simP99": 0.690000057220459,
+    "encodeP99": 1.4550001621246338,
+    "cpuP99": 2.0299999713897705,
+    "gpuP99": 6.29145622253418,
+    "frameP99": 17.510000228881836,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 15,
+    "enemies": 643,
+    "projectiles": 200,
+    "events": 100.36,
+    "simP99": 0.6649999618530273,
+    "encodeP99": 1.2100000381469727,
+    "cpuP99": 1.4200000762939453,
+    "gpuP99": 5.1169281005859375,
+    "frameP99": 17.255001068115234,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 20,
+    "enemies": 741,
+    "projectiles": 200,
+    "events": 78.76,
+    "simP99": 0.7050001621246338,
+    "encodeP99": 1.3900001049041748,
+    "cpuP99": 1.7799999713897705,
+    "gpuP99": 3.5031039714813232,
+    "frameP99": 17.405000686645508,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 25,
+    "enemies": 839,
+    "projectiles": 200,
+    "events": 131.66666666666666,
+    "simP99": 0.5499999523162842,
+    "encodeP99": 1.6050000190734863,
+    "cpuP99": 1.8400001525878906,
+    "gpuP99": 3.931135892868042,
+    "frameP99": 17.200000762939453,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 30,
+    "enemies": 936,
+    "projectiles": 200,
+    "events": 141.61744966442953,
+    "simP99": 0.5950000286102295,
+    "encodeP99": 1.4049999713897705,
+    "cpuP99": 1.7850000858306885,
+    "gpuP99": 4.509696006774902,
+    "frameP99": 17.43000030517578,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 35,
+    "enemies": 1034,
+    "projectiles": 207,
+    "events": 105.06622516556291,
+    "simP99": 0.7050001621246338,
+    "encodeP99": 1.0699999332427979,
+    "cpuP99": 1.5850000381469727,
+    "gpuP99": 6.087679862976074,
+    "frameP99": 17.190000534057617,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 40,
+    "enemies": 1133,
+    "projectiles": 227,
+    "events": 119.62,
+    "simP99": 0.5950000286102295,
+    "encodeP99": 1.6549999713897705,
+    "cpuP99": 2.4149999618530273,
+    "gpuP99": 5.775360107421875,
+    "frameP99": 17.84000015258789,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 45,
+    "enemies": 1231,
+    "projectiles": 246,
+    "events": 169.65333333333334,
+    "simP99": 0.6200001239776611,
+    "encodeP99": 1.2650001049041748,
+    "cpuP99": 1.8799998760223389,
+    "gpuP99": 5.359615802764893,
+    "frameP99": 17.440000534057617,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 50,
+    "enemies": 1329,
+    "projectiles": 266,
+    "events": 100.30666666666667,
+    "simP99": 0.880000114440918,
+    "encodeP99": 1.1800000667572021,
+    "cpuP99": 1.6099998950958252,
+    "gpuP99": 3.8799359798431396,
+    "frameP99": 17.290000915527344,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 55,
+    "enemies": 1427,
+    "projectiles": 285,
+    "events": 116.40666666666667,
+    "simP99": 0.880000114440918,
+    "encodeP99": 1.0300002098083496,
+    "cpuP99": 1.6150000095367432,
+    "gpuP99": 3.759104013442993,
+    "frameP99": 17.389999389648438,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 60,
+    "enemies": 1525,
+    "projectiles": 305,
+    "events": 132.70666666666668,
+    "simP99": 0.6749999523162842,
+    "encodeP99": 1.0499999523162842,
+    "cpuP99": 1.4249999523162842,
+    "gpuP99": 4.340735912322998,
+    "frameP99": 17.100000381469727,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 65,
+    "enemies": 1623,
+    "projectiles": 325,
+    "events": 149.73333333333332,
+    "simP99": 0.9150002002716064,
+    "encodeP99": 1.1800000667572021,
+    "cpuP99": 1.8399999141693115,
+    "gpuP99": 4.311039924621582,
+    "frameP99": 17.170000076293945,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 70,
+    "enemies": 1720,
+    "projectiles": 344,
+    "events": 103.21333333333334,
+    "simP99": 0.875,
+    "encodeP99": 1.440000057220459,
+    "cpuP99": 2,
+    "gpuP99": 4.09497594833374,
+    "frameP99": 17.170000076293945,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 75,
+    "enemies": 1818,
+    "projectiles": 364,
+    "events": 172.83333333333334,
+    "simP99": 0.809999942779541,
+    "encodeP99": 1.1949999332427979,
+    "cpuP99": 1.630000114440918,
+    "gpuP99": 4.506624221801758,
+    "frameP99": 17.135000228881836,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 80,
+    "enemies": 1916,
+    "projectiles": 383,
+    "events": 138.16,
+    "simP99": 0.9000000953674316,
+    "encodeP99": 1.0399999618530273,
+    "cpuP99": 1.6349999904632568,
+    "gpuP99": 6.023168087005615,
+    "frameP99": 17.094999313354492,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 85,
+    "enemies": 2014,
+    "projectiles": 403,
+    "events": 164.86,
+    "simP99": 0.8299999237060547,
+    "encodeP99": 1.2999999523162842,
+    "cpuP99": 2.1050000190734863,
+    "gpuP99": 5.876736164093018,
+    "frameP99": 17.485000610351562,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 90,
+    "enemies": 2112,
+    "projectiles": 422,
+    "events": 156.36666666666667,
+    "simP99": 0.9249999523162842,
+    "encodeP99": 1.190000057220459,
+    "cpuP99": 1.5850000381469727,
+    "gpuP99": 5.979584217071533,
+    "frameP99": 17.170000076293945,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 95,
+    "enemies": 2210,
+    "projectiles": 442,
+    "events": 165.46,
+    "simP99": 1.1600000858306885,
+    "encodeP99": 1.1850001811981201,
+    "cpuP99": 1.7899999618530273,
+    "gpuP99": 6.1624321937561035,
+    "frameP99": 17.21500015258789,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 100,
+    "enemies": 2308,
+    "projectiles": 462,
+    "events": 234.89333333333335,
+    "simP99": 1.0550000667572021,
+    "encodeP99": 1.2249999046325684,
+    "cpuP99": 1.6699998378753662,
+    "gpuP99": 5.549056053161621,
+    "frameP99": 17.190000534057617,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 105,
+    "enemies": 2406,
+    "projectiles": 481,
+    "events": 240.3,
+    "simP99": 0.8450000286102295,
+    "encodeP99": 1.4199998378753662,
+    "cpuP99": 2.0850000381469727,
+    "gpuP99": 4.7524800300598145,
+    "frameP99": 17.375,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 110,
+    "enemies": 2504,
+    "projectiles": 501,
+    "events": 232.16666666666666,
+    "simP99": 1.3250000476837158,
+    "encodeP99": 1.0850000381469727,
+    "cpuP99": 1.6299998760223389,
+    "gpuP99": 5.8787841796875,
+    "frameP99": 17.264999389648438,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 115,
+    "enemies": 2602,
+    "projectiles": 520,
+    "events": 257.42,
+    "simP99": 1.0099999904632568,
+    "encodeP99": 1.4350001811981201,
+    "cpuP99": 1.8600001335144043,
+    "gpuP99": 4.89628791809082,
+    "frameP99": 17.219999313354492,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 120,
+    "enemies": 2700,
+    "projectiles": 540,
+    "events": 185.64,
+    "simP99": 0.9500000476837158,
+    "encodeP99": 1.6050000190734863,
+    "cpuP99": 2.2350001335144043,
+    "gpuP99": 5.626880168914795,
+    "frameP99": 17.28499984741211,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 125,
+    "enemies": 2798,
+    "projectiles": 560,
+    "events": 229.16666666666666,
+    "simP99": 0.9650001525878906,
+    "encodeP99": 1.5699999332427979,
+    "cpuP99": 1.9449999332427979,
+    "gpuP99": 5.827487945556641,
+    "frameP99": 17.145000457763672,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 130,
+    "enemies": 2895,
+    "projectiles": 579,
+    "events": 255.98,
+    "simP99": 1.1349999904632568,
+    "encodeP99": 1.4600000381469727,
+    "cpuP99": 2.0249998569488525,
+    "gpuP99": 6.436863899230957,
+    "frameP99": 17.200000762939453,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 135,
+    "enemies": 2993,
+    "projectiles": 599,
+    "events": 206.58,
+    "simP99": 1,
+    "encodeP99": 1.2000000476837158,
+    "cpuP99": 1.8199999332427979,
+    "gpuP99": 6.346752166748047,
+    "frameP99": 17.424999237060547,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 140,
+    "enemies": 3091,
+    "projectiles": 618,
+    "events": 299.744966442953,
+    "simP99": 1.2899999618530273,
+    "encodeP99": 1.25,
+    "cpuP99": 2.0350000858306885,
+    "gpuP99": 5.273600101470947,
+    "frameP99": 17.295000076293945,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 145,
+    "enemies": 3189,
+    "projectiles": 638,
+    "events": 329.17218543046357,
+    "simP99": 0.9649999141693115,
+    "encodeP99": 1.309999942779541,
+    "cpuP99": 1.7899999618530273,
+    "gpuP99": 5.82316780090332,
+    "frameP99": 17.239999771118164,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 150,
+    "enemies": 3287,
+    "projectiles": 657,
+    "events": 273.48,
+    "simP99": 1.1099998950958252,
+    "encodeP99": 1.1949999332427979,
+    "cpuP99": 2.0299999713897705,
+    "gpuP99": 4.513792037963867,
+    "frameP99": 50.38999938964844,
+    "pausesJumps": 1,
+    "audioLate": 0
+   },
+   {
+    "t": 155,
+    "enemies": 3385,
+    "projectiles": 677,
+    "events": 327.74666666666667,
+    "simP99": 1.1299998760223389,
+    "encodeP99": 1.2899999618530273,
+    "cpuP99": 1.8600001335144043,
+    "gpuP99": 5.707776069641113,
+    "frameP99": 17.229999542236328,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 160,
+    "enemies": 3482,
+    "projectiles": 696,
+    "events": 244.5771812080537,
+    "simP99": 1.1949999332427979,
+    "encodeP99": 1.5499999523162842,
+    "cpuP99": 2.4700000286102295,
+    "gpuP99": 5.939968109130859,
+    "frameP99": 17.155000686645508,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 165,
+    "enemies": 3580,
+    "projectiles": 716,
+    "events": 293.1456953642384,
+    "simP99": 1.3299999237060547,
+    "encodeP99": 1.6349999904632568,
+    "cpuP99": 2.504999876022339,
+    "gpuP99": 5.983232021331787,
+    "frameP99": 17.270000457763672,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 170,
+    "enemies": 3679,
+    "projectiles": 736,
+    "events": 347.25333333333333,
+    "simP99": 1.1649999618530273,
+    "encodeP99": 1.3999998569488525,
+    "cpuP99": 1.8050000667572021,
+    "gpuP99": 6.3067522048950195,
+    "frameP99": 17.389999389648438,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 175,
+    "enemies": 3776,
+    "projectiles": 755,
+    "events": 445.0134228187919,
+    "simP99": 1.2950000762939453,
+    "encodeP99": 1.4549999237060547,
+    "cpuP99": 2.194999933242798,
+    "gpuP99": 4.927328109741211,
+    "frameP99": 17.454999923706055,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 180,
+    "enemies": 3874,
+    "projectiles": 775,
+    "events": 288.5496688741722,
+    "simP99": 1.4149999618530273,
+    "encodeP99": 1.5899999141693115,
+    "cpuP99": 2.429999828338623,
+    "gpuP99": 5.5316481590271,
+    "frameP99": 17.155000686645508,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 185,
+    "enemies": 3973,
+    "projectiles": 795,
+    "events": 354.64666666666665,
+    "simP99": 1.3349997997283936,
+    "encodeP99": 1.440000057220459,
+    "cpuP99": 1.9049999713897705,
+    "gpuP99": 6.647808074951172,
+    "frameP99": 17.280000686645508,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 190,
+    "enemies": 4070,
+    "projectiles": 814,
+    "events": 302.38,
+    "simP99": 1.380000114440918,
+    "encodeP99": 1.4449999332427979,
+    "cpuP99": 2,
+    "gpuP99": 6.474751949310303,
+    "frameP99": 17.2450008392334,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 195,
+    "enemies": 4168,
+    "projectiles": 834,
+    "events": 273.5133333333333,
+    "simP99": 1.25,
+    "encodeP99": 1.5750000476837158,
+    "cpuP99": 2.174999952316284,
+    "gpuP99": 6.304768085479736,
+    "frameP99": 17.295000076293945,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 200,
+    "enemies": 4266,
+    "projectiles": 853,
+    "events": 278.8933333333333,
+    "simP99": 1.4249999523162842,
+    "encodeP99": 1.6449999809265137,
+    "cpuP99": 2.484999895095825,
+    "gpuP99": 6.305791854858398,
+    "frameP99": 17.149999618530273,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 205,
+    "enemies": 4364,
+    "projectiles": 873,
+    "events": 349.99333333333334,
+    "simP99": 1.2149999141693115,
+    "encodeP99": 1.3050000667572021,
+    "cpuP99": 2.009999990463257,
+    "gpuP99": 6.121344089508057,
+    "frameP99": 17.385000228881836,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 210,
+    "enemies": 4462,
+    "projectiles": 892,
+    "events": 526.4533333333334,
+    "simP99": 1.3299999237060547,
+    "encodeP99": 1.4500000476837158,
+    "cpuP99": 1.8949999809265137,
+    "gpuP99": 6.243328094482422,
+    "frameP99": 17.174999237060547,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 215,
+    "enemies": 4560,
+    "projectiles": 912,
+    "events": 641.14,
+    "simP99": 1.3550000190734863,
+    "encodeP99": 1.375,
+    "cpuP99": 2.1549999713897705,
+    "gpuP99": 5.942272186279297,
+    "frameP99": 17.125,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 220,
+    "enemies": 4658,
+    "projectiles": 932,
+    "events": 392.0733333333333,
+    "simP99": 1.5150001049041748,
+    "encodeP99": 1.3899998664855957,
+    "cpuP99": 2.0299999713897705,
+    "gpuP99": 6.085631847381592,
+    "frameP99": 17.315000534057617,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 225,
+    "enemies": 4756,
+    "projectiles": 951,
+    "events": 369.99333333333334,
+    "simP99": 1.309999942779541,
+    "encodeP99": 1.2799999713897705,
+    "cpuP99": 1.8499999046325684,
+    "gpuP99": 5.739327907562256,
+    "frameP99": 17.145000457763672,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 230,
+    "enemies": 4854,
+    "projectiles": 971,
+    "events": 367.73333333333335,
+    "simP99": 1.4249999523162842,
+    "encodeP99": 1.4100000858306885,
+    "cpuP99": 1.7349998950958252,
+    "gpuP99": 5.848063945770264,
+    "frameP99": 17.184999465942383,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 235,
+    "enemies": 4952,
+    "projectiles": 990,
+    "events": 351.8466666666667,
+    "simP99": 1.4550001621246338,
+    "encodeP99": 1.2400000095367432,
+    "cpuP99": 1.7999999523162842,
+    "gpuP99": 5.78550386428833,
+    "frameP99": 17.420000076293945,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 240,
+    "enemies": 5000,
+    "projectiles": 1000,
+    "events": 441.0872483221477,
+    "simP99": 1.4849998950958252,
+    "encodeP99": 1.434999942779541,
+    "cpuP99": 1.8250000476837158,
+    "gpuP99": 6.103424072265625,
+    "frameP99": 17.110000610351562,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 245,
+    "enemies": 5000,
+    "projectiles": 1000,
+    "events": 385.112582781457,
+    "simP99": 1.3250000476837158,
+    "encodeP99": 1.5999999046325684,
+    "cpuP99": 1.8599998950958252,
+    "gpuP99": 5.96889591217041,
+    "frameP99": 17.270000457763672,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 250,
+    "enemies": 5000,
+    "projectiles": 1000,
+    "events": 512.2666666666667,
+    "simP99": 1.7650001049041748,
+    "encodeP99": 1.6699998378753662,
+    "cpuP99": 2.440000057220459,
+    "gpuP99": 5.784383773803711,
+    "frameP99": 17.235000610351562,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 255,
+    "enemies": 5000,
+    "projectiles": 1000,
+    "events": 681.6466666666666,
+    "simP99": 1.625,
+    "encodeP99": 1.6500000953674316,
+    "cpuP99": 2.440000057220459,
+    "gpuP99": 5.650432109832764,
+    "frameP99": 17.315000534057617,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 260,
+    "enemies": 5000,
+    "projectiles": 1000,
+    "events": 464.61333333333334,
+    "simP99": 1.4449999332427979,
+    "encodeP99": 1.2699999809265137,
+    "cpuP99": 2.0250000953674316,
+    "gpuP99": 5.56441593170166,
+    "frameP99": 17.239999771118164,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 265,
+    "enemies": 5000,
+    "projectiles": 1000,
+    "events": 365.2266666666667,
+    "simP99": 1.3900001049041748,
+    "encodeP99": 1.3950002193450928,
+    "cpuP99": 1.875,
+    "gpuP99": 5.9555840492248535,
+    "frameP99": 17.190000534057617,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 270,
+    "enemies": 5000,
+    "projectiles": 1000,
+    "events": 416.35333333333335,
+    "simP99": 1.4500000476837158,
+    "encodeP99": 1.244999885559082,
+    "cpuP99": 2.009999990463257,
+    "gpuP99": 6.0880961418151855,
+    "frameP99": 17.344999313354492,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 275,
+    "enemies": 5000,
+    "projectiles": 1000,
+    "events": 557.42,
+    "simP99": 1.3399999141693115,
+    "encodeP99": 1.4099998474121094,
+    "cpuP99": 2.195000171661377,
+    "gpuP99": 6.060927867889404,
+    "frameP99": 17.125,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 280,
+    "enemies": 5000,
+    "projectiles": 1000,
+    "events": 885.3933333333333,
+    "simP99": 1.4950001239776611,
+    "encodeP99": 1.809999942779541,
+    "cpuP99": 2.434999942779541,
+    "gpuP99": 6.5669121742248535,
+    "frameP99": 17.260000228881836,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 285,
+    "enemies": 5000,
+    "projectiles": 1000,
+    "events": 537.9266666666666,
+    "simP99": 2.194999933242798,
+    "encodeP99": 1.440000057220459,
+    "cpuP99": 2.255000114440918,
+    "gpuP99": 5.628608226776123,
+    "frameP99": 17.200000762939453,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 290,
+    "enemies": 5000,
+    "projectiles": 1000,
+    "events": 387.1933333333333,
+    "simP99": 1.4049999713897705,
+    "encodeP99": 1.4500000476837158,
+    "cpuP99": 1.934999942779541,
+    "gpuP99": 5.287936210632324,
+    "frameP99": 17.34000015258789,
+    "pausesJumps": 0,
+    "audioLate": 0
+   },
+   {
+    "t": 295,
+    "enemies": 5000,
+    "projectiles": 1000,
+    "events": 544.3,
+    "simP99": 1.4850001335144043,
+    "encodeP99": 1.4249999523162842,
+    "cpuP99": 2.06499981880188,
+    "gpuP99": 6.375423908233643,
+    "frameP99": 17.135000228881836,
+    "pausesJumps": 0,
+    "audioLate": 0
+   }
+  ],
+  "firstBreak": {
+   "bars": {
+    "simP99": 4,
+    "encodeP99": 2,
+    "gpuP99": 10
+   },
+   "firstWindowStart": {
+    "sim": null,
+    "encode": null,
+    "gpu": null,
+    "pausesJumps": 150,
+    "audio": null
+   },
+   "order": [
+    {
+     "budget": "pausesJumps",
+     "at": 150,
+     "enemies": 3287
+    }
+   ]
+  },
+  "gpuUpFrames": 17935
+ },
+ "heap": null,
+ "crash": {
+  "at": 150.182,
+  "before": {
+   "deviceLosses": 0,
+   "rebuilds": 1,
+   "hasGpu": true,
+   "enemies": 3241,
+   "pauses": 0,
+   "jumps": 0,
+   "late": 0,
+   "snapshots": 4506,
+   "info": {
+    "internal": [
+     1920,
+     1080
+    ],
+    "staticInstances": 1212,
+    "dynamic": 3242,
+    "visible": 140,
+    "shadowCasters": 1082,
+    "blobs": 140,
+    "dynVisible": 83,
+    "auras": 6,
+    "grassChunks": 50,
+    "grassClumps": 9600,
+    "alive": 10783,
+    "poolCap": 11500,
+    "spawnScale": 0.12278418315081514,
+    "triangles": 12696,
+    "limits": {
+     "maxStorageBufferBindingSize": 134217728,
+     "maxBufferSize": 268435456,
+     "maxTextureDimension2D": 8192,
+     "instanceBufferBytes": 678816,
+     "visibleBufferBytes": 2974700,
+     "particlePoolBytes": 552000,
+     "particlePoolCap": 11500,
+     "eventsCap": 8192,
+     "projectilesCap": 4000,
+     "shadowRes": 2048,
+     "maxStorageBuffersPerShaderStage": 8
+    },
+    "eventsDropped": 0,
+    "truncated": {
+     "entities": 0,
+     "projectiles": 0
+    },
+    "shadowRes": 2048
+   },
+   "errors": []
+  },
+  "after": {
+   "deviceLosses": 1,
+   "rebuilds": 2,
+   "hasGpu": true,
+   "enemies": 3630,
+   "pauses": 0,
+   "jumps": 1,
+   "late": 0,
+   "snapshots": 5103,
+   "info": {
+    "internal": [
+     1920,
+     1080
+    ],
+    "staticInstances": 1212,
+    "dynamic": 3631,
+    "visible": 89,
+    "shadowCasters": 1215,
+    "blobs": 89,
+    "dynVisible": 47,
+    "auras": 2,
+    "grassChunks": 45,
+    "grassClumps": 8640,
+    "alive": 9899,
+    "poolCap": 11500,
+    "spawnScale": 0.15575229884381162,
+    "triangles": 12696,
+    "limits": {
+     "maxStorageBufferBindingSize": 134217728,
+     "maxBufferSize": 268435456,
+     "maxTextureDimension2D": 8192,
+     "instanceBufferBytes": 678816,
+     "visibleBufferBytes": 2974700,
+     "particlePoolBytes": 552000,
+     "particlePoolCap": 11500,
+     "eventsCap": 8192,
+     "projectilesCap": 4000,
+     "shadowRes": 2048,
+     "maxStorageBuffersPerShaderStage": 8
+    },
+    "eventsDropped": 0,
+    "truncated": {
+     "entities": 0,
+     "projectiles": 0
+    },
+    "shadowRes": 2048
+   },
+   "errors": []
+  },
+  "lost": {
+   "reason": "unknown",
+   "message": "A valid external Instance reference no longer exists.",
+   "at": 157040.12000012398
+  },
+  "recovered": {
+   "at": 157660.7350001335,
+   "attempt": 0,
+   "snapshotsDuringOutage": 20
+  }
+ },
+ "version": "Chrome/156.0.8078.73",
+ "errors": [],
+ "throttleRate": 4,
+ "url": "http://localhost:4173/vessel/stage11.html?bench=stage11&dur=300&overlay=0&vol=1",
+ "measuredAt": "2026-11-21T21:00:48.882Z"
+}

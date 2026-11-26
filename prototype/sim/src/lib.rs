@@ -147,7 +147,7 @@ impl Sim {
             blocked[i * GRID + GRID - 1] = 1;
         }
         let centre = (GRID / 2) as i32;
-        let mut block = |blocked: &mut Vec<u8>, cx: i32, cy: i32| {
+        let block = |blocked: &mut Vec<u8>, cx: i32, cy: i32| {
             if cx < 1 || cy < 1 || cx >= GRID as i32 - 1 || cy >= GRID as i32 - 1 {
                 return;
             }

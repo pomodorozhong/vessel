@@ -1,0 +1,20 @@
+{
+ "measuredAt": "2026-11-21T15:56:31.395Z",
+ "version": "Chrome/156.0.8078.73",
+ "files": {
+  "look-hull-map-day": "results\\run-2\\media\\stage9\\look-hull-map-day.jpg",
+  "look-edge-map-day": "results\\run-2\\media\\stage9\\look-edge-map-day.jpg",
+  "look-none-map-day": "results\\run-2\\media\\stage9\\look-none-map-day.jpg",
+  "look-hull-blob-day": "results\\run-2\\media\\stage9\\look-hull-blob-day.jpg",
+  "look-edge-blob-day": "results\\run-2\\media\\stage9\\look-edge-blob-day.jpg",
+  "look-none-blob-day": "results\\run-2\\media\\stage9\\look-none-blob-day.jpg",
+  "look-hull-map-dusk": "results\\run-2\\media\\stage9\\look-hull-map-dusk.jpg",
+  "look-edge-map-dusk": "results\\run-2\\media\\stage9\\look-edge-map-dusk.jpg",
+  "look-none-map-dusk": "results\\run-2\\media\\stage9\\look-none-map-dusk.jpg",
+  "look-hull-blob-dusk": "results\\run-2\\media\\stage9\\look-hull-blob-dusk.jpg",
+  "look-edge-blob-dusk": "results\\run-2\\media\\stage9\\look-edge-blob-dusk.jpg",
+  "look-none-blob-dusk": "results\\run-2\\media\\stage9\\look-none-blob-dusk.jpg",
+  "recording": "results\\run-2\\media\\stage9\\combat.mp4"
+ },
+ "errors": []
+}
