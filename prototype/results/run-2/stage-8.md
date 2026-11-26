@@ -136,6 +136,19 @@ So on the dev machine the headroom is about 3× the projectiles or 2.5× the ene
   - In the browser the median is about 1.2× Node's, here and in Stage 11 (1.08 against 0.91 ms; Stage 11: 0.75 against 0.61 ms). The p99 is about 2.6× Node's here and about 1.1× in Stage 11 (1.54 against 1.38 ms over its whole wave). So the gap is a tail in this stage's browser-worker timing, which neither Node nor Stage 11's in-browser windows show.
   - The cause is not proven. A likely one: this stage's worker does about 1 ms of work every 33 ms on an otherwise idle page, so Windows parks it on efficiency cores or at low clock speeds, while Stage 11's busy page keeps the cores up. One check points that way: the same Node run, paced to 30 Hz with a sleep between steps instead of stepping back to back, showed a tail like the browser's and a higher median (1.68 and 4.57 ms against 0.91 and 1.42 ms, 3 runs, same machine). It does not show which part (core parking, clock speed, timer wake-up) causes it.
   - The throttled main-thread rows, which set the verdict, do not show this tail: their p99 is 1.6–2.0× their median at the pass load, against 3.2–4.1× in the worker and about 1.7× in Node. Their miss looks like cost under the 4× stand-in. The tail matters for the reference-device rerun, which runs the sim in a worker.
+  - Follow-up at the PR head (`700eb85`, report item 7; Node 22.19.0 on an i7-13700, Chrome as above, Windows' default power plan). Data in `data/stage8-node-pr6/`, `data/stage8-node-pr6-paced/` and `data/stage8-pr6/`. The pass load, 2,000 enemies and 1,000 projectiles:
+
+    | Where | Runs | Step median (ms) | p99 | p99 / median |
+    |---|---|---|---|---|
+    | Node, full speed, A / B / C | 3 each | 0.57 / 0.56 / 0.55 | 0.86 / 0.85 / 0.83 | 1.5 |
+    | Node, paced to 30 Hz, A | 1 | 0.83 | 3.02 | 3.6 |
+    | Browser worker, A, idle page | 1 | 0.635 | 1.55 | 2.4 |
+    | Browser worker, A, Stage 11's wave running unthrottled in a second Chrome window | 1 | 0.635 | 1.535 | 2.4 |
+    | Browser worker, this stage's main runs (above) | 12 | 0.625–0.710 | 2.09–2.82 | 3.2–4.1 |
+
+    The busy-page run overlapped Stage 11's wave for about 4.3 of its 5 minutes. At full speed in Node, Stage 8's 5,000-enemy load and Stage 11's hold again cost the same per step (p99 1.33 against 1.44–1.56 ms, 3 runs each).
+  - What this shows: a busy page next to the worker did not change the tail (2.4× in both runs), so "Stage 11's busy page keeps the cores up" is not supported, at least with the busy page in another Chrome process. Pacing alone makes the tail: Node with a sleep between steps shows it (3.6×) with no browser involved, and stepping back to back does not (1.5×). The browser-worker tail was smaller this time than in this stage's runs (2.4× against 3.2–4.1×, p99 1.55 against 2.09–2.82 ms), so its size changes from one session to the next. One run each; the cause (core parking, clock speed or timer wake-up after the idle gap) is still not isolated, and the high-performance power plan was not tried, because it changes a system setting on this machine.
+  - For reading this stage: the limits in the table above were measured through a tail that varies between sessions, so they are conservative rather than exact. Stage 11's sim verdict stays unclear until the reference device runs both stages. On the device, record the p99/median ratio of every run and compare it with Node, paced and unpaced, before applying the fallback.
 - Bias in the Rapier comparison, pointing against Rapier: it runs a real solver (contact manifolds, islands) where A, B and C do positional pushes, so it does more work per pair. It also has 3 corner misses that A, B and C do not. Its broad phase and query pipeline were used as documented, with no tuning beyond the integration parameters.
 
 ## Rerun on the reference device

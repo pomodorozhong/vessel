@@ -1,0 +1,9 @@
+stage 8 driver: cpu1x, thread worker, dur 300s x 1, http://localhost:4173/vessel/, out C:\github\vessel-pr6\prototype\results\run-2\data\stage8-pr6\idle
+main-A-e2000-p1000-cpu1x-300s-worker-r1 step med 0.635 p99 1.550 max 3.34 | live 1000 | ev/step 548 drop 0 | pass-through 0/0 | deaths/s 30 | mem 3.9->3.9 MB | late p99 14.5 | hidden false iso true 
+done
+idle exit 0
+stage 8 driver: cpu1x, thread worker, dur 300s x 1, http://localhost:4173/vessel/, out C:\github\vessel-pr6\prototype\results\run-2\data\stage8-pr6\busy
+main-A-e2000-p1000-cpu1x-300s-worker-r1 step med 0.635 p99 1.535 max 2.97 | live 1000 | ev/step 548 drop 0 | pass-through 0/0 | deaths/s 30 | mem 3.9->3.9 MB | late p99 14.6 | hidden false iso true 
+done
+busy exit 0
+done

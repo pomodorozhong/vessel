@@ -8,7 +8,7 @@ Verdict: **provisional pass with mixer B (the AudioWorklet mixer); mixer A fails
 - **Latency**: **provisional pass with the picture lead on**. The player's own sound reached the speaker a median 59–75 ms after the key press, as the browser's output timestamp maps it. That mapping already includes the device's output latency, which was 48–64 ms here, so the mixer's own share is about 5–20 ms, inside the 30 ms bar. Event sounds started a median 57–75 ms after the frame that shows them was submitted, which is about one output latency late and over the one-frame bar. With the events fired early by the measured pipeline delay (`lead=-1`), B's offset fell to a median 9.1 ms [8.9–10.6] and A's to 24.5 ms. B's p99 with the lead is 28 ms [23.5–29.0], so the tail is still about 1.7 frames. The time from frame submit to the picture on screen was not measured, so the true offset to the picture is somewhat smaller than these numbers.
 - **The audio thread is not throttled.** Chrome throttles the page's main thread only, so B's worklet ran at the dev machine's full speed. Its load was 1.3% of each 2.67 ms quantum, which leaves a wide margin even on a CPU four times slower, but the reference-device rerun must confirm it.
 
-Mixer design: **B wins**, which the plan's fallback asks for when A glitches. A also clips: its `DynamicsCompressorNode` set up as a limiter is not a brickwall, so the master peaked at 1.20–1.36 and 147,000–328,000 samples per run were clipped (0.5–1.1% of them). These clipping figures were measured before later changes to which sounds play, and may not hold at the current commit; see "Code changes after these runs". B's look-ahead limiter held the master at its ceiling of 0.891 (−1 dBFS), with no clipped samples.
+Mixer design: **B wins**, which the plan's fallback asks for when A glitches. A also clips: its `DynamicsCompressorNode` set up as a limiter is not a brickwall, so the master peaked at 1.20–1.36 and 147,000–328,000 samples per run were clipped (0.5–1.1% of them). These clipping figures were measured before later changes to which sounds play; a rerun of the pass-rate stall runs at `700eb85` confirmed that A still clips (master peak 1.26, about 144,000 clipped samples per run; see "Rerun at the PR head"). B's look-ahead limiter held the master at its ceiling of 0.891 (−1 dBFS), with no clipped samples.
 
 Fallback: **not needed for B**. The voice limits were never what failed: both mixers ran at their total limit of 40 voices for nearly the whole run without B glitching.
 
@@ -57,6 +57,29 @@ What it most likely does not affect:
 - The latency numbers measure timing, not which sound plays, so they probably still hold too.
 
 The r16400 A and B stall runs should be rerun at the current commit on the reference device before these clipping and voice numbers are quoted again (see "Rerun on the reference device").
+
+### Rerun at the PR head
+
+The r16400 A and B stall runs were repeated at `700eb85`, after every commit above, on the same dev machine with the same settings (`node scripts/run2/stage10.mjs --only "r16400-stall" --throttle 4 --busy 4`, 3 × 5 minutes per mixer, real audio device). Data in `data/stage10-pr6/`, tables in `data/stage10-pr6-tables.md`, log in `data/stage10-pr6.log`. Median [min–max] over 3 runs, with the earlier runs for comparison:
+
+| | A then | A now | B then | B now |
+|---|---|---|---|---|
+| Snapshot events/s | 15,644 | 16,372 | 15,594 | 16,362 |
+| Late renders per run | 9 [8–9] | 10 [10–40] | 0 | 0 |
+| Underruns | 0 | 0 | 0 | 0 |
+| Master peak | 1.237 [1.202–1.277] | 1.262 [1.255–1.267] | 0.891 | 0.891 |
+| Clipped samples per run | 147,070 [143,746–147,925] | 144,452 [141,392–146,203] | 0 | 0 |
+| Main-thread audio p99 (ms/frame) | 1.425 | 1.410 [1.405–2.175] | 0.390 | 0.405 [0.405–0.410] |
+| Voices median / max | 39 / 40 | 39 / 40 | 40 / 40 | 40 / 40 |
+| Started /s | 191 | 202 | 212 | 202 |
+| Dropped at the total limit /s | 13.1 | 27.7 | 23.4 | 27.9 |
+| Stolen /s | 102 | 131 | 123 | 131 |
+
+- **A still clips at the PR head**, by about as much as before: master peak 1.26, about 144,000 clipped samples per 5-minute run. The fewer big hits and the extra `shoot` voices roughly cancel. B's limiter still holds the master at 0.891 with no clipped samples.
+- A's late renders still hold (10–40 per run), and B still has none, so the mixer decision stands on both grounds.
+- The stream now carries its labelled rate (about 16,370 events/s against 15,600 before; see the stream correction under "What was built" above). B's main-thread p99 stays under the 0.5 ms bar at the higher rate.
+- With the extra `shoot` voices, both mixers start and steal more voices and drop about twice as many at the 40-voice limit (about 28 a second), still with no glitches in B.
+- Not rerun: the 2× and 4× rates, the runs without stalls, and the latency runs with the lead. This is still the dev machine, not the reference device.
 
 ## How it was measured
 
